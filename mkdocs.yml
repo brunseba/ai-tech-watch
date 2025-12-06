@@ -1,0 +1,136 @@
+site_name: AI Technology Watch
+site_description: Comprehensive documentation on AI deployment, infrastructure, security, and optimization
+site_author: Technology Watch Team
+site_url: https://brun_s.github.io/ai-tech-survey/
+
+repo_name: ai-tech-survey
+repo_url: https://github.com/brun_s/ai-tech-survey
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: en
+  - mermaid2:
+      version: 10.6.1
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+nav:
+  - Home: index.md
+  - Architecture & Frameworks:
+      - Overview: architecture/index.md
+      - Agentic Components Model: architecture/agentic-components-model.md
+      - Agent Frameworks Comparison: architecture/agent-frameworks-comparison.md
+      - Integration Schemas: architecture/integration-schemas.md
+      - Agentic Use Case Schema: architecture/agentic-use-case-schema.md
+      - Agentic Workflows: architecture/agentic-workflows.md
+  - Infrastructure & Hardware:
+      - Overview: infrastructure/index.md
+      - Deployment Models: infrastructure/deployment-models.md
+      - Hardware Selection (CPU/GPU/TPU/NPU): infrastructure/hardware-selection.md
+      - Hardware Comparison: infrastructure/hardware-comparison.md
+      - Edge Inference Hardware: infrastructure/edge-inference-hardware.md
+      - Hybrid Architecture: infrastructure/hybrid-architecture.md
+  - Cost & Economics:
+      - Overview: cost-economics/index.md
+      - TCO Analysis: cost-economics/tco-analysis.md
+      - On-Prem Cost Breakdown: cost-economics/onprem-cost-breakdown.md
+      - GPU Utilization Estimation: cost-economics/gpu-utilization-estimation.md
+      - Deployment Cost Criteria: cost-economics/deployment-cost-criteria.md
+  - Security & Compliance:
+      - Overview: security/index.md
+      - Authentication & Encryption: security/authentication-encryption.md
+      - Data Classification: security/data-classification.md
+      - Compliance Risks: security/compliance-risks.md
+      - Local On-Prem Regulations: security/local-onprem-regulations.md
+      - Internal Management Capabilities: security/internal-management-capabilities.md
+  - Performance & Optimization:
+      - Overview: performance/index.md
+      - 8-bit Quantization: performance/quantization-8bit.md
+      - Quantization Methodology: performance/quantization-methodology.md
+      - Latency Requirements: performance/latency-requirements.md
+  - Use Cases & Implementation:
+      - Overview: use-cases/index.md
+      - Application Types: use-cases/application-types.md
+      - NetApp NAS Agent: use-cases/netapp-nas-agent.md
+      - Workflow Diagram Examples: use-cases/workflow-diagram-request.md
+      - Data ID Column: use-cases/data-id-column.md
+  - Reference:
+      - Glossary: glossary.md
+      - Decision Trees: decision-trees.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/brun_s/ai-tech-survey
+  version:
+    provider: mike
+    default: latest
+
+copyright: Copyright &copy; 2025 Technology Watch Team
