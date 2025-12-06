@@ -1,7 +1,46 @@
 
 # quel framework pour concevoir un Agent IA
 
-Pour concevoir un agent IA, les frameworks les plus utilisés aujourd’hui sont principalement LangGraph/LangChain, Semantic Kernel, CrewAI, AutoGen, LlamaIndex et des options managées comme OpenAI Agents ou Bedrock Agents.[^1][^2][^3]
+Pour concevoir un agent IA, les frameworks les plus utilisés aujourd'hui sont principalement LangGraph/LangChain, Semantic Kernel, CrewAI, AutoGen, LlamaIndex et des options managées comme OpenAI Agents ou Bedrock Agents.[^1][^2][^3]
+
+## Paysage des Frameworks AI Agent
+
+```mermaid
+graph TB
+    subgraph CodeFirst[" 💻 Frameworks Code-First"]
+        LG[LangGraph/LangChain<br/>✅ Graphes état<br/>✅ Écosystème RAG<br/>🎯 K8s-native]
+        SK[Semantic Kernel<br/>✅ Enterprise<br/>✅ Azure/M365<br/>🎯 Microsoft stack]
+        CA[CrewAI<br/>✅ Rôles agents<br/>✅ Simple<br/>🎯 Collaboration]
+        AG[AutoGen<br/>✅ Multi-agents<br/>✅ Async<br/>🎯 R&D]
+    end
+    
+    subgraph LowCode["🔧 Low-Code / Visual"]
+        N8N[n8n/Flowise<br/>Workflow builder]
+        LF[Langflow<br/>Visual flows]
+    end
+    
+    subgraph Managed["☁️ Services Managés"]
+        OAI[OpenAI Agents<br/>Lock-in OpenAI]
+        BED[Bedrock Agents<br/>Lock-in AWS]
+    end
+    
+    subgraph UseCase["Choisir selon..."]
+        U1[Complex Workflows<br/>→ LangGraph]
+        U2[Entreprise MS<br/>→ Semantic Kernel]
+        U3[Multi-agent Rôles<br/>→ CrewAI]
+        U4[Prototypage Expérimental<br/>→ AutoGen]
+        U5[Intégration Rapide<br/>→ Low-Code]
+        U6[Solution Managée<br/>→ Cloud Services]
+    end
+    
+    style LG fill:#e8f5e9,stroke:#43a047
+    style SK fill:#e3f2fd,stroke:#1e88e5
+    style CA fill:#fff3e0,stroke:#fb8c00
+    style AG fill:#f3e5f5,stroke:#8e24aa
+    style CodeFirst fill:#fafafa,stroke:#9e9e9e
+    style LowCode fill:#fafafa,stroke:#9e9e9e
+    style Managed fill:#fafafa,stroke:#9e9e9e
+```
 
 ## Frameworks code‑first (Python/TypeScript)
 

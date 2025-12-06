@@ -5,9 +5,47 @@ Pour comparer poste de travail, serveurs on‑prem et cloud, la bonne approche e
 
 ## 1. Poser le cadre TCO
 
-- Définir l’horizon (souvent 3 ou 5 ans) et la charge cible : nombre de requêtes/jour, heures d’utilisation GPU/CPU, croissance prévue, SLA.[^3][^1]
+- Définir l'horizon (souvent 3 ou 5 ans) et la charge cible : nombre de requêtes/jour, heures d'utilisation GPU/CPU, croissance prévue, SLA.[^3][^1]
 - Appliquer la formule TCO basique à chaque option :
     - $TCO = CAPEX + OPEX$ sur la période, en ramenant tout en coût annuel ou mensuel par utilisateur / par 1k requêtes.[^2][^4]
+
+### Visualisation du modèle TCO
+
+```mermaid
+graph TD
+    A[TCO = CAPEX + OPEX] --> B[Poste de Travail]
+    A --> C[Serveur On-Prem]
+    A --> D[Cloud]
+    
+    B --> B1[CAPEX: GPU/NPU, RAM]
+    B --> B2[OPEX: Électricité, Support IT]
+    B --> B3[⚠️ Amorti sur 3-5 ans]
+    
+    C --> C1[CAPEX: Serveurs, GPU, DC]
+    C --> C2[OPEX: Énergie, MLOps, Licences]
+    C --> C3[✅ Économique si usage > 60%]
+    
+    D --> D1[CAPEX: ~0]
+    D --> D2[OPEX: Heures GPU, Stockage, Egress]
+    D --> D3[⚠️ 2-3x plus cher long terme]
+    
+    B3 --> E{Point de bascule}
+    C3 --> E
+    D3 --> E
+    
+    E -->|< 4h/jour| F[Cloud meilleur]
+    E -->|> 4h/jour stable| G[On-Prem meilleur]
+    E -->|Variable| H[Hybride optimal]
+    
+    style A fill:#e3f2fd,stroke:#1e88e5,color:#0d47a1
+    style B fill:#e8f5e9,stroke:#43a047
+    style C fill:#fff3e0,stroke:#fb8c00
+    style D fill:#ffebee,stroke:#e53935
+    style E fill:#f3e5f5,stroke:#8e24aa
+    style F fill:#c8e6c9
+    style G fill:#ffe0b2
+    style H fill:#f8bbd0
+```
 
 
 ## 2. Poste de travail (edge)

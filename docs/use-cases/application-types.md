@@ -1,7 +1,57 @@
 
 # Quels types d'applications conviennent le mieux à l'edge poste de travail
 
-Les applications qui tirent le meilleur parti de l’edge sur poste de travail sont celles qui ont besoin de faible latence, de forte confidentialité des données ou d’un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
+Les applications qui tirent le meilleur parti de l'edge sur poste de travail sont celles qui ont besoin de faible latence, de forte confidentialité des données ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
+
+## Applications Idéales pour Edge Poste de Travail
+
+```mermaid
+graph TB
+    subgraph Requirements["⚖️ Exigences"]
+        R1[🔒 Confidentialité forte]
+        R2[⚡ Latence < 100ms]
+        R3[🚫 Mode déconnecté]
+        R4[👤 Usage individuel]
+    end
+    
+    subgraph Apps["💻 Applications Edge"]
+        A1[🤖 Assistants LLM Locaux<br/>Code, docs, traduction]
+        A2[🎵 Temps Réel Audio/Vidéo<br/>Reconnaissance vocale, sous-titrage]
+        A3[🔐 Données Réglementées<br/>Santé, juridique, RH]
+        A4[📦 Prototypage R&D<br/>Test modèles, expérimentation]
+        A5[📶 Mode Offline<br/>Mobilité, terrain]
+    end
+    
+    subgraph Tools["🛠️ Outils"]
+        T1[Ollama<br/>LM Studio]
+        T2[Whisper Local<br/>Vision models]
+        T3[Vector DB locale<br/>RAG on-device]
+        T4[Quantized models<br/>INT8/INT4]
+    end
+    
+    R1 --> A1
+    R1 --> A3
+    R2 --> A2
+    R3 --> A5
+    R4 --> A1
+    R4 --> A4
+    
+    A1 --> T1
+    A2 --> T2
+    A3 --> T3
+    A4 --> T4
+    A5 --> T1
+    
+    style R1 fill:#ffebee,stroke:#e53935
+    style R2 fill:#fff3e0,stroke:#fb8c00
+    style R3 fill:#e8f5e9,stroke:#43a047
+    style R4 fill:#e3f2fd,stroke:#1e88e5
+    style A1 fill:#c8e6c9
+    style A2 fill:#ffe0b2
+    style A3 fill:#ffcdd2
+    style A4 fill:#b3e5fc
+    style A5 fill:#f8bbd0
+```
 
 ## Assistants personnels et productivité
 

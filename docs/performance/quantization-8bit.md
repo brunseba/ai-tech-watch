@@ -1,7 +1,49 @@
 
 # Quelle précision modèle perd avec quantification 8bit sur NPU
 
-Avec une quantification 8 bits bien faite, la plupart des modèles perdent très peu de précision (souvent < 1 point de pourcentage), même sur NPU edge, à condition d’utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) et d’évaluer sur ton propre cas d’usage.[^1][^2][^3]
+Avec une quantification 8 bits bien faite, la plupart des modèles perdent très peu de précision (souvent < 1 point de pourcentage), même sur NPU edge, à condition d'utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) et d'évaluer sur ton propre cas d'usage.[^1][^2][^3]
+
+## Compromis Précision vs Performance
+
+```mermaid
+graph LR
+    subgraph Precision ["Format de Précision"]
+        FP32[FP32<br/>Baseline<br/>100% Accuracy]
+        FP16[FP16<br/>~99.9% Acc<br/>2x faster]
+        INT8[INT8<br/>~99% Acc<br/>4x faster]
+        INT4[INT4<br/>~95-98% Acc<br/>8x faster]
+    end
+    
+    subgraph UseCase ["Cas d'Usage"]
+        U1[Médical/Légal<br/>→ FP32/FP16]
+        U2[Production Générale<br/>→ INT8]
+        U3[Edge Ultra-Low Power<br/>→ INT8/INT4]
+    end
+    
+    subgraph Metrics ["Métriques"]
+        M1[✅ Perte < 1%]
+        M2[⚠️ Perte 1-2%]
+        M3[❌ Perte > 2%]
+    end
+    
+    FP32 -.-> U1
+    FP16 -.-> U1
+    INT8 -.-> U2
+    INT8 -.-> U3
+    INT4 -.-> U3
+    
+    INT8 --> M1
+    INT4 --> M2
+    M3 --> Recovery[QAT ou<br/>SmoothQuant]
+    
+    style FP32 fill:#ffebee,stroke:#e53935
+    style FP16 fill:#fff3e0,stroke:#fb8c00
+    style INT8 fill:#e8f5e9,stroke:#43a047
+    style INT4 fill:#e3f2fd,stroke:#1e88e5
+    style M1 fill:#c8e6c9
+    style M2 fill:#ffe0b2
+    style M3 fill:#ffcdd2
+```
 
 ## Ordres de grandeur typiques en INT8
 

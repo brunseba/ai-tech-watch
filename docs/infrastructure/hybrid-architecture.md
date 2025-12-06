@@ -1,7 +1,61 @@
 
 # Quelle architecture hybride recommander pour workloads sensibles
 
-Pour des workloads sensibles, la recommandation courante est une architecture hybride où les données critiques restent traitées on‑prem/edge et où le cloud n’est utilisé que pour l’entrainement lourd, l’agrégation de métriques ou des modèles généralistes sur données non sensibles.[^1][^2]
+Pour des workloads sensibles, la recommandation courante est une architecture hybride où les données critiques restent traitées on‑prem/edge et où le cloud n'est utilisé que pour l'entrainement lourd, l'agrégation de métriques ou des modèles généralistes sur données non sensibles.[^1][^2]
+
+## Architecture Hybride pour Workloads Sensibles
+
+```mermaid
+graph TB
+    subgraph Edge["🖥️ Edge / Postes"]
+        E1[LLM Local Quantifié]
+        E2[RAG on-device]
+        E3[Données ultra-sensibles]
+        E4[Offline capable]
+    end
+    
+    subgraph OnPrem["🏢 On-Premises"]
+        O1[K8s Cluster]
+        O2[LLM/RAG Services]
+        O3[Vector DB]
+        O4[Données sensibles chiffrées]
+        O5[MLOps local]
+    end
+    
+    subgraph SecBoundary["🚫 Périmètre Sécurité"]
+        S1[Zero Trust Gateway]
+        S2[VPN/mTLS]
+        S3[Data Classifier]
+    end
+    
+    subgraph Cloud["☁️ Cloud"]
+        C1[Training Infrastructure]
+        C2[Model Registry]
+        C3[Monitoring/Metrics]
+        C4[LLM APIs Génériques]
+        C5[Données anonymisées]
+    end
+    
+    Edge -.->|Sync modèles| OnPrem
+    OnPrem <-->|Zero Trust| SecBoundary
+    SecBoundary -->|Métriques agrégées| Cloud
+    SecBoundary -->|Training data anonymisé| Cloud
+    Cloud -.->|Modèles entraînés| OnPrem
+    
+    subgraph DataFlow[" "]
+        DF1[❌ PII/Sensible: Reste local]
+        DF2[✅ Public/Anonymisé: Peut monter]
+        DF3[🔄 Modèles: Descendent]
+    end
+    
+    style Edge fill:#e8f5e9,stroke:#43a047
+    style OnPrem fill:#fff3e0,stroke:#fb8c00
+    style SecBoundary fill:#ffebee,stroke:#e53935
+    style Cloud fill:#e3f2fd,stroke:#1e88e5
+    style DF1 fill:#ffcdd2
+    style DF2 fill:#c8e6c9
+    style DF3 fill:#b3e5fc
+```
 
 ## Principes de base
 

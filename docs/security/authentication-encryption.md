@@ -1,7 +1,78 @@
 
 # Quel mecanisme de chiffrement, d'authentification, d'habiliation utiliser dans des processus AI
 
-Pour des processus IA sensibles, les mécanismes de chiffrement, d’authentification et d’habilitation doivent suivre une logique Zero Trust : tout flux est chiffré, toute entité (humain ou agent) est authentifiée fortement, et chaque accès est limité au strict nécessaire.[^1][^2][^3]
+Pour des processus IA sensibles, les mécanismes de chiffrement, d'authentification et d'habilitation doivent suivre une logique Zero Trust : tout flux est chiffré, toute entité (humain ou agent) est authentifiée fortement, et chaque accès est limité au strict nécessaire.[^1][^2][^3]
+
+## Architecture Zero Trust pour l'IA
+
+```mermaid
+flowchart TB
+    subgraph Users["👥 Utilisateurs"]
+        U1[UI/Portails]
+        U2[IDE/Dev Tools]
+    end
+    
+    subgraph Auth["🔐 Authentification"]
+        A1[SSO/OIDC]
+        A2[MFA obligatoire]
+        A3[IdP Entreprise]
+    end
+    
+    subgraph Transit["🔒 Chiffrement Transit"]
+        T1[TLS 1.3]
+        T2[mTLS Service Mesh]
+        T3[Certificats PKI]
+    end
+    
+    subgraph AI["🤖 Système IA"]
+        AI1[AI Agents]
+        AI2[LLM Runtime]
+        AI3[Vector DB]
+    end
+    
+    subgraph Secrets["🔑 Gestion Secrets"]
+        S1[Vault/KMS]
+        S2[Rotation auto]
+        S3[HSM]
+    end
+    
+    subgraph AuthZ["✅ Autorisation"]
+        Z1[RBAC/ABAC]
+        Z2[Policy Engine OPA]
+        Z3[Least Privilege]
+    end
+    
+    subgraph AtRest["💾 Chiffrement Repos"]
+        R1[Disque/Volume]
+        R2[Object Storage]
+        R3[Modèles chiffrés]
+    end
+    
+    subgraph Monitor["📊 Monitoring"]
+        M1[SIEM]
+        M2[Audit Logs]
+        M3[Anomaly Detection]
+    end
+    
+    Users --> Auth
+    Auth --> Transit
+    Transit --> AI
+    AI --> Secrets
+    AI --> AuthZ
+    AI --> AtRest
+    AI --> Monitor
+    Secrets --> Transit
+    AuthZ --> Monitor
+    
+    style Users fill:#e3f2fd,stroke:#1e88e5
+    style Auth fill:#fff3e0,stroke:#fb8c00
+    style Transit fill:#e8f5e9,stroke:#43a047
+    style AI fill:#f3e5f5,stroke:#8e24aa
+    style Secrets fill:#ffebee,stroke:#e53935
+    style AuthZ fill:#c8e6c9,stroke:#2e7d32
+    style AtRest fill:#ffe0b2,stroke:#ef6c00
+    style Monitor fill:#b3e5fc,stroke:#0277bd
+```
 
 ## Chiffrement à privilégier
 

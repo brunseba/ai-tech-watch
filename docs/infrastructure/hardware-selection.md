@@ -33,10 +33,46 @@ CPU, GPU, TPU et NPU se choisissent en fonction du type de tâche (généraliste
 
 ## Résumé pratique
 
+```mermaid
+graph TD
+    A[Sélection Matériel IA] --> B{Type de Charge?}
+    
+    B -->|Orchestration| C[CPU]
+    B -->|Training/Inference| D{Où?}
+    
+    D -->|Edge/Mobile| E{Contraintes?}
+    D -->|Datacenter| F{Framework?}
+    D -->|Workstation| G[GPU]
+    
+    E -->|< 10W| H[NPU]
+    E -->|10-50W| I[Low-power GPU/NPU]
+    
+    F -->|TensorFlow + GCP| J[TPU]
+    F -->|PyTorch/Général| K{Scale?}
+    
+    K -->|Small-Medium| G
+    K -->|Hyperscale| L[Multi-GPU]
+    
+    subgraph Legend [" "]
+        C1[CPU: Orchestration, < 100 req/j]
+        G1[GPU: Training, inference intensive]
+        T1[TPU: TF/JAX hyperscale GCP]
+        N1[NPU: Edge, always-on, < 10W]
+    end
+    
+    style C fill:#e3f2fd,stroke:#1e88e5
+    style H fill:#e8f5e9,stroke:#43a047
+    style G fill:#fff3e0,stroke:#fb8c00
+    style J fill:#ffebee,stroke:#e53935
+    style L fill:#f3e5f5,stroke:#8e24aa
+```
+
+### Récapitulatif
+
 - CPU : orchestration, logique métier, petits modèles, low‑volume, partout.[^4][^3]
 - GPU : entraînement et inférence intensifs, multi‑utilisateurs, datacenter et postes IA.[^1][^8][^9]
 - TPU : gros TensorFlow/JAX sur GCP, hyperscale optimisé coût/énergie.[^7][^2]
-- NPU : edge / mobile / on‑device, IA embarquée, LLM compacts, contraintes fortes d’énergie et de confidentialité.[^10][^6][^1]
+- NPU : edge / mobile / on‑device, IA embarquée, LLM compacts, contraintes fortes d'énergie et de confidentialité.[^10][^6][^1]
 <span style="display:none">[^14][^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

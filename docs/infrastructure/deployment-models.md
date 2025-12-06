@@ -65,6 +65,43 @@ Limites :
 - Enjeux de souveraineté, de localisation des données et de dépendance fournisseur (lock‑in).[^1][^11][^2]
 
 
+## Visualisation des modèles de déploiement
+
+```mermaid
+graph TB
+    subgraph Edge["🖥️ Poste de Travail / Edge"]
+        E1[Données ultra-sensibles]
+        E2[Latence minimale < 10ms]
+        E3[Usage individuel]
+        E4[Offline capable]
+    end
+    
+    subgraph OnPrem["🏢 Serveur Départemental On-Prem"]
+        O1[Données sensibles]
+        O2[Mutualisation département]
+        O3[Contrôle total]
+        O4[Charges prévisibles]
+    end
+    
+    subgraph Cloud["☁️ Service Cloud"]
+        C1[Élasticité forte]
+        C2[Charges variables]
+        C3[Time-to-market rapide]
+        C4[Services managés]
+    end
+    
+    subgraph Hybrid["🔄 Architecture Hybride"]
+        H1[Cloud: Training & POC]
+        H2[On-Prem: Production sensible]
+        H3[Edge: Temps réel local]
+    end
+    
+    style Edge fill:#e8f5e9,stroke:#43a047,color:#1b5e20
+    style OnPrem fill:#fff3e0,stroke:#fb8c00,color:#e65100
+    style Cloud fill:#e3f2fd,stroke:#1e88e5,color:#0d47a1
+    style Hybrid fill:#f3e5f5,stroke:#8e24aa,color:#4a148c
+```
+
 ## Tableau de décision synthétique
 
 | Critère principal | Poste de travail | Serveur départemental on‑prem | Service cloud public |

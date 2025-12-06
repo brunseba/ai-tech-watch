@@ -1,7 +1,52 @@
 
 # Évaluer la sensibilité et classification des données
 
-Pour évaluer la sensibilité des données et les classer, le plus efficace est d’adopter un modèle simple en 3–4 niveaux (Public, Interne, Confidentiel, Restreint/Très sensible) et d’y mapper les risques métier et réglementaires (RGPD, secret d’affaires, etc.).[^1][^2]
+Pour évaluer la sensibilité des données et les classer, le plus efficace est d'adopter un modèle simple en 3–4 niveaux (Public, Interne, Confidentiel, Restreint/Très sensible) et d'y mapper les risques métier et réglementaires (RGPD, secret d'affaires, etc.).[^1][^2]
+
+## Modèle de Classification des Données
+
+```mermaid
+graph TB
+    subgraph Levels["📂 Niveaux de Classification"]
+        L1[🌐 Public<br/>Exposition OK<br/>Risque minimal]
+        L2[🏢 Interne<br/>Réservé organisation<br/>Impact limité]
+        L3[🔒 Confidentiel<br/>Accès restreint<br/>Dommage notable]
+        L4[🚫 Très Sensible<br/>Accès très limité<br/>Impact sévère]
+    end
+    
+    subgraph Controls["🔐 Contrôles"]
+        C1[Auth standard]
+        C2[RBAC + Chiffrement]
+        C3[MFA + DLP + Audit]
+        C4[Zero Trust + HSM]
+    end
+    
+    subgraph Deploy["📍 Déploiement IA"]
+        D1[Cloud OK]
+        D2[Cloud ou Hybrid]
+        D3[On-Prem préféré]
+        D4[On-Prem obligatoire]
+    end
+    
+    subgraph Examples["📊 Exemples"]
+        E1[Docs publics<br/>Marketing]
+        E2[Comms internes<br/>Docs généraux]
+        E3[Données clients<br/>Finances]
+        E4[PII RGPD Art.9<br/>Santé, Biométrie<br/>Secrets d'affaires]
+    end
+    
+    L1 --> C1 --> D1 --> E1
+    L2 --> C1 --> D2 --> E2
+    L3 --> C2 --> D3 --> E3
+    L4 --> C3 --> D4 --> E4
+    L4 --> C4
+    
+    style L1 fill:#e8f5e9,stroke:#43a047
+    style L2 fill:#e3f2fd,stroke:#1e88e5
+    style L3 fill:#fff3e0,stroke:#fb8c00
+    style L4 fill:#ffebee,stroke:#e53935
+    style D4 fill:#ffcdd2,stroke:#c62828
+```
 
 ## 1. Définir une grille de classification
 
