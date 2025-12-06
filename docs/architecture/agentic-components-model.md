@@ -1,7 +1,7 @@
 
-# met a jour le schema mermaod avec les ID des composants
+# Agentic AI Components Model (C01-C14)
 
-Voici le schéma Mermaid mis à jour avec les IDs des composants (C01…C14) dans les labels.[^1][^2]
+Here is the updated Mermaid diagram with component IDs (C01…C14) in the labels.[^1][^2]
 
 ```mermaid
 flowchart LR
@@ -11,73 +11,73 @@ flowchart LR
     classDef sec fill:#ffebee,stroke:#e53935,color:#b71c1c;
     classDef infra fill:#ede7f6,stroke:#5e35b1,color:#311b92;
 
-    %% Utilisateur et front
-    C01[ C01 - Utilisateur<br/>Portail ou IDE ]:::user
-    C02[ C02 - API Gateway ou APIM<br/>Kong, APIM, Envoy ]:::infra
-    C03[ C03 - IdP ou SSO<br/>Keycloak, Entra ID, Okta ]:::infra
+    %% User and front
+    C01[ C01 - User<br/>Portal or IDE ]:::user
+    C02[ C02 - API Gateway or APIM<br/>Kong, APIM, Envoy ]:::infra
+    C03[ C03 - IdP or SSO<br/>Keycloak, Entra ID, Okta ]:::infra
 
-    %% Gestion identites / secrets / mesh
-    C04[ C04 - Vault ou KMS<br/>Vault, KMS, HSM ]:::sec
+    %% Identity / secrets / mesh management
+    C04[ C04 - Vault or KMS<br/>Vault, KMS, HSM ]:::sec
     C05[ C05 - Service Mesh mTLS<br/>Istio, Linkerd ]:::infra
 
-    %% Consentement / politiques
-    C06[ C06 - Consentement et scopes<br/>OAuth2 et OIDC ]:::sec
+    %% Consent / policies
+    C06[ C06 - Consent and scopes<br/>OAuth2 and OIDC ]:::sec
     C07[ C07 - Policy Engine<br/>OPA, Cedar, ABAC ]:::sec
 
-    %% Agent et runtime IA
-    C08[ C08 - AI Agent<br/>Orchestrateur agents ]:::agent
+    %% Agent and AI runtime
+    C08[ C08 - AI Agent<br/>Agent orchestrator ]:::agent
     C09[ C09 - LLM Runtime<br/>Ollama, vLLM, TGI ]:::agent
 
-    %% Outils / systemes
-    C10[ C10 - APIs internes<br/>CRM, ERP, ITSM, Git ]:::tool
-    C11[ C11 - APIs externes et SaaS<br/>Jira, ServiceNow, LLM APIs ]:::tool
-    C12[ C12 - Vector DB et Data Store<br/>PgVector, Milvus, S3, DWH ]:::tool
+    %% Tools / systems
+    C10[ C10 - Internal APIs<br/>CRM, ERP, ITSM, Git ]:::tool
+    C11[ C11 - External APIs and SaaS<br/>Jira, ServiceNow, LLM APIs ]:::tool
+    C12[ C12 - Vector DB and Data Store<br/>PgVector, Milvus, S3, DWH ]:::tool
 
-    %% Monitoring / securite IA
-    C13[ C13 - Monitoring et SIEM<br/>Prometheus, Loki, SIEM ]:::sec
-    C14[ C14 - Guardrails IA<br/>Filtrage prompts et reponses ]:::sec
+    %% Monitoring / AI security
+    C13[ C13 - Monitoring and SIEM<br/>Prometheus, Loki, SIEM ]:::sec
+    C14[ C14 - AI Guardrails<br/>Prompt and response filtering ]:::sec
 
-    %% Flux utilisateur
+    %% User flow
     C01 -->|HTTPS| C02
     C02 -->|OIDC redirect| C03
-    C03 -->|ID token et access token| C02
-    C02 -->|Contexte utilisateur et scopes| C06
-    C06 -->|Scope delegue a l agent| C08
+    C03 -->|ID token and access token| C02
+    C02 -->|User context and scopes| C06
+    C06 -->|Scope delegated to agent| C08
 
-    %% Identites et secrets
-    C08 -->|Secrets applicatifs| C04
-    C09 -->|Cles modeles| C04
+    %% Identities and secrets
+    C08 -->|Application secrets| C04
+    C09 -->|Model keys| C04
     C04 --- C05
 
-    %% Policies et Zero Trust
-    C08 -->|Demande action avec contexte| C07
-    C07 -->|Decision allow ou deny| C08
-    C08 -->|Appels mTLS| C05
+    %% Policies and Zero Trust
+    C08 -->|Action request with context| C07
+    C07 -->|Allow or deny decision| C08
+    C08 -->|mTLS calls| C05
 
-    %% IA runtime
-    C08 -->|Prompts et plans| C09
-    C09 -->|Reponses et outils| C08
+    %% AI runtime
+    C08 -->|Prompts and plans| C09
+    C09 -->|Responses and tools| C08
 
-    %% Outils internes / externes
-    C08 -->|Appel API interne| C10
-    C08 -->|Appel API externe| C11
-    C08 -->|Requete filtree sur donnees| C12
+    %% Internal / external tools
+    C08 -->|Internal API call| C10
+    C08 -->|External API call| C11
+    C08 -->|Filtered data query| C12
 
-    %% Observabilite / guardrails
-    C08 -->|Traces agent et outils| C13
-    C09 -->|Logs modeles| C13
-    C10 -->|Logs API internes| C13
-    C11 -->|Logs API externes| C13
-    C12 -->|Logs acces donnees| C13
+    %% Observability / guardrails
+    C08 -->|Agent and tool traces| C13
+    C09 -->|Model logs| C13
+    C10 -->|Internal API logs| C13
+    C11 -->|External API logs| C13
+    C12 -->|Data access logs| C13
 
-    C02 -->|Logs acces et quotas| C13
-    C07 -->|Logs decisions policy| C13
+    C02 -->|Access and quota logs| C13
+    C07 -->|Policy decision logs| C13
 
-    C08 -->|Controle prompts et reponses| C14
-    C09 -->|Controle contenu sensible| C14
+    C08 -->|Prompt and response control| C14
+    C09 -->|Sensitive content control| C14
 ```
 
-Les IDs C01–C14 correspondent aux lignes de la table précédente, ce qui facilite la navigation entre doc d’archi, diagrammes et spécifications détaillées.[^3][^1]
+The IDs C01–C14 correspond to the rows in the previous table, which facilitates navigation between architecture docs, diagrams, and detailed specifications.[^3][^1]
 
 <div align="center">⁂</div>
 

@@ -1,16 +1,16 @@
 
-# quel framework pour concevoir un Agent IA
+# Which Framework to Choose for Designing an AI Agent
 
-Pour concevoir un agent IA, les frameworks les plus utilisés aujourd'hui sont principalement LangGraph/LangChain, Semantic Kernel, CrewAI, AutoGen, LlamaIndex et des options managées comme OpenAI Agents ou Bedrock Agents.[^1][^2][^3]
+To design an AI agent, the most commonly used frameworks today are primarily LangGraph/LangChain, Semantic Kernel, CrewAI, AutoGen, LlamaIndex, and managed options like OpenAI Agents or Bedrock Agents.[^1][^2][^3]
 
-## Paysage des Frameworks AI Agent
+## AI Agent Framework Landscape
 
 ```mermaid
 graph TB
     subgraph CodeFirst[" 💻 Frameworks Code-First"]
-        LG[LangGraph/LangChain<br/>✅ Graphes état<br/>✅ Écosystème RAG<br/>🎯 K8s-native]
+        LG[LangGraph/LangChain<br/>✅ State graphs<br/>✅ RAG ecosystem<br/>🎯 K8s-native]
         SK[Semantic Kernel<br/>✅ Enterprise<br/>✅ Azure/M365<br/>🎯 Microsoft stack]
-        CA[CrewAI<br/>✅ Rôles agents<br/>✅ Simple<br/>🎯 Collaboration]
+        CA[CrewAI<br/>✅ Agent roles<br/>✅ Simple<br/>🎯 Collaboration]
         AG[AutoGen<br/>✅ Multi-agents<br/>✅ Async<br/>🎯 R&D]
     end
     
@@ -19,18 +19,18 @@ graph TB
         LF[Langflow<br/>Visual flows]
     end
     
-    subgraph Managed["☁️ Services Managés"]
+    subgraph Managed["☁️ Managed Services"]
         OAI[OpenAI Agents<br/>Lock-in OpenAI]
         BED[Bedrock Agents<br/>Lock-in AWS]
     end
     
-    subgraph UseCase["Choisir selon..."]
+    subgraph UseCase["Choose based on..."]
         U1[Complex Workflows<br/>→ LangGraph]
-        U2[Entreprise MS<br/>→ Semantic Kernel]
-        U3[Multi-agent Rôles<br/>→ CrewAI]
-        U4[Prototypage Expérimental<br/>→ AutoGen]
-        U5[Intégration Rapide<br/>→ Low-Code]
-        U6[Solution Managée<br/>→ Cloud Services]
+        U2[MS Enterprise<br/>→ Semantic Kernel]
+        U3[Multi-agent Roles<br/>→ CrewAI]
+        U4[Experimental Prototyping<br/>→ AutoGen]
+        U5[Rapid Integration<br/>→ Low-Code]
+        U6[Managed Solution<br/>→ Cloud Services]
     end
     
     style LG fill:#e8f5e9,stroke:#43a047
