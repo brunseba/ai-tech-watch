@@ -61,13 +61,13 @@ graph TB
 - OpenAI Agents / Agent Builder, Amazon Bedrock Agents : conviennent si tu acceptes le lock‑in cloud et veux un service managé avec scaling, security et monitoring déjà intégrés.[^11][^2][^6]
 
 
-## Recommandation selon ton profil
+## Recommendation according to ton profil
 
-- Pour un usage dev / plateforme interne Kubernetes, avec besoin de control fort sur les graphes, la gestion d’état et l’observabilité : LangGraph (+ LangChain) est un très bon candidat.[^5][^1][^4]
+- Pour un usage dev / plateforme internal Kubernetes, avec need de control fort sur les graphes, la gestion d’état et l’observabilité : LangGraph (+ LangChain) est un très bon candidat.[^5][^1][^4]
 - Pour du multi‑agents orienté rôles et process métier (researcher, coder, reviewer) avec code Python simple : CrewAI + éventuellement LangGraph comme orchestrateur sous‑jacent.[^1][^4][^6]
 - Si ton stack est très Azure / Microsoft : Semantic Kernel pour l’orchestration, combiné à un framework multi‑agents (CrewAI, AutoGen) si nécessaire.[^4][^3]
 
-Si tu me donnes un cas d’usage cible (ex. “agent pour tickets ITSM sur K8s avec RAG interne”), je peux te proposer un trio concret “framework agentique + orchestrateur + libs RAG” avec quelques blocs d’archi.
+Si tu me donnes un cas d’usage cible (ex. “agent pour tickets ITSM sur K8s avec RAG internal”), je peux te proposer un trio concret “framework agentique + orchestrateur + libs RAG” avec quelques blocs d’archi.
 <span style="display:none">[^13][^14][^15][^16][^17][^18][^19][^20][^21]</span>
 
 <div align="center">⁂</div>

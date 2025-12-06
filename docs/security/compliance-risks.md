@@ -1,19 +1,19 @@
 
-# Quels risques de conformité et souveraineté des data pour chaque modèle
+# Which risques de conformité et souveraineté des data pour chaque modèle
 
-Les risques de conformité et de souveraineté augmentent globalement quand on va du poste de travail vers le cloud public, surtout pour des data personnelles/sectorielles (santé, finance, secteur public).[^1][^2]
+Les risques de conformité et de souveraineté augmentent globalement quand on va du workstation vers le cloud public, surtout pour des data personnelles/sectorielles (santé, finance, secteur public).[^1][^2]
 
-## Poste de travail (edge individuel)
+## Workstation (edge individuel)
 
-- Souveraineté : le poste permet de garder les data dans le pays / l’organisation, ce qui simplifie la conformité aux exigences de résidence (ex. garder les data dans l’UE pour le RGPD), à condition de maîtriser sauvegardes et synchronisations.[^3][^4]
+- Souveraineté : le poste permet de garder les data dans le pays / l’organisation, ce qui simplifie la conformité aux requirements de résidence (ex. garder les data dans l’UE pour le RGPD), à condition de maîtriser sauvegardes et synchronisations.[^3][^4]
 - Risques : fuite de data par synchronisation grand public (cloud perso, outils non approuvés), vol/perte de poste mal chiffré, absence de journaux centralisés limitant la capacité de preuve en cas d’audit.[^5][^6]
 
 
-## Serveurs départementaux / on‑prem
+## Servers départementaux / on‑prem
 
-- Souveraineté : control maximal sur la localisation et la juridiction des data, ce qui permet de démontrer plus facilement la résidence et la souveraineté (data hébergées dans un DC interne ou un prestataire local sous droit national).[^7][^8][^1]
+- Souveraineté : control maximal sur la localisation et la juridiction des data, ce qui permet de démontrer plus facilement la résidence et la souveraineté (data hébergées dans un DC internal ou un prestataire local sous droit national).[^7][^8][^1]
 - Risques :
-    - Non‑conformité si les flux sortants (sauvegardes, support, télémétrie) ne sont pas cartographiés et contractualisés (sous‑traitants, clauses, RoPA).[^2][^3]
+    - Non‑conformité si les flow sortants (sauvegardes, support, télémétrie) ne sont pas cartographiés et contractualisés (sous‑traitants, clauses, RoPA).[^2][^3]
     - Security parfois sous‑dimensionnée (patching, SOC 24/7, gestion des accès), ce qui peut créer des incidents de security tout aussi problématiques que dans le cloud.[^9][^5]
 
 
@@ -21,7 +21,7 @@ Les risques de conformité et de souveraineté augmentent globalement quand on v
 
 - Souveraineté :
     - Exposition à la juridiction du pays du fournisseur ou de certains points d’accès (lois extraterritoriales, demandes d’accès gouvernementales).[^10][^11][^2]
-    - Complexité accrue pour prouver la résidence et les flux de data, notamment en cas de réplication inter‑régions, cache edge/CDN ou support technique offshore.[^12][^3][^10]
+    - Complexité accrue pour prouver la résidence et les flow de data, notamment en cas de réplication inter‑régions, cache edge/CDN ou support technique offshore.[^12][^3][^10]
 - Conformité :
     - Forte dépendance aux engagements contractuels du fournisseur (DPA, clauses contractuelles types, localisation des DC, certifications) et à la bonne configuration client (IAM, régions, logs).[^8][^13][^7]
     - Risque de transfert illégal ou mal documenté de data hors de l’EEE au regard du RGPD, surtout si les évaluations d’impact (TIA, RoPA) sont incomplètes.[^14][^2][^3]
@@ -29,22 +29,22 @@ Les risques de conformité et de souveraineté augmentent globalement quand on v
 
 ## Edge / cloud hybride
 
-- Avantages : possibilité de garder les data sensibles in‑situ (poste ou on‑prem) et d’envoyer au cloud seulement des data pseudonymisées, agrégées ou des métadata, ce qui réduit fortement le risque de non‑conformité.[^15][^13][^8]
+- Advantages : possibilité de garder les data sensitives in‑situ (poste ou on‑prem) et d’envoyer au cloud seulement des data pseudonymisées, agrégées ou des métadata, ce qui réduit fortement le risque de non‑conformité.[^15][^13][^8]
 - Risques :
     - Architecture mal segmentée où des workloads cloud voient malgré tout des data identifiables (mauvais masquage, dérives de configuration).[^6][^10]
     - Multiplication des sous‑traitants et des régimes juridiques (cloud, sauvegarde, monitoring, CDNs), ce qui complique la gouvernance et la tenue des registres de traitement.[^15][^14]
 
 
-## Tableau synthétique des risques
+## Table synthétique des risques
 
 | Modèle de deployment | Risques principaux de conformité / souveraineté |
 | :-- | :-- |
-| Poste de travail | Perte/vol de poste, sync non maîtrisées, faible traçabilité. [^5][^4] |
-| Serveur on‑prem / département | Patching/security internes, flux sortants mal documentés, charge de preuve sur l’organisation. [^1][^7] |
+| Workstation | Perte/vol de poste, sync non maîtrisées, faible traçabilité. [^5][^4] |
+| Server on‑prem / département | Patching/security internals, flow sortants mal documentés, charge de preuve sur l’organisation. [^1][^7] |
 | Cloud public | Transferts transfrontaliers, lois extraterritoriales, dépendance contractuelle, mauvaise configuration client. [^2][^10][^6] |
-| Architecture hybride | Complexité de gouvernance multi‑fournisseurs, risques de “leak” de data sensibles vers le cloud si la segmentation est mal faite. [^15][^8] |
+| Architecture hybride | Complexité de gouvernance multi‑fournisseurs, risques de “leak” de data sensitives vers le cloud si la segmentation est mal faite. [^15][^8] |
 
-Si tu veux, tu peux détailler ton secteur (ex. santé, banque, collectivité), pour mapper ces risques à des textes précis (RGPD, NIS2, doctrines cloud, exigences nationales de localisation, etc.) et ajuster les patterns d’architecture et de contrats à viser.
+Si tu veux, tu peux détailler ton secteur (ex. santé, banque, collectivité), pour mapper ces risques à des textes précis (RGPD, NIS2, doctrines cloud, requirements nationales de localisation, etc.) et ajuster les patterns d’architecture et de contrats à viser.
 <span style="display:none">[^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

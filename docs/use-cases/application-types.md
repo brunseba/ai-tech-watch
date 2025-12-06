@@ -1,13 +1,13 @@
 
-# Quels types d'applications conviennent le mieux à l'edge poste de travail
+# Which types d'applications conviennent le mieux à l'edge workstation
 
-Les applications qui tirent le meilleur parti de l'edge sur poste de travail sont celles qui ont besoin de faible latence, de forte confidentialité des data ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
+Les applications qui tirent le meilleur parti de l'edge sur workstation sont celles qui ont need de faible latence, de forte confidentialité des data ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
 
-## Applications Idéales pour Edge Poste de Travail
+## Applications Ideal pour Edge Poste de Travail
 
 ```mermaid
 graph TB
-    subgraph Requirements["⚖️ Exigences"]
+    subgraph Requirements["⚖️ Requirements"]
         R1[🔒 Confidentialité forte]
         R2[⚡ Latence < 100ms]
         R3[🚫 Mode déconnecté]
@@ -55,32 +55,32 @@ graph TB
 
 ## Assistants personnels et productivité
 
-- Assistants LLM locaux (chat, complétion, traduction, summary) pour développeurs ou knowledge workers, où le code source, les documents internes ou les mails ne doivent jamais sortir du poste.[^3][^4][^5]
+- Assistants LLM locaux (chat, complétion, traduction, summary) pour développeurs ou knowledge workers, où le code source, les documents internals ou les mails ne doivent jamais sortir du poste.[^3][^4][^5]
 - Copilotes dans l’IDE (VS Code, etc.), outils d’aide bureautique (summary de docs, analyse de feuilles de calcul) ou d’assistance rédactionnelle directement sur le laptop/Mac.[^6][^3]
 
 
 ## Applications temps réel à faible latence
 
-- Traitement audio/vidéo en direct : reconnaissance vocale locale, filtrage bruit, sous-titrage, vision temps réel pour webcam ou flux écran, où l’aller‑retour cloud serait trop lent ou instable.[^7][^2][^1]
+- Traitement audio/vidéo en direct : reconnaissance vocale locale, filtrage bruit, sous-titrage, vision temps réel pour webcam ou flow écran, où l’aller‑retour cloud serait trop lent ou instable.[^7][^2][^1]
 - Applications interactives (UX réactive, jeux, XR) qui utilisent la vision ou la compréhension de scène en local pour conserver une bonne expérience même si la connexion varie.[^7][^1]
 
 
-## Cas d’usage sensibles ou réglementés
+## Cas d’usage sensitives ou réglementés
 
-- Analyse locale de data réglementées (santé, juridique, RH, code propriétaire) pour recherche sémantique, RAG, classification ou détection d’anomalies, afin d’éviter tout envoi vers un fournisseur externe.[^4][^8][^1]
-- Diagnostics ou outils internes utilisés sur des postes durcis (admin, SOC, métiers) où la politique de security impose que les data restent sur l’équipement.[^2][^1]
+- Analyse locale de data réglementées (santé, juridique, RH, code propriétaire) pour recherche sémantique, RAG, classification ou détection d’anomalies, afin d’éviter tout envoi vers un fournisseur external.[^4][^8][^1]
+- Diagnostics ou outils internals utilisés sur des postes durcis (admin, SOC, métiers) où la politique de security impose que les data restent sur l’équipement.[^2][^1]
 
 
-## Edge poste comme mini-serveur
+## Edge poste comme mini-server
 
 - Micro‑services IA pour une petite équipe : un NUC / workstation avec GPU qui sert de point d’accès LLM/vision pour 2–10 personnes, tout en restant géré comme une machine utilisateur avancée.[^9][^4][^2]
-- Automatisation locale (agents, scripts, assistants contextuels) pour gérer fichiers, mails, tickets ou logs sur le poste, sans dépendre d’une API externe.[^10][^4]
+- Automatisation locale (agents, scripts, assistants contextuels) pour gérer fichiers, mails, tickets ou logs sur le poste, sans dépendre d’une API external.[^10][^4]
 
 
 ## Scénarios déconnectés ou intermittents
 
 - Travail en mobilité (consultants, techniciens terrain) avec assistant, traduction, OCR/vision et RAG sur docs embarqués, utilisables même sans réseau.[^8][^1]
-- Prototypage et R\&D : expérimenter rapidement des models quantifiés, pipelines d’inférence ou intégrations applicatives en local avant de porter en serveur ou cloud.[^5][^11][^4]
+- Prototypage et R\&D : expérimenter rapidement des models quantifiés, pipelines d’inférence ou intégrations applicatives en local avant de porter en server ou cloud.[^5][^11][^4]
 
 Si tu précises ton profil d’utilisateur (dev, analyste, terrain, etc.) et les ressources typiques d’un poste (CPU/GPU/RAM), une liste plus ciblée de patterns et d’outils (Ollama, LM Studio, runtimes, formats de models) peut être proposée.
 <span style="display:none">[^12][^13][^14][^15][^16][^17][^18][^19][^20]</span>

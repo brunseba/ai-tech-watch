@@ -1,7 +1,7 @@
 
-# Capacités internes de gestion et support technique
+# Capacités internals de gestion et support technique
 
-Le niveau de capacités internes à exiger augmente fortement quand on va du cloud managé vers le serveur départemental, puis vers l’edge/postes gérés à grande échelle.[^1][^2]
+Le niveau de capacités internals à exiger augmente fortement quand on va du cloud managé vers le server departmental, puis vers l’edge/postes gérés à grande échelle.[^1][^2]
 
 ## Grands domaines de compétences à considérer
 
@@ -10,39 +10,39 @@ Le niveau de capacités internes à exiger augmente fortement quand on va du clo
 - Support utilisateur \& intégration : helpdesk, intégration applicative, gestion des incidents, gouvernance et security (IAM, politiques d’usage IA).[^9][^10]
 
 
-## Poste de travail (edge)
+## Workstation (edge)
 
 - Compétences nécessaires :
-    - IT poste de travail solide (gestion de parc, MDM, durcissement, mises à jour), distribution automatisée d’agents IA/LLM locaux, support de proximité.[^11][^12]
+    - IT workstation solide (gestion de parc, MDM, durcissement, mises à jour), distribution automatisée d’agents IA/LLM locaux, support de proximité.[^11][^12]
     - Pour de l’edge plus poussé (stations GPU, NUC, IoT) : compétences en réseau/site distant, security endpoint avancée et monitoring distribué.[^4][^13][^5]
 - Contraintes : gestion à grande échelle complexe (nombreux endpoints, profils hétérogènes), nécessité d’outiller fortement le deployment et la télémétrie.[^12][^5]
 
 
-## Serveur départemental / on‑prem
+## Server departmental / on‑prem
 
 - Compétences nécessaires :
     - Équipe infra dédiée (ou quasi) : admins systèmes/K8s, réseau, stockage, security, avec bonne compréhension GPU et workloads IA.[^8][^6][^3]
-    - MLOps/LLMOps internes pour packager, déployer, monitorer et mettre à jour les models, gérer versions et performances.[^7][^14][^15]
+    - MLOps/LLMOps internals pour packager, déployer, monitorer et mettre à jour les models, gérer versions et performances.[^7][^14][^15]
 - Contraintes : responsabilité complète sur le stack (hardware, OS, orchestrateur, runtime, security, sauvegardes, PCA/PRA) et sur le support 2e/3e niveau.[^16][^6][^3]
 
 
 ## Cloud (IaaS / services managés / API)
 
 - Compétences nécessaires :
-    - Moins de “rack \& stack”, plus d’expertise cloud : IAM, réseau cloud, security, optimisation coûts, IaC, intégration des services managés.[^14][^17][^1]
+    - Moins de “rack \& stack”, plus d’expertise cloud : IAM, réseau cloud, security, optimisation costs, IaC, intégration des services managés.[^14][^17][^1]
     - MLOps focalisé sur le pipeline et la gouvernance des models plutôt que sur la gestion bas niveau de l’infra.[^10][^1]
 - Contraintes : dépendance au fournisseur, nécessité de maîtriser le modèle partagé de responsabilité et de surveiller la facture, mais moindre charge de maintenance matérielle.[^2][^1][^10]
 
 
-## Tableau synthétique des capacités internes requises
+## Table synthétique des capacités internals requises
 
-| Option | Niveau de compétences infra requis | Besoin MLOps/LLMOps interne | Charge de support technique interne |
+| Option | Niveau de compétences infra requis | Need MLOps/LLMOps internal | Charge de support technique internal |
 | :-- | :-- | :-- | :-- |
-| Poste de travail (edge) | Moyen (poste/MDM, security endpoint, un peu d’edge). [^11][^12] | Faible à moyen (selon complexité des agents locaux). [^11] | Élevée en volume (beaucoup d’endpoints). [^12] |
-| Serveur départemental | Élevé (Linux, K8s, GPU, stockage, security). [^6][^3] | Élevé (packaging, deployment, monitoring models). [^14][^7] | Élevée, 24/7 possible si workloads critiques. [^16] |
+| Workstation (edge) | Moyen (poste/MDM, security endpoint, un peu d’edge). [^11][^12] | Faible à moyen (according to complexité des agents locaux). [^11] | Élevée en volume (beaucoup d’endpoints). [^12] |
+| Server departmental | Élevé (Linux, K8s, GPU, stockage, security). [^6][^3] | Élevé (packaging, deployment, monitoring models). [^14][^7] | Élevée, 24/7 possible si workloads critiques. [^16] |
 | Cloud managé / API | Moyen (cloud, IAM, réseau, FinOps). [^1][^10] | Moyen (intégration, gouvernance models). [^1][^15] | Faible à moyen (support infra délégué au provider). [^2][^17] |
 
-En pratique, pour arbitrer : estime combien de FTE (infra + MLOps + support) tu peux réellement dédier à la plateforme IA, et réserve les models les plus “gourmands en compétences” (serveur on‑prem, edge massif) aux workloads où la souveraineté, la latence ou le TCO le justifient vraiment.[^15][^6][^3]
+En pratique, pour arbitrer : estime combien de FTE (infra + MLOps + support) tu peux réellement dédier à la plateforme IA, et réserve les models les plus “gourmands en compétences” (server on‑prem, edge massif) aux workloads où la souveraineté, la latence ou le TCO le justifient vraiment.[^15][^6][^3]
 <span style="display:none">[^18][^19][^20]</span>
 
 <div align="center">⁂</div>

@@ -1,7 +1,7 @@
 
 # ajoute les normes imposant du local/on-prem sur les fleches
 
-Voici une version enrichie où les flèches qui poussent vers du local / on‑prem portent les principales références réglementaires ou exigences typiques.[^1][^2][^3][^4]
+Voici une version enrichie où les flèches qui poussent vers du local / on‑prem portent les principales références réglementaires ou requirements typiques.[^1][^2][^3][^4]
 
 ```mermaid
 flowchart TD
@@ -10,28 +10,28 @@ flowchart TD
     classDef cloud fill:#fff3e0,stroke:#fb8c00,color:#e65100;
     classDef decision fill:#f5f5f5,stroke:#757575,color:#212121;
 
-    A[Début] --> B{Data très sensibles ou régulées ?}
+    A[Début] --> B{Data très sensitives ou régulées ?}
     class B decision;
 
     %% BRANCHE SENSIBLE
 
-    B -->|Oui, ex RGPD art 9, secret d'affaires, santé, finance régulée| C{Latence < 100 ms ou besoin offline ?}
+    B -->|Oui, ex RGPD art 9, secret d'affaires, santé, finance régulée| C{Latence < 100 ms ou need offline ?}
     class C decision;
 
-    C -->|Usage individuel, RGPD, doctrine Cloud de confiance, politique DLP| D[Poste de travail / Edge local]
+    C -->|Usage individuel, RGPD, doctrine Cloud de confiance, politique DLP| D[Workstation / Edge local]
     class D edge;
 
-    C -->|Usage partagé, exigences RGPD, NIS2, politique de souveraineté| E[Serveur départemental on-prem]
+    C -->|Usage partagé, requirements RGPD, NIS2, politique de souveraineté| E[Server departmental on-prem]
     class E onprem;
 
-    C -->|Non, mais toujours data sensibles sous RGPD/NIS2| E
+    C -->|Non, mais toujours data sensitives sous RGPD/NIS2| E
 
     B -->|Oui mais uniquement data dérivées ou anonymisées, DPIA OK| M[Cloud réservé aux data dérivées uniquement]
     class M cloud;
 
     %% BRANCHE NON SENSIBLE / MOINS CRITIQUE
 
-    B -->|Non, data peu sensibles ou anonymisées| G{Latence < 100 ms ou besoin offline ?}
+    B -->|Non, data peu sensitives ou anonymisées| G{Latence < 100 ms ou need offline ?}
     class G decision;
 
     G -->|Oui, contraintes temps réel ou site sans connectivité fiable| H{Portée de l'usage ?}
@@ -46,17 +46,17 @@ flowchart TD
     I -->|Oui| J{Équipe infra et MLOps disponible ?}
     class J decision;
 
-    I -->|Non, charge bursty ou POC fréquents| L[Cloud IaaS ou API, plus éventuel edge pour cas sensibles]
+    I -->|Non, charge bursty ou POC fréquents| L[Cloud IaaS ou API, plus éventuel edge pour cas sensitives]
     class L cloud;
 
-    J -->|Oui, capacité à répondre aux exigences RGPD, NIS2, audits, PCA/PRA| K[On-prem serveur ou cluster IA]
+    J -->|Oui, capacité à répondre aux requirements RGPD, NIS2, audits, PCA/PRA| K[On-prem server ou cluster IA]
     class K onprem;
 
     J -->|Non, dépendance à des services managés conformes| L
 
     %% ARCHITECTURE HYBRIDE
 
-    E --> N[Architecture hybride on-prem pour data sensibles,
+    E --> N[Architecture hybride on-prem pour data sensitives,
     cloud pour dérivées ou entraînement]
     class N onprem;
 

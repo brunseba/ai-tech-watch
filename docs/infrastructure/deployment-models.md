@@ -1,83 +1,83 @@
 
-# choix du modele de deployment de l'IA entre  poste de travail, serveur departementaux,  service cloud
+# choice du modele de deployment de l'IA entre  workstation, server departementaux,  service cloud
 
-Le choix entre poste de travail, serveur départemental et service cloud dépend surtout de la sensibilité des data, de la criticité de la latence, de la variabilité de la charge et de votre capacité à exploiter/maintenir l’infra.[^1][^2]
+Le choice entre workstation, server departmental et service cloud dépend surtout de la sensibilité des data, de la criticité de la latence, de la variabilité de la charge et de votre capacité à exploiter/maintenir l’infra.[^1][^2]
 
 ## Grands critères de choix
 
-- Data et conformité : si les data sont sensibles (santé, RH, data financières détaillées), garder le traitement on‑prem (poste ou serveur) simplifie la souveraineté et les audits, alors que le cloud impose de gérer des contraintes réglementaires supplémentaires.[^2][^3][^1]
-- Latence et disponibilité réseau : pour des cas temps réel ou en environnement peu connecté (atelier, terrain, agences mal reliées), l’inférence locale (poste ou serveur départemental) évite les allers‑retours réseau vers le cloud.[^4][^5][^6]
+- Data et conformité : si les data sont sensitives (santé, RH, data financières détaillées), garder le traitement on‑prem (poste ou server) simplifie la souveraineté et les audits, alors que le cloud impose de gérer des contraintes réglementaires supplémentaires.[^2][^3][^1]
+- Latence et disponibilité réseau : pour des cas temps réel ou en environnement peu connecté (atelier, terrain, agences mal reliées), l’inférence locale (poste ou server departmental) évite les allers‑retours réseau vers le cloud.[^4][^5][^6]
 - Variabilité de la charge : si la demande est très fluctuante (pics forts, POC fréquents), le cloud reste nettement plus élastique et rapide à dimensionner que l’on‑prem.[^7][^8][^2]
-- Horizon de coûts : on‑prem a un gros CAPEX mais des coûts marginaux faibles pour des charges stables, alors que le cloud est OPEX pay‑per‑use mais peut coûter plus cher sur le long terme en cas d’usage intensif.[^9][^3][^10]
+- Horizon de costs : on‑prem a un gros CAPEX mais des costs marginaux faibles pour des charges stables, alors que le cloud est OPEX pay‑per‑use mais peut coster plus cher sur le long terme en cas d’usage intensif.[^9][^3][^10]
 
 
-## Poste de travail (edge individuel)
+## Workstation (edge individuel)
 
-Approprié quand :
+Appropriate quand :
 
-- Cas d’usage individuels ou petits groupes, avec besoin de confidentialité forte (LLM local, assistants code, prototypes).[^11][^5][^4]
+- Cas d’usage individuels ou petits groupes, avec need de confidentialité forte (LLM local, assistants code, prototypes).[^11][^5][^4]
 - Models relativement compacts, fréquence d’usage élevée mais locale (pas multi‑utilisateur).[^12][^4]
 
-Avantages :
+Advantages :
 
 - Data qui ne sortent jamais du poste, aucune dépendance réseau, latence minimale.[^5][^4]
-- Coûts maîtrisés si le matériel existe déjà, idéal pour expérimentation et R\&D distribuée.[^13][^2]
+- Costs maîtrisés si le matériel existe déjà, idéal pour expérimentation et R\&D distribuée.[^13][^2]
 
-Limites :
+Limitations :
 
 - Pas de mutualisation entre utilisateurs, difficile à administrer à grande échelle (MLOps, mises à jour models).[^14][^13]
 - Puissance limitée par la config du poste (GPU/NPU), peu adapté à de gros entraînements ou à de l’inférence massive.[^15][^4]
 
 
-## Serveur départemental / on‑prem
+## Server departmental / on‑prem
 
-Approprié quand :
+Appropriate quand :
 
-- Besoin de mutualiser des models pour un service ou un département, avec data sensibles mais charges relativement prévisibles.[^10][^1][^2]
+- Need de mutualiser des models pour un service ou un département, avec data sensitives mais charges relativement prévisibles.[^10][^1][^2]
 - Latence faible et continuité de service locale (même si le WAN tombe).[^6][^4]
 
-Avantages :
+Advantages :
 
 - Control total sur les data, l’infra, la stack logicielle, plus simple pour aligner security et conformité.[^3][^1][^7]
-- Coût intéressant si les GPU/serveurs sont bien utilisés en continu (taux d’usage élevé sur plusieurs années).[^9][^10]
+- Cost intéressant si les GPU/servers sont bien utilisés en continu (taux d’usage élevé sur plusieurs années).[^9][^10]
 
-Limites :
+Limitations :
 
-- Investissement initial élevé (HW, énergie, refroidissement) et besoin d’équipes pour opérer et faire évoluer la plateforme.[^2][^15][^10]
+- Investissement initial élevé (HW, énergie, refroidissement) et need d’équipes pour opérer et faire évoluer la plateforme.[^2][^15][^10]
 - Scalabilité lente (délais d’achat, d’installation) et difficulté à absorber des pics ou des projets très ponctuels.[^7][^9]
 
 
-## Service cloud (public ou privé)
+## Service cloud (public ou private)
 
-Approprié quand :
+Appropriate quand :
 
-- Besoin d’élasticité forte, de tests rapides de multiples models/fournisseurs, ou de charges très variables.[^8][^2][^7]
-- Data déjà partiellement externalisées, avec exigences de latence pas ultra‑critiques, ou pour phases d’entraînement lourdes.[^16][^17][^11]
+- Need d’élasticité forte, de tests rapides de multiples models/fournisseurs, ou de charges très variables.[^8][^2][^7]
+- Data déjà partiellement externalisées, avec requirements de latence pas ultra‑critiques, ou pour phases d’entraînement lourdes.[^16][^17][^11]
 
-Avantages :
+Advantages :
 
 - Mise à l’échelle quasi immédiate, accès à du GPU/TPU/NPU sans capex, time‑to‑market très rapide.[^15][^2][^7]
 - Large écosystème de services managés (vectordb, pipelines, observabilité), intégration plus simple pour des projets nombreux.[^18][^8]
 
-Limites :
+Limitations :
 
-- Coûts pouvant devenir 2–3x plus élevés que l’on‑prem à usage intensif et continu (surtout sur LLM/vision) si non optimisés.[^3][^9]
+- Costs pouvant devenir 2–3x plus élevés que l’on‑prem à usage intensif et continu (surtout sur LLM/vision) si non optimisés.[^3][^9]
 - Enjeux de souveraineté, de localisation des data et de dépendance fournisseur (lock‑in).[^1][^11][^2]
 
 
-## Visualisation des models de deployment
+## Visualization des models de deployment
 
 ```mermaid
 graph TB
     subgraph Edge["🖥️ Poste de Travail / Edge"]
-        E1[Data ultra-sensibles]
+        E1[Data ultra-sensitives]
         E2[Latence minimale < 10ms]
         E3[Usage individuel]
         E4[Offline capable]
     end
     
-    subgraph OnPrem["🏢 Serveur Départemental On-Prem"]
-        O1[Data sensibles]
+    subgraph OnPrem["🏢 Server Departmental On-Prem"]
+        O1[Data sensitives]
         O2[Mutualisation département]
         O3[Control total]
         O4[Charges prévisibles]
@@ -92,7 +92,7 @@ graph TB
     
     subgraph Hybrid["🔄 Architecture Hybride"]
         H1[Cloud: Training & POC]
-        H2[On-Prem: Production sensible]
+        H2[On-Prem: Production sensitive]
         H3[Edge: Temps réel local]
     end
     
@@ -102,22 +102,22 @@ graph TB
     style Hybrid fill:#f3e5f5,stroke:#8e24aa,color:#4a148c
 ```
 
-## Tableau de décision synthétique
+## Table de décision synthétique
 
-| Critère principal | Poste de travail | Serveur départemental on‑prem | Service cloud public |
+| Critère principal | Workstation | Server departmental on‑prem | Service cloud public |
 | :-- | :-- | :-- | :-- |
 | Sensibilité des data | Très élevée, data locales. [^4] | Élevée, data restent dans le SI. [^1] | Variable, data chez un tiers. [^2] |
 | Latence / dépendance réseau | Latence minimale, offline OK. [^4] | Faible en local, WAN optionnel. [^6] | Dépend du réseau et du DC. [^15] |
 | Variabilité de la charge | Faible, usage individuel. [^13] | Moyenne, charges prévisibles. [^10] | Forte, très élastique. [^2][^7] |
-| Coût long terme (usage fort) | Bon si déjà équipé. [^13] | Avantageux si haut taux d’usage. [^9] | Peut devenir élevé en continu. [^9] |
+| Cost long terme (usage fort) | Bon si déjà équipé. [^13] | Avantageux si haut taux d’usage. [^9] | Peut devenir élevé en continu. [^9] |
 | Complexité d’exploitation | Dispersée, peu industrialisable. [^13] | Nécessite équipe infra/MLOps. [^2] | Externalisée au provider. [^7] |
 
-## Recommandation type (approche hybride)
+## Recommendation type (approche hybride)
 
 Pour une DSI/collectivité ou une grande entreprise, un modèle hybride est souvent optimal :
 
 - Cloud pour : entraînements lourds, POC rapides, charges très variables, intégration de services managés (APIs LLM, vision, traduction).[^17][^16][^2]
-- Serveur(s) départementaux pour : inférence récurrente sur data sensibles, services IA partagés (chat interne, RAG sur documents internes, scoring métier).[^10][^1][^3]
+- Server(s) départementaux pour : inférence récurrente sur data sensitives, services IA partagés (chat internal, RAG sur documents internals, scoring métier).[^10][^1][^3]
 - Postes de travail pour : outils personnels (copilotes dev, assistants bureautiques) et cas où aucune donnée ne doit sortir du poste.[^4][^11]
 
 Si tu veux, tu peux préciser ton contexte (taille de l’organisation, type de data, cas d’usage IA envisagés) et un budget approximatif, et une proposition d’architecture cible plus détaillée (incluant MLOps, security, réseau) peut être construite.

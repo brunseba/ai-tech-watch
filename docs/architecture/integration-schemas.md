@@ -47,7 +47,7 @@ flowchart LR
 Dans cet exemple :
 
 - Le workflow principal reste porté par l’outil ITSM et l’orchestrateur, l’agent n’est qu’un step d’analyse et de proposition d’actions.[^3][^1]
-- Les validations sensibles passent toujours par une étape humaine, l’agent fournit le contexte et les suggestions.[^4][^5]
+- Les validations sensitives passent toujours par une étape humaine, l’agent fournit le contexte et les suggestions.[^4][^5]
 
 Le même pattern se transpose bien à d’autres workflows (onboarding client, SOC, CI/CD) en remplaçant ITSM et CMDB par tes systèmes métier.
 

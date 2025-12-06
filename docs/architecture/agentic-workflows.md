@@ -9,7 +9,7 @@ Pour intégrer des workflows Agentic AI dans des workflows existants, il faut tr
 - Identifier les “points de friction” où l’IA agentic apporte le plus : tâches manuelles, coordination multi‑outils, décisions répétitives à partir de beaucoup de contexte.[^5][^1]
 
 
-## 2. Choisir le modèle d’intégration de l’agent
+## 2. Choose le modèle d’intégration de l’agent
 
 - Intégration par API : exposer l’agent via une API REST/GraphQL que ton orchestrateur actuel (BPMN, ESB, iPaaS, n8n, Temporal, Argo, Airflow) appelle comme une étape de plus.[^6][^7][^2]
 - Intégration événementielle : l’agent est abonné à des events (Kafka, RabbitMQ, webhooks) et réagit comme un worker qui enrichit ou complète le workflow.[^3][^8]
@@ -30,7 +30,7 @@ Pour intégrer des workflows Agentic AI dans des workflows existants, il faut tr
 
 ## 5. Encadrer l’agent par des garde‑fous
 
-- Définir clairement les tâches autorisées pour l’agent (scopes) : quelles actions, sur quels systèmes, avec quels types de data, et à quelle étape du workflow.[^17][^13]
+- Définir clairement les tâches autorisées pour l’agent (scopes) : which actions, sur which systèmes, avec which types de data, et à which étape du workflow.[^17][^13]
 - Implémenter des garde‑fous : validation humaine sur certaines étapes (approvals), rollback possible, logs détaillés pour chaque décision et appel d’outil, et métriques de qualité (succès, erreurs, escalades).[^14][^3][^16]
 
 

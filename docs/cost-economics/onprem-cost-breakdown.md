@@ -1,18 +1,18 @@
 
-# Quels postes de coût inclure pour on‑premises AI
+# Which postes de cost inclure pour on‑premises AI
 
-Pour un TCO on‑premises AI crédible, il faut intégrer tous les coûts CAPEX et OPEX autour des serveurs GPU, pas seulement le prix des machines.[^1][^2]
+Pour un TCO on‑premises AI crédible, il faut intégrer tous les costs CAPEX et OPEX autour des servers GPU, pas seulement le prix des machines.[^1][^2]
 
 ## 1. CAPEX : investissement initial
 
-- Matériel de calcul : serveurs, GPUs/TPUs, CPU, RAM, stockage (NVMe, SAN/NAS), cartes réseau, switches, éventuels load balancers physiques.[^3][^4][^1]
-- Infrastructures physiques : baies, PDUs, onduleurs, câblage, espace DC ou colocation, systèmes de refroidissement additionnels si besoin.[^5][^4][^1]
-- Mise en place : coûts de conception, intégration, installation, éventuellement services d’un intégrateur pour design cluster, tuning et mise en production initiale.[^6][^3]
+- Matériel de calcul : servers, GPUs/TPUs, CPU, RAM, stockage (NVMe, SAN/NAS), cartes réseau, switches, éventuels load balancers physiques.[^3][^4][^1]
+- Infrastructures physiques : baies, PDUs, onduleurs, câblage, espace DC ou colocation, systèmes de refroidissement additionnels si need.[^5][^4][^1]
+- Mise en place : costs de conception, intégration, installation, éventuellement services d’un intégrateur pour design cluster, tuning et mise en production initiale.[^6][^3]
 
 
 ## 2. OPEX récurrents infra
 
-- Énergie : consommation serveurs GPU + PUE (refroidissement, auxiliaires). Des analyses montrent que power+cooling peut représenter 30–40% du coût d’un DC AI.[^4][^2][^1]
+- Énergie : consommation servers GPU + PUE (refroidissement, auxiliaires). Des analyses montrent que power+cooling peut représenter 30–40% du cost d’un DC AI.[^4][^2][^1]
 - Refroidissement : maintenance et fonctionnement des climatisations / free cooling, optimisation thermique, interventions préventives.[^4][^6]
 - Maintenance matérielle : contrats de support constructeurs (NBD/4h), pièces de rechange, remplacements planifiés, mises à jour firmware.[^5][^6]
 
@@ -31,11 +31,11 @@ Pour un TCO on‑premises AI crédible, il faut intégrer tous les coûts CAPEX 
 - Gestion de projet, gouvernance, audits (sécu/compliance) : temps des architectes, RSSI, DPO, etc.[^11][^9]
 
 
-## 5. Coûts “cachés” et fin de vie
+## 5. Costs “cachés” et fin de vie
 
-- Surprovisionnement et sous‑utilisation : périodes où les GPUs sont peu utilisés alors que le CAPEX est engagé, à intégrer comme coût d’opportunité.[^1][^6]
-- Renouvellement / refresh : budget pour remplacement partiel des GPUs/serveurs au bout de 3–5 ans, incluant migration et éventuelles incompatibilités.[^12][^4]
-- Risque et résilience : PCA/PRA (site de secours, réplication), assurance, coûts liés à d’éventelles indisponibilités si l’on-prem est unique.[^12][^5]
+- Surprovisionnement et sous‑usage : périodes où les GPUs sont peu utilisés alors que le CAPEX est engagé, à intégrer comme cost d’opportunité.[^1][^6]
+- Renouvellement / refresh : budget pour remplacement partiel des GPUs/servers au bout de 3–5 ans, incluant migration et éventuelles incompatibilités.[^12][^4]
+- Risque et résilience : PCA/PRA (site de secours, réplication), assurance, costs liés à d’éventelles indisponibilités si l’on-prem est unique.[^12][^5]
 
 
 ## 6. Structurer le TCO
@@ -48,7 +48,7 @@ Sur 3–5 ans, tu peux structurer ton modèle ainsi :
     + OPEX personnel (infra + MLOps + gouvernance)
     + provisions renouvellement/fin de vie.[^8][^2][^1]
 
-Ensuite, ramener ce TCO à une unité utile (par heure GPU, par 1 000 requêtes, par utilisateur) pour comparer de façon homogène à des alternatives cloud ou edge.[^13][^14][^1]
+Ensuite, ramener ce TCO à une unité utile (par heure GPU, par 1 000 requêtes, par utilisateur) pour compare de façon homogène à des alternatives cloud ou edge.[^13][^14][^1]
 <span style="display:none">[^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

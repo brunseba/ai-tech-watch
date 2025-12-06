@@ -1,7 +1,7 @@
 
 # peux-tu me faire un schema en couleur sur ce sujet
 
-Un schéma simple couleur pour les mécanismes de chiffrement, authentification et habilitation dans un processus IA peut ressembler à ceci.[^1][^2]
+Un schéma simple couleur pour les mécanismes de encryption, authentication et habilitation dans un process IA peut ressembler à ceci.[^1][^2]
 
 ```mermaid
 flowchart LR
@@ -27,16 +27,16 @@ flowchart LR
 
     %% Data
     D[Sources de data<br/>bases, fichiers, SaaS]:::data
-    C[Chiffrement au repos<br/>KMS / Vault / HSM]:::sec
+    C[Encryption au repos<br/>KMS / Vault / HSM]:::sec
     L[Logs / Audit<br/>SIEM, traces requêtes IA]:::sec
 
-    %% Flux utilisateur
+    %% Flow utilisateur
     U -->|TLS 1.3| G
     G -->|Token OIDC / JWT| I
     I -->|Contexte d'identité<br/>rôles, attributs| G
     G -->|Requête IA autorisée| S
 
-    %% Flux IA -> data
+    %% Flow IA -> data
     S -->|Requête filtrée<br/>par droits utilisateur| V
     S -->|Accès contrôlé| M
     V -->|Documents / embeddings<br/>autorisés uniquement| S
@@ -48,7 +48,7 @@ flowchart LR
     C --- V
     C --- M
 
-    S -->|Logs, prompts, réponses<br/>sans data sensibles| L
+    S -->|Logs, prompts, réponses<br/>sans data sensitives| L
     G -->|Logs accès et décisions<br/>AuthN/AuthZ| L
 ```
 
@@ -58,7 +58,7 @@ Ce schéma illustre en couleurs :
 - Violet : AuthN/AuthZ centralisées (Gateway + IdP/IAM).[^5][^6]
 - Jaune : services IA (API LLM, RAG, models).[^7][^1]
 - Vert : data et stores (sources, vectordb/features).[^2][^8]
-- Rouge : security transversale (chiffrement, coffre‑fort à clés, logs/audit).[^1][^2]
+- Rouge : security transversale (encryption, coffre‑fort à clés, logs/audit).[^1][^2]
 
 Si tu veux, ce diagramme peut être adapté à ton stack concret (Ingress K8s, Istio, Vault, Keycloak, OpenSearch, etc.) avec des noms de composants précis.
 

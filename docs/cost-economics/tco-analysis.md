@@ -1,27 +1,27 @@
 
-# Comment évaluer les coûts totaux de possession pour chaque option
+# How to evaluate les costs totaux de possession pour chaque option
 
-Pour comparer poste de travail, serveurs on‑prem et cloud, la bonne approche est de poser un modèle TCO explicite sur 3–5 ans, en séparant clairement CAPEX et OPEX, et en intégrant l’usage réel (heures GPU, volumétrie, équipes).[^1][^2]
+Pour compare workstation, servers on‑prem et cloud, la bonne approche est de poser un modèle TCO explicite sur 3–5 ans, en séparant clairement CAPEX et OPEX, et en intégrant l’usage réel (heures GPU, volumétrie, équipes).[^1][^2]
 
 ## 1. Poser le cadre TCO
 
-- Définir l'horizon (souvent 3 ou 5 ans) et la charge cible : nombre de requêtes/jour, heures d'utilisation GPU/CPU, croissance prévue, SLA.[^3][^1]
+- Définir l'horizon (souvent 3 ou 5 ans) et la charge cible : nombre de requêtes/jour, heures d'usage GPU/CPU, croissance prévue, SLA.[^3][^1]
 - Appliquer la formule TCO basique à chaque option :
-    - $TCO = CAPEX + OPEX$ sur la période, en ramenant tout en coût annuel ou mensuel par utilisateur / par 1k requêtes.[^2][^4]
+    - $TCO = CAPEX + OPEX$ sur la période, en ramenant tout en cost annuel ou mensuel par utilisateur / par 1k requêtes.[^2][^4]
 
-### Visualisation du modèle TCO
+### Visualization du modèle TCO
 
 ```mermaid
 graph TD
     A[TCO = CAPEX + OPEX] --> B[Poste de Travail]
-    A --> C[Serveur On-Prem]
+    A --> C[Server On-Prem]
     A --> D[Cloud]
     
     B --> B1[CAPEX: GPU/NPU, RAM]
     B --> B2[OPEX: Électricité, Support IT]
     B --> B3[⚠️ Amorti sur 3-5 ans]
     
-    C --> C1[CAPEX: Serveurs, GPU, DC]
+    C --> C1[CAPEX: Servers, GPU, DC]
     C --> C2[OPEX: Énergie, MLOps, Licences]
     C --> C3[✅ Économique si usage > 60%]
     
@@ -48,29 +48,29 @@ graph TD
 ```
 
 
-## 2. Poste de travail (edge)
+## 2. Workstation (edge)
 
-À évaluer pour chaque poste “IA‑capable” (GPU/accelerator) :
+À evaluate pour chaque poste “IA‑capable” (GPU/accelerator) :
 
-- CAPEX : surcoût GPU/NPU, RAM, stockage par rapport à un poste standard, amorti sur 3–5 ans.[^5][^1]
+- CAPEX : surcost GPU/NPU, RAM, stockage par rapport à un poste standard, amorti sur 3–5 ans.[^5][^1]
 - OPEX : électricité approximative liée à l’IA (kWh estimés), support IT, licences locales éventuelles, temps d’admin (MAJ models, security).[^6][^5]
 
-Pertinent si :
+Relevant si :
 
-- Utilisation modérée et locale (assistant dev, RAG perso, peu de mutualisation) et si les machines existent déjà.[^5][^6]
+- Usage modérée et locale (assistant dev, RAG perso, peu de mutualisation) et si les machines existent déjà.[^5][^6]
 
 
-## 3. Serveurs on‑prem / départementaux
+## 3. Servers on‑prem / départementaux
 
-Pour un ou plusieurs serveurs GPU :
+Pour un ou plusieurs servers GPU :
 
-- CAPEX : achat serveurs, GPUs, stockage, réseau associé, éventuellement baie et onduleurs, amortis sur 3–5 ans.[^7][^8][^6]
-- OPEX : électricité + refroidissement (coût horaire par serveur), maintenance matérielle, licences (hyperviseur, K8s enterprise, monitoring), et part de salaires pour exploitation (infra + MLOps).[^9][^7][^1]
+- CAPEX : achat servers, GPUs, stockage, réseau associé, éventuellement baie et onduleurs, amortis sur 3–5 ans.[^7][^8][^6]
+- OPEX : électricité + refroidissement (cost horaire par server), maintenance matérielle, licences (hyperviseur, K8s enterprise, monitoring), et part de salaires pour exploitation (infra + MLOps).[^9][^7][^1]
 
 Clés d’analyse :
 
-- Calculer le taux d’utilisation GPU moyen (ex. objectif >60–70%) : les études montrent que pour des charges IA stables et intensives, l’on‑prem devient plus économique que le cloud après environ 2–3 ans et peut représenter 30–50% d’économies sur 3–5 ans.[^10][^11][^7][^5]
-- Calculer le point de bascule : comparer coût horaire cloud (équivalent GPU) vs coût horaire on‑prem (énergie + amortissement), les analyses Lenovo/Dell montrent que quelques heures d’utilisation GPU par jour suffisent à rendre l’on‑prem plus rentable sur 5 ans.[^8][^12][^7]
+- Calculer le taux d’usage GPU moyen (ex. objectif >60–70%) : les études montrent que pour des charges IA stables et intensives, l’on‑prem devient plus économique que le cloud après environ 2–3 ans et peut représenter 30–50% d’économies sur 3–5 ans.[^10][^11][^7][^5]
+- Calculer le point de bascule : compare cost horaire cloud (équivalent GPU) vs cost horaire on‑prem (énergie + amortissement), les analyses Lenovo/Dell montrent que quelques heures d’usage GPU par jour suffisent à rendre l’on‑prem plus rentable sur 5 ans.[^8][^12][^7]
 
 
 ## 4. Cloud (IaaS / API LLM)
@@ -78,7 +78,7 @@ Clés d’analyse :
 Cloud IaaS (VM GPU) :
 
 - CAPEX quasi nul.
-- OPEX : coût horaire des instances GPU (à multiplier par heures d’usage + overhead réseau/stockage), frais de sortie de data, licences managées, support, etc.[^13][^7][^9]
+- OPEX : cost horaire des instances GPU (à multiplier par heures d’usage + overhead réseau/stockage), frais de sortie de data, licences managées, support, etc.[^13][^7][^9]
 
 Cloud via API LLM :
 
@@ -86,27 +86,27 @@ Cloud via API LLM :
 
 Clés d’analyse :
 
-- Idéal pour workloads bursty, POC, ou charges faibles à moyennes, où la flexibilité compense un coût unitaire élevé.[^9][^1]
-- Vérifier le coût sur un scénario “steady‑state” (ex. X requêtes/jour sur 3 ans) : plusieurs analyses montrent que pour des LLM très utilisés, le cloud peut coûter 2–3x l’on‑prem sur 3–5 ans.[^15][^17][^14]
+- Idéal pour workloads bursty, POC, ou charges faibles à moyennes, où la flexibilité compense un cost unitaire élevé.[^9][^1]
+- Vérifier le cost sur un scénario “steady‑state” (ex. X requêtes/jour sur 3 ans) : plusieurs analyses montrent que pour des LLM très utilisés, le cloud peut coster 2–3x l’on‑prem sur 3–5 ans.[^15][^17][^14]
 
 
-## 5. Comparer sur une base commune
+## 5. Compare sur une base commune
 
-- Normaliser les TCO : coût par requête, par utilisateur ou par heure GPU, pour chaque scénario (poste, on‑prem, cloud).[^1][^3]
+- Normaliser les TCO : cost par requête, par utilisateur ou par heure GPU, pour chaque scénario (poste, on‑prem, cloud).[^1][^3]
 - Tester plusieurs profils de charge :
     - Faible (tests, POC) : cloud/API gagne souvent.[^13][^9]
     - Moyen : solutions hybrides / cloud + un peu d’edge.[^4][^5]
     - Fort et stable : on‑prem (et possiblement postes puissants pour une partie des usages) devient en général nettement moins cher.[^10][^7][^6]
 
 
-## 6. Tableau de ce qu’il faut inclure
+## 6. Table de ce qu’il faut inclure
 
 | Option | CAPEX à inclure | OPEX à inclure |
 | :-- | :-- | :-- |
-| Poste de travail | Surcoût GPU/NPU, RAM, stockage. [^5] | Énergie, temps IT, licences locales, MAJ models/security. [^5][^6] |
-| Serveur on‑prem | Serveurs, GPU, stockage, réseau, DC. [^7] | Énergie, refroidissement, licences, support HW, salaires infra/MLOps. [^7][^1] |
+| Workstation | Surcost GPU/NPU, RAM, stockage. [^5] | Énergie, temps IT, licences locales, MAJ models/security. [^5][^6] |
+| Server on‑prem | Servers, GPU, stockage, réseau, DC. [^7] | Énergie, refroidissement, licences, support HW, salaires infra/MLOps. [^7][^1] |
 | Cloud IaaS | Aucun (hors setup). [^9] | Heures VM GPU, stockage, réseau, egress, support, services managés. [^9][^13] |
-| API LLM / SaaS | Aucun. [^14] | Coût par token/requête, abonnements, frais de compliance supplémentaires. [^14][^16] |
+| API LLM / SaaS | Aucun. [^14] | Cost par token/requête, abonnements, frais de compliance supplémentaires. [^14][^16] |
 
 Si tu veux, tu peux donner un ordre de grandeur de ta charge (nb d’utilisateurs, requêtes/jour, taille des models) et un budget énergétique/DC, et un petit modèle chiffré (avec hypothèses explicites) poste vs on‑prem vs cloud peut être esquissé.
 <span style="display:none">[^18][^19][^20]</span>

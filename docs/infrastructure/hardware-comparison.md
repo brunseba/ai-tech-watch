@@ -1,12 +1,12 @@
 
-# Comparer NPU GPU CPU pour latence et consommation énergétique
+# Compare NPU GPU CPU pour latence et consommation énergétique
 
 Pour l’inférence en périphérie, les CPU restent corrects mais sont nettement battus par les NPU en perf/watt, tandis que les GPU gardent l’avantage sur le throughput pour de gros models ou des batchs élevés.[^1][^2][^3]
 
 ## CPU : latence correcte, conso moyenne, perf IA limitée
 
 - Latence : très bonne sur des opérations peu parallèles (dot product, logique, pré/post‑traitement), souvent meilleure que GPU/NPU pour des petites tâches non massivement parallèles.[^2][^3]
-- Consommation : modérée, mais le coût énergétique par inférence devient vite mauvais dès que le modèle grossit ou que le volume de requêtes augmente, car le CPU n’est pas optimisé pour le calcul tensoriel.[^4][^5]
+- Consommation : modérée, mais le cost énergétique par inférence devient vite mauvais dès que le modèle grossit ou que le volume de requêtes augmente, car le CPU n’est pas optimisé pour le calcul tensoriel.[^4][^5]
 
 À utiliser pour l’orchestration, la logique métier et les petits models, mais pas comme moteur principal d’inférence pour des réseaux profonds intensifs.[^6][^4]
 
@@ -34,8 +34,8 @@ Idéal pour des inférences temps réel en batch=1 ou faible (vision, audio, LLM
 
 | Type | Latence batch=1 (edge) | Débit (gros batchs) | Conso typique | Perf par watt IA |
 | :-- | :-- | :-- | :-- | :-- |
-| CPU | Bonne sur petites ops non parallèles. [^2][^3] | Limité sur CNN/LLM, pas optimisé. [^4] | 5–65 W selon plateforme. | Faible pour réseaux profonds. [^4][^5] |
-| GPU | Plus élevée que NPU en batch=1, bonne pour gros models. [^2][^1] | Excellente pour gros batchs et grandes matrices, 2×+ le NPU sur certains cas. [^2][^3] | 15–300+ W selon carte. | Moyenne, optimisée pour perf brute plus que perf/W. [^2][^7] |
+| CPU | Bonne sur petites ops non parallèles. [^2][^3] | Limité sur CNN/LLM, pas optimisé. [^4] | 5–65 W according to plateforme. | Faible pour réseaux profonds. [^4][^5] |
+| GPU | Plus élevée que NPU en batch=1, bonne pour gros models. [^2][^1] | Excellente pour gros batchs et grandes matrices, 2×+ le NPU sur certains cas. [^2][^3] | 15–300+ W according to carte. | Moyenne, optimisée pour perf brute plus que perf/W. [^2][^7] |
 | NPU | Très basse, parfois sub‑ms, ~60% plus rapide que GPU sur certains workloads. [^2][^1] | Très bonne pour batch 1–petit, correcte pour moyens batchs. [^2] | Quelques W à quelques dizaines de W. [^2][^13] | Excellente : >2–3× le GPU en inférences/s/W sur l’edge. [^2][^1][^10] |
 
 En pratique, pour l’inférence en périphérie :

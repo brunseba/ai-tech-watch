@@ -19,8 +19,8 @@ flowchart LR
 
     A[AI Agent<br/>LLM + logique d'orchestration<br/>identité propre]:::agent
 
-    T1[Outils / APIs internes<br/>CRM, ERP, ITSM, Git, etc.]:::tool
-    T2[Outils / APIs externes<br/>SaaS, LLM APIs]:::tool
+    T1[Outils / APIs internals<br/>CRM, ERP, ITSM, Git, etc.]:::tool
+    T2[Outils / APIs externals<br/>SaaS, LLM APIs]:::tool
     DATA[Stores de data<br/>RAG, bases, buckets]:::tool
 
     POL[Policy Engine<br/>Zero Trust, least privilege,<br/>guardrails et rate limiting]:::sec
@@ -73,7 +73,7 @@ Dans cette architecture :
 
 [^10]: https://cloudsecurityalliance.org/blog/2025/09/12/fortifying-the-agentic-web-a-unified-zero-trust-architecture-against-logic-layer-threats
 
-[^11]: https://www.fluxforce.ai/blog/zero-trust-construction-using-agentic-ai-agents
+[^11]: https://www.flowforce.ai/blog/zero-trust-construction-using-agentic-ai-agents
 
 [^12]: https://www.sorbonne-universite.fr/sites/default/files/media/2025-03/BOUZEFRANE Samia_PRD1.pdf
 

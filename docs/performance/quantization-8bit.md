@@ -1,7 +1,7 @@
 
-# Quelle précision modèle perd avec quantification 8bit sur NPU
+# Which précision modèle perd avec quantification 8bit sur NPU
 
-Avec une quantification 8 bits bien faite, la plupart des models perdent très peu de précision (souvent < 1 point de pourcentage), même sur NPU edge, à condition d'utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) et d'évaluer sur ton propre cas d'usage.[^1][^2][^3]
+Avec une quantification 8 bits bien faite, la plupart des models perdent très peu de précision (souvent < 1 point de pourcentage), même sur NPU edge, à condition d'utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) et d'evaluate sur ton propre cas d'usage.[^1][^2][^3]
 
 ## Compromis Précision vs Performance
 
@@ -45,23 +45,23 @@ graph LR
     style M3 fill:#ffcdd2
 ```
 
-## Ordres de grandeur typiques en INT8
+## Orders de grandeur typiques en INT8
 
 - Vision / classiques (ResNet, EfficientNet, etc.) : de nombreuses études montrent des écarts de l’ordre de 0–1 point de précision top‑1 entre FP32/FP16 et INT8 post‑training quantization bien calibrée.[^4][^2][^3]
 - LLM et models texte : les guides récents indiquent qu’un INT8 “moderne” (LLM.int8, SmoothQuant, AWQ, etc.) perd généralement < 1 point sur des benchmarks globaux, parfois quasi rien avec QAT (quantization‑aware training).[^5][^6][^7][^8][^4]
 
 Un exemple chiffré issu d’une étude pédagogique : un modèle passant de 85% à 83,5% en INT8 PTQ (≈1,5 point), alors que INT8 QAT remonte à 84,8% (écart résiduel 0,2 point).[^4]
 
-## Spécificités côté NPU edge
+## Specificities côté NPU edge
 
 - La plupart des NPUs imposent INT8 statique pour poids et activations, avec calibration offline et toolchain propriétaire.[^9]
 - Sur ces plateformes, les travaux récents montrent qu’un INT8 bien aligné avec le compilateur NPU peut rester dans la même plage de perte qu’en GPU/CPU (souvent < 1–2 points), mais :
     - La qualité dépend fortement de la calibration (jeu de data représentatif) et de l’algorithme de quantification choisi.[^10][^3][^9]
-    - Une quantification naïve ou mal calibrée peut provoquer des chutes plus sévères, surtout pour des models très sensibles (LLM, models avec fortes valeurs extrêmes).[^7][^3][^10]
+    - Une quantification naïve ou mal calibrée peut provoquer des chutes plus sévères, surtout pour des models très sensitives (LLM, models avec fortes valeurs extrêmes).[^7][^3][^10]
 
 Des méthodes comme SmoothQuant, LLM.int8, Quant‑Trim ou QAT sont justement conçues pour rendre ces INT8 robustes aux différences de backend (GPU vs NPU) et réduire la variabilité de précision.[^6][^11][^7][^9]
 
-## Règles pratiques pour estimer la perte
+## Rules pratiques pour estimer la perte
 
 - Attente réaliste pour du INT8 bien fait :
     - Vision / classification / détection : souvent 0–1 point de perte, parfois négligeable.[^2][^4]

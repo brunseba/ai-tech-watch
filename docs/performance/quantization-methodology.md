@@ -1,17 +1,17 @@
 
-# Méthodologie pour mesurer perte de précision après quantification
+# Methodology pour mesurer perte de précision après quantification
 
-La bonne méthodologie consiste à évaluer le modèle float et le modèle quantifié dans les mêmes conditions, avec les mêmes métriques et le même jeu de test, puis à analyser l’écart global et par cas.[^1][^2]
+La bonne methodology consiste à evaluate le modèle float et le modèle quantifié dans les mêmes conditions, avec les mêmes métriques et le même jeu de test, puis à analyser l’écart global et par cas.[^1][^2]
 
 ## 1. Définir ce qu’on mesure
 
-- Choisir les métriques métier : accuracy, F1, mAP, BLEU/ROUGE, WER, ou perplexité/score RAG pour LLM, selon la tâche.[^2][^3]
+- Choose les métriques métier : accuracy, F1, mAP, BLEU/ROUGE, WER, ou perplexité/score RAG pour LLM, according to la tâche.[^2][^3]
 - Fixer un seuil acceptable de perte (ex. ≤ 1–2 points d’accuracy, ou pas de dégradation significative sur tes KPI métier).[^4][^5]
 
 
 ## 2. Constituer jeux de test et calibration
 
-- Jeu de test : représentatif des data réelles, suffisamment grand (et figé) pour comparer float vs INT8 de manière robuste.[^6][^2]
+- Jeu de test : représentatif des data réelles, suffisamment grand (et figé) pour compare float vs INT8 de manière robuste.[^6][^2]
 - Jeu de calibration (PTQ) : sous‑ensemble sans labels (ou avec) utilisé pour calibrer les activations sur la target (NPU), distinct du test. Sa qualité impacte directement la perte de précision.[^7][^8][^6]
 
 
@@ -31,13 +31,13 @@ La bonne méthodologie consiste à évaluer le modèle float et le modèle quant
 
 Perte de précision :
 
-- $\Delta = \text{métrique}_{INT8} - \text{métrique}_{float}$ (souvent attendue entre −1% et −5% selon tâches et qualité de la quantif).[^14][^15][^5]
+- $\Delta = \text{métrique}_{INT8} - \text{métrique}_{float}$ (souvent attendue entre −1% et −5% according to tâches et qualité de la quantif).[^14][^15][^5]
 
 
 ## 5. Analyses complémentaires (diagnostic)
 
 - Comparaison fine des sorties :
-    - Comparer outputs float vs INT8 sur un échantillon (cosine similarity, MSE, PSNR sur les tensors) pour identifier les couches les plus sensibles.[^16][^11]
+    - Compare outputs float vs INT8 sur un échantillon (cosine similarity, MSE, PSNR sur les tensors) pour identifier les couches les plus sensitives.[^16][^11]
 - Analyses par segment :
     - Regarder s’il y a dégradation spécifique sur certaines classes, longueurs de contexte, raretés, etc., y compris sur métriques RAG (exact match, nDCG).[^17][^4]
 
@@ -47,10 +47,10 @@ Perte de précision :
 En cas de perte trop importante :
 
 - Ajuster la quantification : per‑channel plutôt que per‑tensor, meilleur clipping, calibration mieux représentative.[^18][^7][^4]
-- Passer à des schémas hybrides : W8/A16, INT8 pour couches “robustes” et FP16 pour couches sensibles (embeddings, attention output).[^1][^17][^4]
-- Si besoin, utiliser QAT pour regagner une grande partie de la précision perdue.[^19][^6]
+- Passer à des schémas hybrides : W8/A16, INT8 pour couches “robustes” et FP16 pour couches sensitives (embeddings, attention output).[^1][^17][^4]
+- Si need, utiliser QAT pour regagner une grande partie de la précision perdue.[^19][^6]
 
-En pratique, la méthode minimale fiable est : même dataset de test, même métriques, run float → run INT8 sur NPU → comparer globalement et par segments métiers, puis, si nécessaire, ajouter une analyse layer‑wise (PSNR/MSE) pour cibler les corrections.[^3][^11][^2]
+En pratique, la méthode minimale fiable est : même dataset de test, même métriques, run float → run INT8 sur NPU → compare globalement et par segments métiers, puis, si nécessaire, ajouter une analyse layer‑wise (PSNR/MSE) pour cibler les corrections.[^3][^11][^2]
 <span style="display:none">[^20][^21][^22][^23]</span>
 
 <div align="center">⁂</div>
