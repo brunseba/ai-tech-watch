@@ -1,41 +1,41 @@
 
 # when to use un CPU versus GPU versus TPU versus NPU
 
-CPU, GPU, TPU et NPU se choisissent en fonction du type de tâche (généraliste vs massivement parallèle), de l’échelle (edge vs datacenter), de la consommation énergétique et de ton écosystème (on‑prem vs cloud, TensorFlow vs PyTorch).[^1][^2][^3]
+CPU, GPU, TPU and NPU se choisissent en fonction du type de tâche (généraliste vs massivement parallèle), de l’échelle (edge vs datacenter), de la consumption énergétique and de ton écosystème (on‑prem vs cloud, TensorFlow vs PyTorch).[^1][^2][^3]
 
 ## When to use un CPU
 
-- Tâches générales et logique complexe : orchestration, pré/post‑traitement, requêtes BDD, API, feature engineering léger, petits models classiques (arbres, régressions).[^4][^5][^3]
-- Petits models ou faible volume : inférence sur models légers, scripts batch, micro‑services IA peu sollicités, là où la latence et le throughput ne justifient pas un accélérateur.[^5][^4]
+- Tâches générales and logique complexe : orchestration, pré/post‑traitement, requêtes BDD, API, feature engineering léger, petits models classiques (arbres, régressions).[^4][^5][^3]
+- Petits models or faible volume : inference on models légers, scripts batch, micro‑services IA peu sollicités, là où la latency and le throughput ne justifient pas un accélérateur.[^5][^4]
 
-À privilégier pour : orchestrateurs d’agents, services REST, jobs de glue code, et pour l’IA “light” dans des systèmes existants.[^6][^3]
+À privilégier for : orchestrateurs d’agents, services REST, jobs de glue code, and for l’IA “light” in des systèmes existants.[^6][^3]
 
 ## When to use un GPU
 
-- Entraînement et fine‑tuning de models profonds : gros réseaux, LLM, vision, où la multiplication de matrices batte la mesure.[^7][^1]
-- Inférence à moyenne ou grande échelle : servers RAG, chatbots multi‑utilisateurs, pipelines batch intensifs, quand tu veux maximiser throughput ou réduire fortement la latence.[^8][^2][^9]
+- Training and fine‑tuning de models profonds : gros networkx, LLM, vision, où la multiplication de matrices batte la mesure.[^7][^1]
+- Inference à moyenne or grande échelle : servers RAG, chatbots multi‑utilisateurs, pipelines batch intensifs, quand tu veux maximiser throughput or réduire fortement la latency.[^8][^2][^9]
 
-À privilégier pour : datacenters, servers K8s, postes de travail IA, là où tu veux un bon mix flexibilité / perf / écosystème (CUDA, ROCm).[^3][^8][^4]
+À privilégier for : datacenters, servers K8s, postes de travail IA, là où tu veux un bon mix flexibilité / perf / écosystème (CUDA, ROCm).[^3][^8][^4]
 
 ## When to use un TPU
 
-- Workloads TensorFlow massifs : Google TPU est optimisé pour les ops tenseur (matmul) et montre un excellent ratio perf/watt en training/inférence pour des models DL bien alignés avec l’archi.[^2][^1][^7]
-- Hyperscale sur Google Cloud : grands entraînements ou inférence de gros models lorsque tu es déjà dans l’écosystème GCP et que ton code est adapté (TF/XLA, JAX).[^9][^8][^4]
+- Workloads TensorFlow massifs : Google TPU is optimisé for les ops tenseur (matmul) and montre un excellent ratio perf/watt en training/inference for des models DL bien alignés with l’archi.[^2][^1][^7]
+- Hyperscale on Google Cloud : grands trainings or inference de gros models lorsque tu es déjà in l’écosystème GCP and que ton code is adapté (TF/XLA, JAX).[^9][^8][^4]
 
-À privilégier pour : gros projets DL sur GCP, TensorFlow/JAX‑first, où l’optimisation cost/latence sur TPU est prioritaire à la portabilité.[^2][^7]
+À privilégier for : gros projets DL on GCP, TensorFlow/JAX‑first, où l’optimisation cost/latency on TPU is prioritaire à la portabilité.[^2][^7]
 
 ## When to use un NPU
 
-- Edge et on‑device : mobiles, caméras, robots, NAS, passerelles industrielles, où l’IA doit tourner localement avec quelques watts, parfois en “always‑on” (vision, wake‑word, filtrage, LLM local compact).[^10][^1][^6]
-- Inférence temps réel basse conso : benchmarks récents montrent que les NPUs peuvent offrir des latences comparables ou meilleures que des GPUs pour l’inférence, avec 2–10× moins de puissance consommée.[^11][^12][^10][^2]
+- Edge and on‑device : mobiles, caméras, robots, NAS, passerelles industrielles, où l’IA must tourner localement with quelques watts, sometimes en “always‑on” (vision, wake‑word, filtrage, LLM local compact).[^10][^1][^6]
+- Inference temps réel basse conso : benchmarks récents montrent que les NPUs can offrir des latencys comparables or meilleures que des GPUs for l’inference, with 2–10× moins de power consommée.[^11][^12][^10][^2]
 
-À privilégier pour : deployments embarqués/edge, assistants locaux, scénarios où la perf/watt et la confidentialité locale priment sur la flexibilité maximale.[^13][^6][^9]
+À privilégier for : deployments embarqués/edge, assistants locaux, scénarios où la perf/watt and la confidentialité locale priment on la flexibilité maximale.[^13][^6][^9]
 
 ## Summary pratique
 
 ```mermaid
 graph TD
-    A[Sélection Matériel IA] --> B{Type de Charge?}
+    A[Sélection Hardware IA] --> B{Type de Load?}
     
     B -->|Orchestration| C[CPU]
     B -->|Training/Inference| D{Où?}
@@ -70,9 +70,9 @@ graph TD
 ### Récapitulatif
 
 - CPU : orchestration, logique métier, petits models, low‑volume, partout.[^4][^3]
-- GPU : entraînement et inférence intensifs, multi‑utilisateurs, datacenter et postes IA.[^1][^8][^9]
-- TPU : gros TensorFlow/JAX sur GCP, hyperscale optimisé cost/énergie.[^7][^2]
-- NPU : edge / mobile / on‑device, IA embarquée, LLM compacts, contraintes fortes d'énergie et de confidentialité.[^10][^6][^1]
+- GPU : training and inference intensifs, multi‑utilisateurs, datacenter and postes IA.[^1][^8][^9]
+- TPU : gros TensorFlow/JAX on GCP, hyperscale optimisé cost/energy.[^7][^2]
+- NPU : edge / mobile / on‑device, IA embarquée, LLM compacts, contraintes fortes d'energy and de confidentialité.[^10][^6][^1]
 <span style="display:none">[^14][^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

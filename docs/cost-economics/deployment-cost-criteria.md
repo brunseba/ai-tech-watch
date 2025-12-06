@@ -1,43 +1,43 @@
 
-# Which critères prioriser pour choose entre poste, server departmental, cloud
+# Which critères prioriser for choose between poste, server departmental, cloud
 
-Les critères à prioriser sont, dans l’ordre, la sensibilité des data / conformité, les requirements de latence et de connectivité, puis le profil de charge et le modèle de costs (CAPEX/OPEX).[^1][^2][^3]
+Les critères à prioriser sont, in l’ordre, la sensibilité des data / conformité, les requirements de latency and de connectivité, puis le profil de load and le modèle de costs (CAPEX/OPEX).[^1][^2][^3]
 
-## 1. Sensibilité des data et conformité
+## 1. Sensibilité des data and conformité
 
-- Data très sensitives ou fortement réglementées (santé, finance, défense, secrets industriels) poussent vers poste ou server on‑prem, où l’organisation garde le control sur la localisation et l’accès.[^4][^5][^2]
-- Data peu sensitives ou déjà externalisées (logs anonymisés, contenus publics) peuvent être traitées en cloud sans risque majeur, surtout avec des régions conformes et des contrats adaptés.[^6][^1]
-
-
-## 2. Latence, temps réel et connectivité
-
-- Need de temps réel strict ou de fonctionnement en mode déconnecté (ateliers, terrain, agences mal connectées) : priorité au workstation ou au server departmental (edge/on‑prem).[^7][^8][^9]
-- Cas où la latence tolère un aller‑retour réseau et où la connectivité est bonne et stable : cloud adapté, surtout pour workloads lourds ou distribué globalement.[^10][^3]
+- Data très sensitives or fortement réglementées (santé, finance, défense, secrets industriels) poussent vers poste or server on‑prem, où l’organisation garde le control on la localisation and l’accès.[^4][^5][^2]
+- Data peu sensitives or déjà externalisées (logs anonymisés, contenus publics) can être traitées en cloud without risque majeur, surtout with des régions conformes and des contrats adaptés.[^6][^1]
 
 
-## 3. Profil de charge et scalabilité
+## 2. Latency, temps réel and connectivité
 
-- Charge stable et prévisible, avec usage intensif de l’IA (inférence continue, nombreux appels) : avantage à l’on‑prem (server departmental ou DC) en cost par requête sur le moyen/long terme.[^11][^12][^13]
-- Charge très variable, expérimentations fréquentes, need de monter/descendre vite : cloud prioritaire pour bénéficier de l’élasticité et du time‑to‑market.[^14][^4][^1]
+- Need de temps réel strict or de fonctionnement en mode déconnecté (ateliers, terrain, agences mal connectées) : priorité au workstation or au server departmental (edge/on‑prem).[^7][^8][^9]
+- Cas où la latency tolère un aller‑retour network and où la connectivité is bonne and stable : cloud adapté, surtout for workloads lourds or distribué globalement.[^10][^3]
 
 
-## 4. Modèle économique et ressources internals
+## 3. Profil de load and scalabilité
 
-- Capacité à investir en CAPEX et à gérer une plateforme (équipe infra/MLOps) : on‑prem/server departmental devient intéressant en TCO à volume suffisant.[^12][^13][^11]
-- Si l’on veut maximiser OPEX, limiter l’admin infra et démarrer vite, le cloud (IaaS ou API) est à privilégier, éventuellement complété par un peu d’edge pour les cas sensitives.[^15][^5][^4]
+- Load stable and prévisible, with usage intensif de l’IA (inference continue, nombreux appels) : avantage à l’on‑prem (server departmental or DC) en cost par requête on le moyen/long terme.[^11][^12][^13]
+- Load très variable, expérimentations fréquentes, need de monter/descendre vite : cloud prioritaire for bénéficier de l’élasticité and du time‑to‑market.[^14][^4][^1]
+
+
+## 4. Modèle économique and ressources internals
+
+- Capacité à investir en CAPEX and à gérer une plateforme (équipe infra/MLOps) : on‑prem/server departmental devient intéressant en TCO à volume suffisant.[^12][^13][^11]
+- Si l’on veut maximiser OPEX, limiter l’admin infra and démarrer vite, le cloud (IaaS or API) is à privilégier, éventuellement complété par un peu d’edge for les cas sensitives.[^15][^5][^4]
 
 
 ## 5. Synthèse de décision
 
 | Critère prioritaire | Workstation | Server departmental on‑prem | Cloud public / managé |
 | :-- | :-- | :-- | :-- |
-| Data très sensitives | Oui (usage individuel). [^2] | Oui (mutualisé, périmètre maîtrisé). [^4] | À éviter ou à limiter/anonymiser. [^1] |
-| Latence temps réel / offline | Oui, idéal. [^7][^8] | Oui en local. [^9] | Non prioritaire. [^3][^10] |
-| Charge stable et massive | Limité (monoutil). [^16] | Oui, bon cost unitaire. [^11][^12] | Possible mais plus cher à long terme. [^13] |
-| Charge très variable | Non optimal. [^16] | Moins adapté. [^11] | Oui, élasticité et rapidité. [^1][^14] |
-| Peu de ressources infra | Simple mais peu industrialisable. [^2] | Demande une vraie équipe. [^5] | Cloud/API à privilégier. [^15][^17] |
+| Data très sensitives | Oui (usage individuel). [^2] | Oui (mutualisé, périmètre maîtrisé). [^4] | À éviter or à limiter/anonymiser. [^1] |
+| Latency temps réel / offline | Oui, idéal. [^7][^8] | Oui en local. [^9] | Non prioritaire. [^3][^10] |
+| Load stable and massive | Limité (monoutil). [^16] | Oui, bon cost unitaire. [^11][^12] | Possible but plus cher à long terme. [^13] |
+| Load très variable | Non optimal. [^16] | Moins adapté. [^11] | Oui, élasticité and rapidité. [^1][^14] |
+| Peu de ressources infra | Simple but peu industrialisable. [^2] | Demande une vraie équipe. [^5] | Cloud/API à privilégier. [^15][^17] |
 
-En pratique, pour des workloads sensitives, un mix est souvent optimal : poste/server pour les traitements critiques sur data confidentialles, cloud pour entraînement, explorations et workloads moins sensitives.[^9][^12]
+En pratique, for des workloads sensitives, un mix is often optimal : poste/server for les traitements critiques on data confidentialles, cloud for training, explorations and workloads moins sensitives.[^9][^12]
 <span style="display:none">[^18][^19][^20]</span>
 
 <div align="center">⁂</div>

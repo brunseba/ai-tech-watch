@@ -1,9 +1,9 @@
 
-# un schema pour le cas d'usage AI Agentic
+# un schema for le cas d'usage AI Agentic
 
-Pour un cas d’usage AI agentic, le schéma doit montrer clairement que l’agent est une identité à part entière, avec permissions minimales, audit complet et appels outillés sous control.[^1][^2]
+Pour un cas d’usage AI agentic, le schéma must montrer clairement que l’agent is une identité à part entière, with permissions minimales, audit complet and appels outillés sous control.[^1][^2]
 
-## Schéma Mermaid en couleur pour AI agentic
+## Schéma Mermaid en couleur for AI agentic
 
 ```mermaid
 flowchart LR
@@ -14,7 +14,7 @@ flowchart LR
     classDef infra fill:#ede7f6,stroke:#5e35b1,color:#311b92;
 
     U[Utilisateur<br/>SSO OIDC + MFA]:::user
-    CONS[Consentement et scope<br/>ce que l'agent peut faire]:::sec
+    CONS[Consentement and scope<br/>ce que l'agent can faire]:::sec
     IAM[Identity / IAM<br/>RBAC + ABAC<br/>tokens courts]:::infra
 
     A[AI Agent<br/>LLM + logique d'orchestration<br/>identité propre]:::agent
@@ -23,15 +23,15 @@ flowchart LR
     T2[Outils / APIs externals<br/>SaaS, LLM APIs]:::tool
     DATA[Stores de data<br/>RAG, bases, buckets]:::tool
 
-    POL[Policy Engine<br/>Zero Trust, least privilege,<br/>guardrails et rate limiting]:::sec
+    POL[Policy Engine<br/>Zero Trust, least privilege,<br/>guardrails and rate limiting]:::sec
     MON[Monitoring / Audit<br/>logs détaillés actions agent,<br/>détection anomalies]:::sec
 
     U -->|Login SSO| IAM
     IAM -->|Contexte utilisateur<br/>rôles, attributs, scopes| CONS
     CONS -->|Scope délégué à l'agent| A
 
-    A -->|Token agent scoped<br/>court et limité| POL
-    POL -->|Autorise ou bloque<br/>outil ou donnée| A
+    A -->|Token agent scoped<br/>court and limité| POL
+    POL -->|Autorise or bloque<br/>outil or donnée| A
 
     A -->|Appels outils autorisés| T1
     A -->|Appels APIs autorisés| T2
@@ -41,14 +41,14 @@ flowchart LR
     POL -->|Événements de décision| MON
     T1 -->|Logs d'usage| MON
     T2 -->|Logs d'usage| MON
-    DATA -->|Accès et requêtes| MON
+    DATA -->|Accès and requêtes| MON
 ```
 
 Dans cette architecture :
 
-- L’utilisateur délègue explicitement un scope à l’agent, traité comme une application tierce avec consentement et permissions strictes.[^3][^4]
-- L’agent possède sa propre identité et ne peut appeler outils/data qu’à travers un moteur de politiques Zero Trust qui applique least privilege, tokens courts et garde‑fous.[^5][^6][^1]
-- Toutes les actions (prompts, appels d’outils, accès data) sont journalisées et surveillées pour détecter anomalies, abus de privilèges ou attaques multi‑agents.[^2][^7][^8]
+- L’utilisateur délègue explicitement un scope à l’agent, traité comme une application tierce with consentement and permissions strictes.[^3][^4]
+- L’agent possède sa propre identité and ne can appeler outils/data qu’à travers un moteur de politiques Zero Trust qui applique least privilege, tokens courts and garde‑fous.[^5][^6][^1]
+- Toutes les actions (prompts, appels d’outils, accès data) are journalisées and surveillées for détecter anomalies, abus de privilèges or attaques multi‑agents.[^2][^7][^8]
 <span style="display:none">[^10][^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^9]</span>
 
 <div align="center">⁂</div>

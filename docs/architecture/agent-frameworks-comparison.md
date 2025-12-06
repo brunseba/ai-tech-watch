@@ -44,30 +44,30 @@ graph TB
 
 ## Frameworks code‑first (Python/TypeScript)
 
-- LangGraph / LangChain : très adapté si tu veux des workflows agentiques explicites (graphes, nœuds, état, multi‑agents), avec un gros écosystème RAG, outils et intégrations.[^4][^5][^1]
-- Semantic Kernel (Microsoft) : orienté “enterprise orchestration” avec notions de skills, planners, policies et intégration profonde Azure / M365, utile si tu es déjà très Microsoft.[^3][^4]
-- CrewAI : pratique pour des “teams” d’agents avec rôles (researcher, writer, reviewer), focus sur collaboration entre agents plutôt que sur la structure du graphe.[^6][^1][^4]
-- AutoGen : très bon pour multi‑agents expérimentaux et asynchrones, plutôt orienté R\&D et prototypage poussé.[^7][^1][^6]
+- LangGraph / LangChain : très adapté if tu veux des workflows agentiques explicites (graphes, nœuds, état, multi‑agents), with un gros écosystème RAG, outils and intégrations.[^4][^5][^1]
+- Semantic Kernel (Microsoft) : orienté “enterprise orchestration” with notions de skills, planners, policies and intégration profonde Azure / M365, utile if tu es déjà très Microsoft.[^3][^4]
+- CrewAI : pratique for des “teams” d’agents with rôles (researcher, writer, reviewer), focus on collaboration between agents plutôt que on la structure du graphe.[^6][^1][^4]
+- AutoGen : très bon for multi‑agents expérimentaux and asynchrones, plutôt orienté R\&D and prototypage poussé.[^7][^1][^6]
 
 
 ## Frameworks visuels / low‑code
 
-- n8n, Flowise, Make, Langflow : utiles pour composer rapidement des workflows où l’agent est un bloc parmi d’autres (APIs, files, webhooks), pratique pour intégrer dans ton SI existant sans tout recoder.[^2][^8][^9][^10]
-- Plateformes d’orchestration agentique (Vellum, GenFuse, etc.) : plus orientées produit SaaS avec observabilité, évals et gouvernance intégrées si tu veux une solution clef en main plutôt qu’un framework pur.[^11][^12][^6]
+- n8n, Flowise, Make, Langflow : utiles for composer rapidement des workflows où l’agent is un bloc parmi d’autres (APIs, files, webhooks), pratique for intégrer in ton SI existant without tout recoder.[^2][^8][^9][^10]
+- Plateformes d’orchestration agentique (Vellum, GenFuse, etc.) : plus orientées produit SaaS with observabilité, évals and gouvernance intégrées if tu veux une solution clef en main plutôt qu’un framework pur.[^11][^12][^6]
 
 
 ## Services managés d’agents
 
-- OpenAI Agents / Agent Builder, Amazon Bedrock Agents : conviennent si tu acceptes le lock‑in cloud et veux un service managé avec scaling, security et monitoring déjà intégrés.[^11][^2][^6]
+- OpenAI Agents / Agent Builder, Amazon Bedrock Agents : conviennent if tu acceptes le lock‑in cloud and veux un service managé with scaling, security and monitoring déjà intégrés.[^11][^2][^6]
 
 
 ## Recommendation according to ton profil
 
-- Pour un usage dev / plateforme internal Kubernetes, avec need de control fort sur les graphes, la gestion d’état et l’observabilité : LangGraph (+ LangChain) est un très bon candidat.[^5][^1][^4]
-- Pour du multi‑agents orienté rôles et process métier (researcher, coder, reviewer) avec code Python simple : CrewAI + éventuellement LangGraph comme orchestrateur sous‑jacent.[^1][^4][^6]
-- Si ton stack est très Azure / Microsoft : Semantic Kernel pour l’orchestration, combiné à un framework multi‑agents (CrewAI, AutoGen) si nécessaire.[^4][^3]
+- Pour un usage dev / plateforme internal Kubernetes, with need de control fort on les graphes, la gestion d’état and l’observabilité : LangGraph (+ LangChain) is un très bon candidat.[^5][^1][^4]
+- Pour du multi‑agents orienté rôles and process métier (researcher, coder, reviewer) with code Python simple : CrewAI + éventuellement LangGraph comme orchestrateur sous‑jacent.[^1][^4][^6]
+- Si ton stack is très Azure / Microsoft : Semantic Kernel for l’orchestration, combiné à un framework multi‑agents (CrewAI, AutoGen) if nécessaire.[^4][^3]
 
-Si tu me donnes un cas d’usage cible (ex. “agent pour tickets ITSM sur K8s avec RAG internal”), je peux te proposer un trio concret “framework agentique + orchestrateur + libs RAG” avec quelques blocs d’archi.
+Si tu me donnes un cas d’usage cible (ex. “agent for tickets ITSM on K8s with RAG internal”), je peux te proposer un trio concret “framework agentique + orchestrateur + libs RAG” with quelques blocs d’archi.
 <span style="display:none">[^13][^14][^15][^16][^17][^18][^19][^20][^21]</span>
 
 <div align="center">⁂</div>

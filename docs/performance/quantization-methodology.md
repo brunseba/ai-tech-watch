@@ -1,56 +1,56 @@
 
-# Methodology pour mesurer perte de précision après quantification
+# Methodology for mesurer perte de precision après quantization
 
-La bonne methodology consiste à evaluate le modèle float et le modèle quantifié dans les mêmes conditions, avec les mêmes métriques et le même jeu de test, puis à analyser l’écart global et par cas.[^1][^2]
+La bonne methodology consiste à evaluate le modèle float and le modèle quantifié in les mêmes conditions, with les mêmes métriques and le même jeu de test, puis à analyser l’écart global and par cas.[^1][^2]
 
 ## 1. Définir ce qu’on mesure
 
-- Choose les métriques métier : accuracy, F1, mAP, BLEU/ROUGE, WER, ou perplexité/score RAG pour LLM, according to la tâche.[^2][^3]
-- Fixer un seuil acceptable de perte (ex. ≤ 1–2 points d’accuracy, ou pas de dégradation significative sur tes KPI métier).[^4][^5]
+- Choose les métriques métier : accuracy, F1, mAP, BLEU/ROUGE, WER, or perplexité/score RAG for LLM, according to la tâche.[^2][^3]
+- Fixer un seuil acceptable de perte (ex. ≤ 1–2 points d’accuracy, or pas de dégradation significative on tes KPI métier).[^4][^5]
 
 
-## 2. Constituer jeux de test et calibration
+## 2. Constituer jeux de test and calibration
 
-- Jeu de test : représentatif des data réelles, suffisamment grand (et figé) pour compare float vs INT8 de manière robuste.[^6][^2]
-- Jeu de calibration (PTQ) : sous‑ensemble sans labels (ou avec) utilisé pour calibrer les activations sur la target (NPU), distinct du test. Sa qualité impacte directement la perte de précision.[^7][^8][^6]
+- Jeu de test : représentatif des data réelles, suffisamment grand (et figé) for compare float vs INT8 de manière robuste.[^6][^2]
+- Jeu de calibration (PTQ) : sous‑ensemble without labels (ou avec) utilisé for calibrer les activations on la target (NPU), distinct du test. Sa qualité impacte directement la perte de precision.[^7][^8][^6]
 
 
 ## 3. Mesurer la référence float
 
-- Exécuter le modèle non quantifié (FP32/FP16) sur le jeu de test complet.[^9][^10]
+- Exécuter le modèle non quantifié (FP32/FP16) on le jeu de test complet.[^9][^10]
 - Enregistrer :
     - Les métriques globales (accuracy, F1, etc.).
-    - Optionnel : des métriques par classe / segment (types de requêtes, tailles d’entrée) pour voir où ça se dégrade après quantification.[^11][^2]
+    - Optionnel : des métriques par classe / segment (types de requêtes, tailles d’entrée) for voir où ça se dégrade après quantization.[^11][^2]
 
 
-## 4. Quantifier, déployer sur NPU, re‑mesurer
+## 4. Quantifier, déployer on NPU, re‑mesurer
 
-- Appliquer la quantification INT8 (PTQ ou QAT) avec la toolchain du NPU (TFLite, OpenVINO, TensorRT, SDK vendor, etc.).[^12][^13][^7]
-- Déployer le modèle sur le NPU et exécuter EXACTEMENT le même jeu de test, avec la même pipeline de pré/post‑traitement.[^2][^9]
-- Calculer les mêmes métriques que pour le modèle float.[^6][^2]
+- Appliquer la quantization INT8 (PTQ or QAT) with la toolchain du NPU (TFLite, OpenVINO, TensorRT, SDK vendor, etc.).[^12][^13][^7]
+- Déployer le modèle on le NPU and exécuter EXACTEMENT le même jeu de test, with la même pipeline de pré/post‑traitement.[^2][^9]
+- Calculer les mêmes métriques que for le modèle float.[^6][^2]
 
-Perte de précision :
+Perte de precision :
 
-- $\Delta = \text{métrique}_{INT8} - \text{métrique}_{float}$ (souvent attendue entre −1% et −5% according to tâches et qualité de la quantif).[^14][^15][^5]
+- $\Delta = \text{métrique}_{INT8} - \text{métrique}_{float}$ (often attendue between −1% and −5% according to tâches and qualité de la quantif).[^14][^15][^5]
 
 
 ## 5. Analyses complémentaires (diagnostic)
 
 - Comparaison fine des sorties :
-    - Compare outputs float vs INT8 sur un échantillon (cosine similarity, MSE, PSNR sur les tensors) pour identifier les couches les plus sensitives.[^16][^11]
+    - Compare outputs float vs INT8 on un échantillon (cosine similarity, MSE, PSNR on les tensors) for identifier les couches les plus sensitives.[^16][^11]
 - Analyses par segment :
-    - Regarder s’il y a dégradation spécifique sur certaines classes, longueurs de contexte, raretés, etc., y compris sur métriques RAG (exact match, nDCG).[^17][^4]
+    - Regarder s’il y a dégradation spécifique on certaines classes, longueurs de contexte, raretés, etc., y compris on métriques RAG (exact match, nDCG).[^17][^4]
 
 
 ## 6. Boucle d’itération
 
 En cas de perte trop importante :
 
-- Ajuster la quantification : per‑channel plutôt que per‑tensor, meilleur clipping, calibration mieux représentative.[^18][^7][^4]
-- Passer à des schémas hybrides : W8/A16, INT8 pour couches “robustes” et FP16 pour couches sensitives (embeddings, attention output).[^1][^17][^4]
-- Si need, utiliser QAT pour regagner une grande partie de la précision perdue.[^19][^6]
+- Ajuster la quantization : per‑channel plutôt que per‑tensor, meilleur clipping, calibration mieux représentative.[^18][^7][^4]
+- Passer à des schémas hybrides : W8/A16, INT8 for couches “robustes” and FP16 for couches sensitives (embeddings, attention output).[^1][^17][^4]
+- Si need, utiliser QAT for regagner une grande partie de la precision perdue.[^19][^6]
 
-En pratique, la méthode minimale fiable est : même dataset de test, même métriques, run float → run INT8 sur NPU → compare globalement et par segments métiers, puis, si nécessaire, ajouter une analyse layer‑wise (PSNR/MSE) pour cibler les corrections.[^3][^11][^2]
+En pratique, la méthode minimale fiable is : même dataset de test, même métriques, run float → run INT8 on NPU → compare globalement and par segments métiers, puis, if nécessaire, ajouter une analyse layer‑wise (PSNR/MSE) for cibler les corrections.[^3][^11][^2]
 <span style="display:none">[^20][^21][^22][^23]</span>
 
 <div align="center">⁂</div>

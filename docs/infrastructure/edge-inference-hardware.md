@@ -1,40 +1,40 @@
 
-# Which matériel choose pour l'inférence en périphérie
+# Which hardware choose for l'inference en périphérie
 
-Le choice du matériel d’inférence en périphérie dépend surtout de la complexité du modèle, de la latence voulue, du budget énergie et du type de device (capteur, gateway, edge server).[^1][^2]
+Le choice du hardware d’inference en périphérie dépend surtout de la complexité du modèle, de la latency voulue, du budget energy and du type de device (capteur, gateway, edge server).[^1][^2]
 
 ## Principaux cas de figure
 
 - Micro‑capteurs, wearables, petits NAS :
-    - Matériel : MCU ou SoC léger (ARM Cortex‑M/A avec petit NPU ou DSP).[^3][^4][^1]
+    - Hardware : MCU or SoC léger (ARM Cortex‑M/A with petit NPU or DSP).[^3][^4][^1]
     - Usage : détection simple (vibration, audio clé, petits CNN quantifiés, rules).
-    - Examples : STM32 AI, NXP i.MX RT, Renesas RA/CM, ESP32 avec accélération basique.[^4][^1]
+    - Examples : STM32 AI, NXP i.MX RT, Renesas RA/CM, ESP32 with accélération basique.[^4][^1]
 - Gateway / box industrielle / NAS “smart” :
-    - Matériel : SoC x86/ARM avec iGPU ou petit NPU / accélérateur (Intel Core Ultra avec NPU, AMD Ryzen AI, Jetson Nano/Orin Nano, Hailo, Movidius).[^5][^6][^1]
+    - Hardware : SoC x86/ARM with iGPU or petit NPU / accélérateur (Intel Core Ultra with NPU, AMD Ryzen AI, Jetson Nano/Orin Nano, Hailo, Movidius).[^5][^6][^1]
     - Usage : vision simple, RAG léger, petits LLM quantifiés, fusion multi‑capteurs, scoring temps réel.
-    - Examples : Intel OpenVINO sur Core/Atom + Movidius, NVIDIA Jetson Orin Nano, Hailo‑8/Hailo‑10, Qualcomm RBx/Snapdragon Edge.[^7][^6][^8][^1]
+    - Examples : Intel OpenVINO on Core/Atom + Movidius, NVIDIA Jetson Orin Nano, Hailo‑8/Hailo‑10, Qualcomm RBx/Snapdragon Edge.[^7][^6][^8][^1]
 - Vision/robotique lourde, LLM edge puissants :
-    - Matériel : modules GPU / NPU haut de gamme ou edge servers (Jetson AGX Orin, edge box avec GPU PCIe, cartes NPU haute perf).[^9][^10][^1]
-    - Usage : détection temps réel multi‑caméras, robotique avancée, LLM 7–8B+ en faible latence, multiples pipelines concurrents.
+    - Hardware : modules GPU / NPU haut de gamme or edge servers (Jetson AGX Orin, edge box with GPU PCIe, cartes NPU haute perf).[^9][^10][^1]
+    - Usage : détection temps réel multi‑caméras, robotique avancée, LLM 7–8B+ en faible latency, multiples pipelines concurrents.
     - Examples : NVIDIA Jetson AGX Orin (jusqu’à ~275 TOPS), edge servers GPU, cartes EdgeCortix, SiMa.ai, Metis AIPU.[^10][^8][^1][^9]
 
 
 ## GPU vs NPU en périphérie
 
-- GPU edge : plus flexible (vision, LLM, calcul générique), bon pour gros models et batchs plus importants, mais consomme davantage (15–60 W+).[^11][^12][^13]
-- NPU edge : très efficace pour l’inférence (LLM quantifiés, CNN) avec latence faible et 2–3× meilleure perf/watt qu’un GPU comparable, particulièrement intéressant pour petits batchs et latence constante.[^12][^14][^15][^11]
+- GPU edge : plus flexible (vision, LLM, calcul générique), bon for gros models and batchs plus importants, but consomme davantage (15–60 W+).[^11][^12][^13]
+- NPU edge : très efficace for l’inference (LLM quantifiés, CNN) with latency faible and 2–3× meilleure perf/watt qu’un GPU comparable, particulièrement intéressant for petits batchs and latency constante.[^12][^14][^15][^11]
 
 
 ## Grille de choice rapide
 
-| Contrainte dominante | Matériel à privilégier | Commentaires |
+| Contrainte dominante | Hardware à privilégier | Commentaires |
 | :-- | :-- | :-- |
 | Ultra basse conso, capteur simple | MCU / SoC léger | Models tinyML, TFLite Micro, quantifiés. [^1][^4] |
-| Boîtier edge polyvalent (vision légère, RAG small) | SoC CPU + NPU ou petit GPU | Intel Core Ultra, Ryzen AI, Jetson Nano/Orin Nano, Hailo. [^1][^5][^6] |
-| Vision/robotique lourde, multi‑flow | Jetson AGX / edge GPU | GPU ou DPU optimisés vision. [^9][^1][^7] |
-| LLM compacts en local (edge “musclé”) | NPU performant ou GPU edge | Selon perf/watt et écosystème logiciel (ONNX, TFLite, TensorRT). [^11][^16][^17] |
+| Boîtier edge polyvalent (vision légère, RAG small) | SoC CPU + NPU or petit GPU | Intel Core Ultra, Ryzen AI, Jetson Nano/Orin Nano, Hailo. [^1][^5][^6] |
+| Vision/robotique lourde, multi‑flow | Jetson AGX / edge GPU | GPU or DPU optimisés vision. [^9][^1][^7] |
+| LLM compacts en local (edge “musclé”) | NPU performant or GPU edge | Selon perf/watt and écosystème software (ONNX, TFLite, TensorRT). [^11][^16][^17] |
 
-En pratique, partir du modèle cible (taille, quantisation), du budget puissance (W disponibles) et du facteur de forme (MCU, SBC, box, server edge), puis choose dans ces familles en fonction des SDK disponibles (OpenVINO, TensorRT, TFLite, ONNX Runtime).[^6][^1][^5]
+En pratique, partir du modèle cible (taille, quantisation), du budget power (W disponibles) and du facteur de forme (MCU, SBC, box, server edge), puis choose in ces familles en fonction des SDK disponibles (OpenVINO, TensorRT, TFLite, ONNX Runtime).[^6][^1][^5]
 <span style="display:none">[^18][^19][^20]</span>
 
 <div align="center">⁂</div>

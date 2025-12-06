@@ -1,15 +1,15 @@
 
 # Which types d'applications conviennent le mieux à l'edge workstation
 
-Les applications qui tirent le meilleur parti de l'edge sur workstation sont celles qui ont need de faible latence, de forte confidentialité des data ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
+Les applications qui tirent le meilleur parti de l'edge on workstation are celles qui ont need de faible latency, de forte confidentialité des data or d'un mode déconnecté, with une load limitée à un utilisateur or un petit groupe.[^1][^2]
 
-## Applications Ideal pour Edge Poste de Travail
+## Applications Ideal for Edge Poste de Travail
 
 ```mermaid
 graph TB
     subgraph Requirements["⚖️ Requirements"]
         R1[🔒 Confidentialité forte]
-        R2[⚡ Latence < 100ms]
+        R2[⚡ Latency < 100ms]
         R3[🚫 Mode déconnecté]
         R4[👤 Usage individuel]
     end
@@ -53,36 +53,36 @@ graph TB
     style A5 fill:#f8bbd0
 ```
 
-## Assistants personnels et productivité
+## Assistants personnels and productivité
 
-- Assistants LLM locaux (chat, complétion, traduction, summary) pour développeurs ou knowledge workers, où le code source, les documents internals ou les mails ne doivent jamais sortir du poste.[^3][^4][^5]
-- Copilotes dans l’IDE (VS Code, etc.), outils d’aide bureautique (summary de docs, analyse de feuilles de calcul) ou d’assistance rédactionnelle directement sur le laptop/Mac.[^6][^3]
-
-
-## Applications temps réel à faible latence
-
-- Traitement audio/vidéo en direct : reconnaissance vocale locale, filtrage bruit, sous-titrage, vision temps réel pour webcam ou flow écran, où l’aller‑retour cloud serait trop lent ou instable.[^7][^2][^1]
-- Applications interactives (UX réactive, jeux, XR) qui utilisent la vision ou la compréhension de scène en local pour conserver une bonne expérience même si la connexion varie.[^7][^1]
+- Assistants LLM locaux (chat, complétion, traduction, summary) for développeurs or knowledge workers, où le code source, les documents internals or les mails ne must never sortir du poste.[^3][^4][^5]
+- Copilotes in l’IDE (VS Code, etc.), outils d’aide bureautique (summary de docs, analyse de feuilles de calcul) or d’assistance rédactionnelle directement on le laptop/Mac.[^6][^3]
 
 
-## Cas d’usage sensitives ou réglementés
+## Applications temps réel à faible latency
 
-- Analyse locale de data réglementées (santé, juridique, RH, code propriétaire) pour recherche sémantique, RAG, classification ou détection d’anomalies, afin d’éviter tout envoi vers un fournisseur external.[^4][^8][^1]
-- Diagnostics ou outils internals utilisés sur des postes durcis (admin, SOC, métiers) où la politique de security impose que les data restent sur l’équipement.[^2][^1]
+- Traitement audio/vidéo en direct : reconnaissance vocale locale, filtrage bruit, sous-titrage, vision temps réel for webcam or flow écran, où l’aller‑retour cloud serait trop lent or instable.[^7][^2][^1]
+- Applications interactives (UX réactive, jeux, XR) qui utilisent la vision or la compréhension de scène en local for conserver une bonne expérience même if la connexion varie.[^7][^1]
+
+
+## Cas d’usage sensitives or réglementés
+
+- Analyse locale de data réglementées (santé, juridique, RH, code propriétaire) for recherche sémantique, RAG, classification or détection d’anomalies, afin d’éviter tout envoi vers un fournisseur external.[^4][^8][^1]
+- Diagnostics or outils internals utilisés on des postes durcis (admin, SOC, métiers) où la politique de security impose que les data restent on l’équipement.[^2][^1]
 
 
 ## Edge poste comme mini-server
 
-- Micro‑services IA pour une petite équipe : un NUC / workstation avec GPU qui sert de point d’accès LLM/vision pour 2–10 personnes, tout en restant géré comme une machine utilisateur avancée.[^9][^4][^2]
-- Automatisation locale (agents, scripts, assistants contextuels) pour gérer fichiers, mails, tickets ou logs sur le poste, sans dépendre d’une API external.[^10][^4]
+- Micro‑services IA for une petite équipe : un NUC / workstation with GPU qui sert de point d’accès LLM/vision for 2–10 personnes, tout en restant géré comme une machine utilisateur avancée.[^9][^4][^2]
+- Automatisation locale (agents, scripts, assistants contextuels) for gérer fichiers, mails, tickets or logs on le poste, without dépendre d’une API external.[^10][^4]
 
 
-## Scénarios déconnectés ou intermittents
+## Scénarios déconnectés or intermittents
 
-- Travail en mobilité (consultants, techniciens terrain) avec assistant, traduction, OCR/vision et RAG sur docs embarqués, utilisables même sans réseau.[^8][^1]
-- Prototypage et R\&D : expérimenter rapidement des models quantifiés, pipelines d’inférence ou intégrations applicatives en local avant de porter en server ou cloud.[^5][^11][^4]
+- Travail en mobilité (consultants, techniciens terrain) with assistant, traduction, OCR/vision and RAG on docs embarqués, utilisables même without network.[^8][^1]
+- Prototypage and R\&D : expérimenter rapidement des models quantifiés, pipelines d’inference or intégrations applicatives en local avant de porter en server or cloud.[^5][^11][^4]
 
-Si tu précises ton profil d’utilisateur (dev, analyste, terrain, etc.) et les ressources typiques d’un poste (CPU/GPU/RAM), une liste plus ciblée de patterns et d’outils (Ollama, LM Studio, runtimes, formats de models) peut être proposée.
+Si tu précises ton profil d’utilisateur (dev, analyste, terrain, etc.) and les ressources typiques d’un poste (CPU/GPU/RAM), une liste plus ciblée de patterns and d’outils (Ollama, LM Studio, runtimes, formats de models) can être proposée.
 <span style="display:none">[^12][^13][^14][^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

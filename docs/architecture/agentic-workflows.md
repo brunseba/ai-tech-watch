@@ -1,45 +1,45 @@
 
-# comment integrer des workflow Agentic AI dans des workflows deja existants
+# comment integrer des workflow Agentic AI in des workflows deja existants
 
-Pour intégrer des workflows Agentic AI dans des workflows existants, il faut traiter l’agent comme un “step” ou un service de plus dans ta chaîne, derrière une couche d’orchestration/API, plutôt que comme un système à part.[^1][^2][^3]
+Pour intégrer des workflows Agentic AI in des workflows existants, il faut traiter l’agent comme un “step” or un service de plus in ta chaîne, derrière une couche d’orchestration/API, plutôt que comme un système à part.[^1][^2][^3]
 
 ## 1. Partir des workflows existants
 
-- Cartographier les étapes actuelles : systèmes appelés, événements déclencheurs (webhook, cron, évènement métier), formats de data et points d’intégration (API, messages, fichiers).[^2][^4]
+- Cartographier les étapes actuelles : systèmes appelés, événements déclencheurs (webhook, cron, évènement métier), formats de data and points d’intégration (API, messages, fichiers).[^2][^4]
 - Identifier les “points de friction” où l’IA agentic apporte le plus : tâches manuelles, coordination multi‑outils, décisions répétitives à partir de beaucoup de contexte.[^5][^1]
 
 
 ## 2. Choose le modèle d’intégration de l’agent
 
 - Intégration par API : exposer l’agent via une API REST/GraphQL que ton orchestrateur actuel (BPMN, ESB, iPaaS, n8n, Temporal, Argo, Airflow) appelle comme une étape de plus.[^6][^7][^2]
-- Intégration événementielle : l’agent est abonné à des events (Kafka, RabbitMQ, webhooks) et réagit comme un worker qui enrichit ou complète le workflow.[^3][^8]
-- Intégration “dans l’outil” : embedding de l’agent dans les outils existants (Jira, GitHub, ServiceNow, CRM) via apps ou bots, en gardant le cœur du workflow côté outil.[^9][^10][^1]
+- Intégration événementielle : l’agent is abonné à des events (Kafka, RabbitMQ, webhooks) and réagit comme un worker qui enrichit or complète le workflow.[^3][^8]
+- Intégration “dans l’outil” : embedding de l’agent in les outils existants (Jira, GitHub, ServiceNow, CRM) via apps or bots, en gardant le cœur du workflow côté outil.[^9][^10][^1]
 
 
 ## 3. Encapsuler l’agent derrière une orchestration
 
-- Utiliser une couche d’orchestration dédiée (Temporal, Conductor, n8n, LangGraph, etc.) qui gère les étapes, retries, timeouts, et appelle l’agent comme un composant sous control.[^11][^12][^3]
+- Utiliser une couche d’orchestration dédiée (Temporal, Conductor, n8n, LangGraph, etc.) qui gère les étapes, retries, timeouts, and appelle l’agent comme un composant sous control.[^11][^12][^3]
 - Pattern courant : orchestrateur central + agents “workers” spécialisés (lecture docs, appel API, action métier), l’orchestrateur restant l’owner du workflow global (idempotence, reprise, SLA).[^13][^14]
 
 
-## 4. S’appuyer sur les intégrations déjà en place
+## 4. S’appuyer on les intégrations déjà en place
 
-- Réutiliser les APIs et connecteurs existants plutôt que contourner tes bus / ESB : l’agent doit appeler les mêmes endpoints que les jobs actuels, via APIM, iPaaS ou tes SDK.[^15][^2][^6]
-- Pour gagner du temps : exploiter des plateformes d’orchestration avec intégrations prêtes (n8n, Flowise, iPaaS) qui savent déjà parler à CRM, ITSM, Git, mail, etc., et y insérer les steps “agent”.[^16][^7][^6]
+- Réutiliser les APIs and connecteurs existants plutôt que contourner tes bus / ESB : l’agent must appeler les mêmes endpoints que les jobs actuels, via APIM, iPaaS or tes SDK.[^15][^2][^6]
+- Pour gagner du temps : exploiter des plateformes d’orchestration with intégrations prêtes (n8n, Flowise, iPaaS) qui savent déjà parler à CRM, ITSM, Git, mail, etc., and y insérer les steps “agent”.[^16][^7][^6]
 
 
 ## 5. Encadrer l’agent par des garde‑fous
 
-- Définir clairement les tâches autorisées pour l’agent (scopes) : which actions, sur which systèmes, avec which types de data, et à which étape du workflow.[^17][^13]
-- Implémenter des garde‑fous : validation humaine sur certaines étapes (approvals), rollback possible, logs détaillés pour chaque décision et appel d’outil, et métriques de qualité (succès, erreurs, escalades).[^14][^3][^16]
+- Définir clairement les tâches autorisées for l’agent (scopes) : which actions, on which systèmes, with which types de data, and à which étape du workflow.[^17][^13]
+- Implémenter des garde‑fous : validation humaine on certaines étapes (approvals), rollback possible, logs détaillés for chaque décision and appel d’outil, and métriques de qualité (succès, erreurs, escalades).[^14][^3][^16]
 
 
 ## 6. Intégrer progressivement
 
-- Commencer par des “assistants de workflow” non bloquants : suggestions de champs, rédaction de réponses, génération de plans, que l’humain valide dans le workflow existant.[^18][^1]
-- Puis migrer vers des étapes automatisées avec supervision : l’agent exécute, le workflow prévoit des points d’escalade vers l’humain en cas d’incertitude ou d’erreur.[^19][^10][^3]
+- Commencer par des “assistants de workflow” non bloquants : suggestions de champs, rédaction de réponses, génération de plans, que l’humain valide in le workflow existant.[^18][^1]
+- Puis migrer vers des étapes automatisées with supervision : l’agent exécute, le workflow prévoit des points d’escalade vers l’humain en cas d’incertitude or d’erreur.[^19][^10][^3]
 
-Si tu me donnes un workflow cible concret (ex. gestion d’incidents ITSM, onboarding client, pipeline CI/CD), une version agentic “avant/après” avec points d’insertion précis et types d’intégration (API, events, orchestrateur) peut être détaillée.
+Si tu me donnes un workflow cible concret (ex. gestion d’incidents ITSM, onboarding client, pipeline CI/CD), une version agentic “avant/après” with points d’insertion précis and types d’intégration (API, events, orchestrateur) can être détaillée.
 <span style="display:none">[^20]</span>
 
 <div align="center">⁂</div>

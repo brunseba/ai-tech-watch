@@ -1,48 +1,48 @@
 
-# Comment estimer l'usage GPU nécessaire pour break‑even
+# Comment estimer l'usage GPU nécessaire for break‑even
 
-Pour estimer l’usage GPU nécessaire au break‑even on‑prem vs cloud, il faut compare un cost horaire “réel” de ton GPU on‑prem (TCO annualisé) avec le cost horaire cloud, puis en déduire le taux d’occupation minimal.[^1][^2]
+Pour estimer l’usage GPU nécessaire au break‑even on‑prem vs cloud, il faut compare un cost horaire “réel” de ton GPU on‑prem (TCO annualisé) with le cost horaire cloud, puis en déduire le taux d’occupation minimal.[^1][^2]
 
 ## 1. Construire le cost horaire on‑prem
 
-Sur une période $N$ années (souvent 3 ou 5) :
+Sur une période $N$ années (often 3 or 5) :
 
 - Calcule le TCO complet on‑prem :
-    - TCO$_{N}$ = CAPEX (servers+GPU+infra) + OPEX (énergie+cooling+maintenance+personnel+licences) sur $N$ ans.[^3][^1]
+    - TCO$_{N}$ = CAPEX (servers+GPU+infra) + OPEX (energy+cooling+maintenance+personnel+licences) on $N$ ans.[^3][^1]
 - Cost annuel : $C_{\text{annuel,onprem}} = \frac{TCO_N}{N}$.
 - Cost horaire “plein” de ton cluster (tous les GPU) :
     - $C_{\text{h,onprem}} = \frac{C_{\text{annuel,onprem}}}{8760}$.[^4][^1]
 
-Tu peux ensuite diviser par le nombre de GPU pour obtenir un cost horaire par GPU.[^5][^6]
+Tu peux ensuite diviser par le nombre de GPU for obtenir un cost horaire par GPU.[^5][^6]
 
 ## 2. Récupérer le cost horaire cloud comparable
 
-- Identifie un type d’instance GPU cloud équivalent (H100, A100, L40S, etc.) et note son prix horaire effectif (on‑demand ou réservé/moyenné).[^7][^8][^9]
-- Ce cost horaire cloud $C_{\text{h,cloud}}$ est ton “prix de référence” par GPU.
+- Identifie un type d’instance GPU cloud équivalent (H100, A100, L40S, etc.) and note son prix horaire effectif (on‑demand or réservé/moyenné).[^7][^8][^9]
+- Ce cost horaire cloud $C_{\text{h,cloud}}$ is ton “prix de référence” par GPU.
 
-Exemple : des analyses récentes donnent des H100 entre ~2–4 €/h according to le fournisseur et le modèle de réservation.[^8][^9]
+Exemple : des analyses récentes donnent des H100 between ~2–4 €/h according to le fournisseur and le modèle de réservation.[^8][^9]
 
 ## 3. Déduire le taux d’usage break‑even
 
-L’idée : ton cost effectif par heure GPU utilisée on‑prem est $C_{\text{h,onprem}} / U$, où $U$ est le taux d’usage (0–1).
+L’idée : ton cost effectif par heure GPU utilisée on‑prem is $C_{\text{h,onprem}} / U$, où $U$ is le taux d’usage (0–1).
 
 - Condition de break‑even :
     - $\frac{C_{\text{h,onprem}}}{U_{\text{BE}}} = C_{\text{h,cloud}}$
-    - donc $U_{\text{BE}} = \frac{C_{\text{h,onprem}}}{C_{\text{h,cloud}}}$.
+    - therefore $U_{\text{BE}} = \frac{C_{\text{h,onprem}}}{C_{\text{h,cloud}}}$.
 
 Interprétation :
 
-- Si ton cost horaire “plein” on‑prem est de 1 €/h et le cloud 3 €/h, alors $U_{\text{BE}} ≈ 33\%$.[^10][^11]
-- Plusieurs études TCO récentes trouvent des points de break‑even dans une fourchette 30–70% d’usage continue according to les hypothèses de prix et d’énergie.[^11][^12][^1][^10]
+- Si ton cost horaire “plein” on‑prem is de 1 €/h and le cloud 3 €/h, alors $U_{\text{BE}} ≈ 33\%$.[^10][^11]
+- Plusieurs études TCO récentes trouvent des points de break‑even in une fourchette 30–70% d’usage continue according to les hypothèses de prix and d’energy.[^11][^12][^1][^10]
 
 
-## 4. Vérifier la cohérence avec des orders de grandeur
+## 4. Vérifier la cohérence with des orders de grandeur
 
 Examples issus d’analyses publiques :
 
-- Une étude Lenovo montre un break‑even autour de ~11–12 mois d’usage quasi continu pour que l’on‑prem devienne moins cher que le cloud pour un server GPU donné.[^2][^1][^4]
-- Uptime Institute trouve un break‑even autour de 33% d’usage pour qu’un cluster dédié coste moins cher par unité que le cloud, sur leur hypothèse de prix.[^10]
-- D’autres analyses pratiques indiquent que pour des charges très fortes (ex. milliards de tokens/mois), le break‑even peut être atteint en quelques mois seulement.[^13][^12]
+- Une étude Lenovo montre un break‑even autour de ~11–12 mois d’usage quasi continu for que l’on‑prem devienne moins cher que le cloud for un server GPU donné.[^2][^1][^4]
+- Uptime Institute trouve un break‑even autour de 33% d’usage for qu’un cluster dédié coste moins cher par unité que le cloud, on leur hypothèse de prix.[^10]
+- D’autres analyses pratiques indiquent que for des loads très fortes (ex. milliards de tokens/mois), le break‑even can être atteint en quelques mois seulement.[^13][^12]
 
 
 ## 5. Comment l’utiliser concrètement
@@ -50,9 +50,9 @@ Examples issus d’analyses publiques :
 1. Évalue ton TCO annuel on‑prem aussi précisément que possible (voir ton modèle précédent).[^1][^3]
 2. Transforme‑le en $C_{\text{h,onprem}}$ par GPU.
 3. Compare aux prix GPU/h de 1–2 clouds ciblés ($C_{\text{h,cloud}}$).[^9][^7][^8]
-4. Calcule $U_{\text{BE}}$ et confronte‑le à ta capacité réelle à “remplir” le cluster (pipeline MLOps, multi‑projets, horaires).
+4. Calcule $U_{\text{BE}}$ and confronte‑le à ta capacité réelle à “remplir” le cluster (pipeline MLOps, multi‑projets, horaires).
 
-Si tu donnes un exemple concret (ex. CAPEX 200 k€, OPEX annuel 60 k€, 4 GPU, prix cloud cible 3 €/h/GPU), un calcul chiffré pas‑à‑pas du taux d’usage break‑even peut être posé.
+Si tu donnes un exemple concret (ex. CAPEX 200 k€, OPEX annuel 60 k€, 4 GPU, prix cloud cible 3 €/h/GPU), un calcul chiffré pas‑à‑pas du taux d’usage break‑even can être posé.
 <span style="display:none">[^14][^15][^16][^17][^18][^19][^20][^21][^22][^23]</span>
 
 <div align="center">⁂</div>

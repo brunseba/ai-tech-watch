@@ -1,48 +1,48 @@
 
-# Compare NPU GPU CPU pour latence et consommation énergétique
+# Compare NPU GPU CPU for latency and consumption énergétique
 
-Pour l’inférence en périphérie, les CPU restent corrects mais sont nettement battus par les NPU en perf/watt, tandis que les GPU gardent l’avantage sur le throughput pour de gros models ou des batchs élevés.[^1][^2][^3]
+Pour l’inference en périphérie, les CPU restent corrects but are nettement battus par les NPU en perf/watt, tandis que les GPU gardent l’avantage on le throughput for de gros models or des batchs élevés.[^1][^2][^3]
 
-## CPU : latence correcte, conso moyenne, perf IA limitée
+## CPU : latency correcte, conso moyenne, perf IA limitée
 
-- Latence : très bonne sur des opérations peu parallèles (dot product, logique, pré/post‑traitement), souvent meilleure que GPU/NPU pour des petites tâches non massivement parallèles.[^2][^3]
-- Consommation : modérée, mais le cost énergétique par inférence devient vite mauvais dès que le modèle grossit ou que le volume de requêtes augmente, car le CPU n’est pas optimisé pour le calcul tensoriel.[^4][^5]
+- Latency : très bonne on des opérations peu parallèles (dot product, logique, pré/post‑traitement), often meilleure que GPU/NPU for des petites tâches non massivement parallèles.[^2][^3]
+- Consumption : modérée, but le cost énergétique par inference devient vite mauvais dès que le modèle grossit or que le volume de requêtes augmente, because le CPU n’est pas optimisé for le calcul tensoriel.[^4][^5]
 
-À utiliser pour l’orchestration, la logique métier et les petits models, mais pas comme moteur principal d’inférence pour des réseaux profonds intensifs.[^6][^4]
+À utiliser for l’orchestration, la logique métier and les petits models, but pas comme moteur principal d’inference for des networkx profonds intensifs.[^6][^4]
 
-## GPU : latence plus élevée en batch=1, mais excellent débit
+## GPU : latency plus élevée en batch=1, but excellent throughput
 
-- Latence :
-    - Pour batch=1, un GPU a typiquement une latence supérieure à celle d’un NPU optimisé, à cause du passage par VRAM et du pipeline plus lourd.[^1][^2]
-    - Pour les gros models et les batchs plus élevés, le GPU gagne via le parallélisme de masse, avec jusqu’à 22–30% de latence en moins que certains NPU sur des opérations très parallèles (matmul, CNN large) et un débit 2× plus élevé.[^3][^2]
-- Consommation : élevée (des dizaines à centaines de watts), avec un perf/watt moins bon que les meilleurs NPU pour l’inférence edge.[^7][^2][^1]
+- Latency :
+    - Pour batch=1, un GPU a typiquement une latency supérieure à celle d’un NPU optimisé, à cause du passage par VRAM and du pipeline plus lourd.[^1][^2]
+    - Pour les gros models and les batchs plus élevés, le GPU gagne via le parallélisme de masse, with jusqu’à 22–30% de latency en moins que certains NPU on des opérations très parallèles (matmul, CNN large) and un throughput 2× plus élevé.[^3][^2]
+- Consumption : élevée (des dizaines à centaines de watts), with un perf/watt moins bon que les meilleurs NPU for l’inference edge.[^7][^2][^1]
 
-Adapté aux cas où tu veux maximiser throughput ou supporter de gros models sur un edge “musclé” (Jetson AGX, edge server), en acceptant une consommation plus forte.[^8][^9]
+Adapté aux cas où tu veux maximiser throughput or supporter de gros models on un edge “musclé” (Jetson AGX, edge server), en acceptant une consumption plus forte.[^8][^9]
 
-## NPU : meilleure latence unitaire et perf/watt sur l’edge
+## NPU : meilleure latency unitaire and perf/watt on l’edge
 
-- Latence :
-    - Des benchmarks récents montrent que des NPU peuvent offrir jusqu’à ~60% d’inférence plus rapide que des GPU modernes sur certains workloads d’inférence optimisés, notamment en batch=1, grâce à la mémoire intégrée et au pipeline dédié.[^2][^1]
-    - Une étude KAIST/NPU‑GPU indique ~58% de réduction de latence sur certaines opérations matrices‑vecteurs vs GPU, tout en restant compétitive en throughput.[^1][^2]
-- Consommation :
-    - Les NPUs consomment typiquement moins de la moitié de la puissance d’un GPU à performance comparable (par ex. 35 W vs 75 W sur une plateforme testée), soit plus de 2× de gain en énergie.[^2][^1]
-    - Des mesures parlent de perf ~3× meilleure en inférences/s/W sur ResNet‑50 par rapport à des GPUs H‑series, et de 80% de puissance en moins que CPU/GPU pour certains workloads IA PC.[^10][^11][^1]
+- Latency :
+    - Des benchmarks récents montrent que des NPU can offrir jusqu’à ~60% d’inference plus rapide que des GPU modernes on certains workloads d’inference optimisés, notamment en batch=1, grâce à la mémoire intégrée and au pipeline dédié.[^2][^1]
+    - Une étude KAIST/NPU‑GPU indique ~58% de réduction de latency on certaines opérations matrices‑vecteurs vs GPU, tout en restant compétitive en throughput.[^1][^2]
+- Consumption :
+    - Les NPUs consomment typiquement moins de la moitié de la power d’un GPU à performance comparable (par ex. 35 W vs 75 W on une plateforme testée), soit plus de 2× de gain en energy.[^2][^1]
+    - Des mesures parlent de perf ~3× meilleure en inferences/s/W on ResNet‑50 par rapport à des GPUs H‑series, and de 80% de power en moins que CPU/GPU for certains workloads IA PC.[^10][^11][^1]
 
-Idéal pour des inférences temps réel en batch=1 ou faible (vision, audio, LLM quantifiés) sur l’edge, avec forte contrainte énergétique.[^12][^4][^2]
+Idéal for des inferences temps réel en batch=1 or faible (vision, audio, LLM quantifiés) on l’edge, with forte contrainte énergétique.[^12][^4][^2]
 
-## Synthèse latence \& énergie (tendance)
+## Synthèse latency \& energy (tendance)
 
-| Type | Latence batch=1 (edge) | Débit (gros batchs) | Conso typique | Perf par watt IA |
+| Type | Latency batch=1 (edge) | Throughput (gros batchs) | Conso typique | Perf par watt IA |
 | :-- | :-- | :-- | :-- | :-- |
-| CPU | Bonne sur petites ops non parallèles. [^2][^3] | Limité sur CNN/LLM, pas optimisé. [^4] | 5–65 W according to plateforme. | Faible pour réseaux profonds. [^4][^5] |
-| GPU | Plus élevée que NPU en batch=1, bonne pour gros models. [^2][^1] | Excellente pour gros batchs et grandes matrices, 2×+ le NPU sur certains cas. [^2][^3] | 15–300+ W according to carte. | Moyenne, optimisée pour perf brute plus que perf/W. [^2][^7] |
-| NPU | Très basse, parfois sub‑ms, ~60% plus rapide que GPU sur certains workloads. [^2][^1] | Très bonne pour batch 1–petit, correcte pour moyens batchs. [^2] | Quelques W à quelques dizaines de W. [^2][^13] | Excellente : >2–3× le GPU en inférences/s/W sur l’edge. [^2][^1][^10] |
+| CPU | Bonne on petites ops non parallèles. [^2][^3] | Limité on CNN/LLM, pas optimisé. [^4] | 5–65 W according to plateforme. | Faible for networkx profonds. [^4][^5] |
+| GPU | Plus élevée que NPU en batch=1, bonne for gros models. [^2][^1] | Excellente for gros batchs and grandes matrices, 2×+ le NPU on certains cas. [^2][^3] | 15–300+ W according to carte. | Moyenne, optimisée for perf brute plus que perf/W. [^2][^7] |
+| NPU | Très basse, sometimes sub‑ms, ~60% plus rapide que GPU on certains workloads. [^2][^1] | Très bonne for batch 1–petit, correcte for moyens batchs. [^2] | Quelques W à quelques dizaines de W. [^2][^13] | Excellente : >2–3× le GPU en inferences/s/W on l’edge. [^2][^1][^10] |
 
-En pratique, pour l’inférence en périphérie :
+En pratique, for l’inference en périphérie :
 
-- Si tu vises perf brute et gros models : edge GPU.
-- Si tu vises latence faible et perf/W maximale sur des models adaptés (INT8/FP8, CNN/LLM compacts) : NPU.
-- Le CPU reste la glue et peut suffire pour des workloads IA très modestes ou en backup.[^4][^3][^2]
+- Si tu vises perf brute and gros models : edge GPU.
+- Si tu vises latency faible and perf/W maximale on des models adaptés (INT8/FP8, CNN/LLM compacts) : NPU.
+- Le CPU reste la glue and can suffire for des workloads IA très modestes or en backup.[^4][^3][^2]
 <span style="display:none">[^14][^15][^16][^17][^18][^19][^20][^21][^22][^23]</span>
 
 <div align="center">⁂</div>

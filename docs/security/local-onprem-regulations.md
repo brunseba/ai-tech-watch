@@ -1,7 +1,7 @@
 
-# ajoute les normes imposant du local/on-prem sur les fleches
+# ajoute les normes imposant du local/on-prem on les fleches
 
-Voici une version enrichie où les flèches qui poussent vers du local / on‑prem portent les principales références réglementaires ou requirements typiques.[^1][^2][^3][^4]
+Voici une version enrichie où les flèches qui poussent vers du local / on‑prem portent les principales références réglementaires or requirements typiques.[^1][^2][^3][^4]
 
 ```mermaid
 flowchart TD
@@ -10,12 +10,12 @@ flowchart TD
     classDef cloud fill:#fff3e0,stroke:#fb8c00,color:#e65100;
     classDef decision fill:#f5f5f5,stroke:#757575,color:#212121;
 
-    A[Début] --> B{Data très sensitives ou régulées ?}
+    A[Début] --> B{Data très sensitives or régulées ?}
     class B decision;
 
     %% BRANCHE SENSIBLE
 
-    B -->|Oui, ex RGPD art 9, secret d'affaires, santé, finance régulée| C{Latence < 100 ms ou need offline ?}
+    B -->|Oui, ex RGPD art 9, secret d'affaires, santé, finance régulée| C{Latency < 100 ms or need offline ?}
     class C decision;
 
     C -->|Usage individuel, RGPD, doctrine Cloud de confiance, politique DLP| D[Workstation / Edge local]
@@ -24,52 +24,52 @@ flowchart TD
     C -->|Usage partagé, requirements RGPD, NIS2, politique de souveraineté| E[Server departmental on-prem]
     class E onprem;
 
-    C -->|Non, mais toujours data sensitives sous RGPD/NIS2| E
+    C -->|Non, but always data sensitives sous RGPD/NIS2| E
 
-    B -->|Oui mais uniquement data dérivées ou anonymisées, DPIA OK| M[Cloud réservé aux data dérivées uniquement]
+    B -->|Oui but uniquement data dérivées or anonymisées, DPIA OK| M[Cloud réservé aux data dérivées uniquement]
     class M cloud;
 
     %% BRANCHE NON SENSIBLE / MOINS CRITIQUE
 
-    B -->|Non, data peu sensitives ou anonymisées| G{Latence < 100 ms ou need offline ?}
+    B -->|Non, data peu sensitives or anonymisées| G{Latency < 100 ms or need offline ?}
     class G decision;
 
-    G -->|Oui, contraintes temps réel ou site sans connectivité fiable| H{Portée de l'usage ?}
+    G -->|Oui, contraintes temps réel or site without connectivité fiable| H{Portée de l'usage ?}
     class H decision;
 
     H -->|Individuel, contraintes de confidentialité locale| D
-    H -->|Service ou site, contraintes LAN, security locale renforcée| E
+    H -->|Service or site, contraintes LAN, security locale renforcée| E
 
-    G -->|Non| I{Charge IA stable et élevée ?}
+    G -->|Non| I{Load IA stable and élevée ?}
     class I decision;
 
-    I -->|Oui| J{Équipe infra et MLOps disponible ?}
+    I -->|Oui| J{Équipe infra and MLOps disponible ?}
     class J decision;
 
-    I -->|Non, charge bursty ou POC fréquents| L[Cloud IaaS ou API, plus éventuel edge pour cas sensitives]
+    I -->|Non, load bursty or POC fréquents| L[Cloud IaaS or API, plus éventuel edge for cas sensitives]
     class L cloud;
 
-    J -->|Oui, capacité à répondre aux requirements RGPD, NIS2, audits, PCA/PRA| K[On-prem server ou cluster IA]
+    J -->|Oui, capacité à répondre aux requirements RGPD, NIS2, audits, PCA/PRA| K[On-prem server or cluster IA]
     class K onprem;
 
     J -->|Non, dépendance à des services managés conformes| L
 
     %% ARCHITECTURE HYBRIDE
 
-    E --> N[Architecture hybride on-prem pour data sensitives,
-    cloud pour dérivées ou entraînement]
+    E --> N[Architecture hybride on-prem for data sensitives,
+    cloud for dérivées or training]
     class N onprem;
 
     K --> N
 
-    L --> O[Cloud prioritaire et on-prem limité à quelques cas très critiques]
+    L --> O[Cloud prioritaire and on-prem limité à quelques cas très critiques]
     class O cloud;
 
-    D --> P[Edge sur poste pour confidentialité, souveraineté, faible latence locale]
+    D --> P[Edge on poste for confidentialité, souveraineté, faible latency locale]
     class P edge;
 ```
 
-Les mentions RGPD (dont art. 9 pour catégories particulières), NIS2, politiques de souveraineté ou doctrines “cloud de confiance” sont typiquement celles qui justifient des traitements locaux/on‑prem dans les organisations européennes.[^2][^4][^5][^6]
+Les mentions RGPD (dont art. 9 for catégories particulières), NIS2, politiques de souveraineté or doctrines “cloud de confiance” are typiquement celles qui justifient des traitements locaux/on‑prem in les organisations européennes.[^2][^4][^5][^6]
 
 <div align="center">⁂</div>
 

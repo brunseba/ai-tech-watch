@@ -1,13 +1,13 @@
 
-# Which précision modèle perd avec quantification 8bit sur NPU
+# Which precision modèle perd with quantization 8bit on NPU
 
-Avec une quantification 8 bits bien faite, la plupart des models perdent très peu de précision (souvent < 1 point de pourcentage), même sur NPU edge, à condition d'utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) et d'evaluate sur ton propre cas d'usage.[^1][^2][^3]
+Avec une quantization 8 bits bien faite, la plupart des models perdent très peu de precision (often < 1 point de pourcentage), même on NPU edge, à condition d'utiliser les bonnes techniques (calibration correcte, schémas adaptés au hardware) and d'evaluate on ton propre cas d'usage.[^1][^2][^3]
 
-## Compromis Précision vs Performance
+## Compromis Precision vs Performance
 
 ```mermaid
 graph LR
-    subgraph Precision ["Format de Précision"]
+    subgraph Precision ["Format de Precision"]
         FP32[FP32<br/>Baseline<br/>100% Accuracy]
         FP16[FP16<br/>~99.9% Acc<br/>2x faster]
         INT8[INT8<br/>~99% Acc<br/>4x faster]
@@ -47,29 +47,29 @@ graph LR
 
 ## Orders de grandeur typiques en INT8
 
-- Vision / classiques (ResNet, EfficientNet, etc.) : de nombreuses études montrent des écarts de l’ordre de 0–1 point de précision top‑1 entre FP32/FP16 et INT8 post‑training quantization bien calibrée.[^4][^2][^3]
-- LLM et models texte : les guides récents indiquent qu’un INT8 “moderne” (LLM.int8, SmoothQuant, AWQ, etc.) perd généralement < 1 point sur des benchmarks globaux, parfois quasi rien avec QAT (quantization‑aware training).[^5][^6][^7][^8][^4]
+- Vision / classiques (ResNet, EfficientNet, etc.) : de nombreuses études montrent des écarts de l’ordre de 0–1 point de precision top‑1 between FP32/FP16 and INT8 post‑training quantization bien calibrée.[^4][^2][^3]
+- LLM and models texte : les guides récents indiquent qu’un INT8 “moderne” (LLM.int8, SmoothQuant, AWQ, etc.) perd generally < 1 point on des benchmarks globaux, sometimes quasi rien with QAT (quantization‑aware training).[^5][^6][^7][^8][^4]
 
 Un exemple chiffré issu d’une étude pédagogique : un modèle passant de 85% à 83,5% en INT8 PTQ (≈1,5 point), alors que INT8 QAT remonte à 84,8% (écart résiduel 0,2 point).[^4]
 
 ## Specificities côté NPU edge
 
-- La plupart des NPUs imposent INT8 statique pour poids et activations, avec calibration offline et toolchain propriétaire.[^9]
-- Sur ces plateformes, les travaux récents montrent qu’un INT8 bien aligné avec le compilateur NPU peut rester dans la même plage de perte qu’en GPU/CPU (souvent < 1–2 points), mais :
-    - La qualité dépend fortement de la calibration (jeu de data représentatif) et de l’algorithme de quantification choisi.[^10][^3][^9]
-    - Une quantification naïve ou mal calibrée peut provoquer des chutes plus sévères, surtout pour des models très sensitives (LLM, models avec fortes valeurs extrêmes).[^7][^3][^10]
+- La plupart des NPUs imposent INT8 statique for poids and activations, with calibration offline and toolchain propriétaire.[^9]
+- Sur ces plateformes, les travaux récents montrent qu’un INT8 bien aligné with le compilateur NPU can rester in la même plage de perte qu’en GPU/CPU (often < 1–2 points), but :
+    - La qualité dépend fortement de la calibration (jeu de data représentatif) and de l’algorithme de quantization choisi.[^10][^3][^9]
+    - Une quantization naïve or mal calibrée can provoquer des chutes plus sévères, surtout for des models très sensitives (LLM, models with fortes valeurs extrêmes).[^7][^3][^10]
 
-Des méthodes comme SmoothQuant, LLM.int8, Quant‑Trim ou QAT sont justement conçues pour rendre ces INT8 robustes aux différences de backend (GPU vs NPU) et réduire la variabilité de précision.[^6][^11][^7][^9]
+Des méthodes comme SmoothQuant, LLM.int8, Quant‑Trim or QAT are justement conçues for rendre ces INT8 robustes aux différences de backend (GPU vs NPU) and réduire la variabilité de precision.[^6][^11][^7][^9]
 
-## Rules pratiques pour estimer la perte
+## Rules pratiques for estimer la perte
 
-- Attente réaliste pour du INT8 bien fait :
-    - Vision / classification / détection : souvent 0–1 point de perte, parfois négligeable.[^2][^4]
-    - LLM / RAG : généralement < 1 point sur des scores agrégés, avec possibilité de dérive un peu plus forte sur certaines tâches fines (math, logique), d’où l’importance de tester tes propres métriques.[^12][^5][^1]
+- Attente réaliste for du INT8 bien fait :
+    - Vision / classification / détection : often 0–1 point de perte, sometimes négligeable.[^2][^4]
+    - LLM / RAG : generally < 1 point on des scores agrégés, with possibilité de dérive un peu plus forte on certaines tâches fines (math, logique), d’où l’importance de tester tes propres métriques.[^12][^5][^1]
 - Si tu observes > 2–3 points de perte :
-    - Revoir la calibration et le schéma (per‑channel vs per‑tensor, clipping), voire envisager QAT ou des schémas hybrides (W8/A16).[^8][^9][^4]
+    - Revoir la calibration and le schéma (per‑channel vs per‑tensor, clipping), voire envisager QAT or des schémas hybrides (W8/A16).[^8][^9][^4]
 
-En summary, sur un NPU moderne, un modèle INT8 bien quantifié garde en général une précision très proche de FP16/FP32 (souvent < 1% d’écart), avec un gain massif en perf/watt, mais il faut systématiquement valider sur ton jeu de tests métier pour confirmer que cette perte est acceptable.[^3][^1][^2]
+En summary, on un NPU moderne, un modèle INT8 bien quantifié garde en général une precision très proche de FP16/FP32 (often < 1% d’écart), with un gain massif en perf/watt, but il faut systématiquement valider on ton jeu de tests métier for confirmer que cette perte is acceptable.[^3][^1][^2]
 <span style="display:none">[^13][^14][^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

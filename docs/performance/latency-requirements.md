@@ -1,42 +1,42 @@
 
-# Requirements de latence et performance par cas d'usage
+# Requirements de latency and performance par cas d'usage
 
-Les requirements de latence/performance dépendent fortement du cas d’usage : certains nécessitent la milliseconde (edge/server local), d’autres acceptent plusieurs secondes (cloud/batch).[^1][^2]
+Les requirements de latency/performance dépendent fortement du cas d’usage : certains nécessitent la milliseconde (edge/server local), d’autres acceptent plusieurs secondes (cloud/batch).[^1][^2]
 
-## Grandes classes de latence par cas d’usage
+## Grandes classes de latency par cas d’usage
 
-- Temps réel critique (control, security) : décisions en moins de 10–50 ms, typiquement impossible à tenir avec un aller‑retour cloud, donc edge ou server très proche.[^3][^4][^5]
-- Temps réel “humain” interactif (chat, voix) : réponse perçue comme fluide si < 0,5–1 s, dégradée au‑delà de 2–4 s.[^6][^7][^8]
-- Interactif non critique (productivité, copilot, RAG internal) : 0,5–2 s reste confortable pour la plupart des usages bureau/web.[^9][^8][^1]
-- Batch / analytique : plusieurs secondes à minutes acceptables, priorité à la bande passante et au throughput plutôt qu’à la latence.[^10][^1]
+- Temps réel critique (control, security) : décisions en moins de 10–50 ms, typiquement impossible à tenir with un aller‑retour cloud, therefore edge or server très proche.[^3][^4][^5]
+- Temps réel “humain” interactif (chat, voix) : réponse perçue comme fluide if < 0,5–1 s, dégradée au‑delà de 2–4 s.[^6][^7][^8]
+- Interactif non critique (productivité, copilot, RAG internal) : 0,5–2 s reste confortable for la plupart des usages bureau/web.[^9][^8][^1]
+- Batch / analytique : plusieurs secondes à minutes acceptables, priorité à la bande passante and au throughput plutôt qu’à la latency.[^10][^1]
 
 
 ## Examples par type d’application
 
-- Vision industrielle, robotique, détection d’anomalies temps réel : 10–50 ms pour rester en ligne avec la cadence machine ou le mouvement (inspection, robots, véhicules).[^4][^2][^3]
-- Paiement/fraude, scoring immédiat : décisions < 100 ms pour ne pas dégrader l’expérience client aux POS/ATM.[^3][^1]
-- Voicebots / agents vocaux : idéalement < 500–1000 ms de latence bout‑en‑bout ; au‑delà de ~2 s la conversation paraît lente.[^11][^8][^6]
+- Vision industrielle, robotique, détection d’anomalies temps réel : 10–50 ms for rester en ligne with la cadence machine or le mouvement (inspection, robots, véhicules).[^4][^2][^3]
+- Paiement/fraude, scoring immédiat : décisions < 100 ms for ne pas dégrader l’expérience client aux POS/ATM.[^3][^1]
+- Voicebots / agents vocaux : idéalement < 500–1000 ms de latency bout‑en‑bout ; au‑delà de ~2 s la conversation paraît lente.[^11][^8][^6]
 - Chatbots texte / copilots : réponses “agréables” autour de 200–1000 ms, l’expérience commence à se détériorer à partir de 3–4 s.[^7][^12][^8][^9]
 
 
-## Impact sur le choice poste / server / cloud
+## Impact on le choice poste / server / cloud
 
-- Workstation / edge : adapté dès que la cible est < 50–100 ms (vision, robotique locale, filtrage audio temps réel) ou lorsqu’on veut éviter 50–200 ms de latence réseau ajoutée par le cloud.[^13][^11][^4]
-- Server departmental on‑prem : bon compromis pour 50–300 ms (RAG internal, chat d’entreprise, scoring proche des sources de data) avec latence réseau LAN faible et stable.[^14][^2]
-- Cloud : suffisant pour 300 ms–quelques secondes si la connectivité est correcte, typiquement pour copilots génériques, analytics, et LLMs non temps réel.[^15][^1][^10]
+- Workstation / edge : adapté dès que la cible is < 50–100 ms (vision, robotique locale, filtrage audio temps réel) or lorsqu’on veut éviter 50–200 ms de latency network ajoutée par le cloud.[^13][^11][^4]
+- Server departmental on‑prem : bon compromis for 50–300 ms (RAG internal, chat d’entreprise, scoring proche des sources de data) with latency network LAN faible and stable.[^14][^2]
+- Cloud : suffisant for 300 ms–quelques secondes if la connectivité is correcte, typiquement for copilots génériques, analytics, and LLMs non temps réel.[^15][^1][^10]
 
 
-## Table synthétique latence / deployment
+## Table synthétique latency / deployment
 
-| Cas d’usage typique | Latence cible approx. | Deployment à privilégier |
+| Cas d’usage typique | Latency cible approx. | Deployment à privilégier |
 | :-- | :-- | :-- |
-| Vision industrielle, robotique, control | 10–50 ms. [^3][^4] | Edge poste/équipement ou server local. [^13][^2] |
-| Anti‑fraude temps réel, trading UI | < 100 ms. [^3][^1] | Edge proche ou on‑prem très proche. [^3][^2] |
-| Voicebot, traduction live | 200–1000 ms. [^11][^6] | Edge ou on‑prem ; cloud possible si réseau très bon. [^13][^5] |
-| Chatbot / copilots bureau | 0,5–2 s. [^9][^8] | On‑prem ou cloud ; edge si data très sensitives. [^13][^14] |
-| Analytics, batch, reporting IA | > 2 s. [^1][^10] | Cloud ou on‑prem HPC, latence moins critique. [^1][^2] |
+| Vision industrielle, robotique, control | 10–50 ms. [^3][^4] | Edge poste/équipement or server local. [^13][^2] |
+| Anti‑fraude temps réel, trading UI | < 100 ms. [^3][^1] | Edge proche or on‑prem très proche. [^3][^2] |
+| Voicebot, traduction live | 200–1000 ms. [^11][^6] | Edge or on‑prem ; cloud possible if network très bon. [^13][^5] |
+| Chatbot / copilots bureau | 0,5–2 s. [^9][^8] | On‑prem or cloud ; edge if data très sensitives. [^13][^14] |
+| Analytics, batch, reporting IA | > 2 s. [^1][^10] | Cloud or on‑prem HPC, latency moins critique. [^1][^2] |
 
-Pour ton arbitrage, tu peux partir de la question inverse : “combien de temps l’utilisateur ou le système peut‑il raisonnablement attendre ?” puis mapper la catégorie de latence à edge/poste, server departmental ou cloud.
+Pour ton arbitrage, tu peux partir de la question inverse : “combien de temps l’utilisateur or le système peut‑il raisonnablement attendre ?” puis mapper la catégorie de latency à edge/poste, server departmental or cloud.
 <span style="display:none">[^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

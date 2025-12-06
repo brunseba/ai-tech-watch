@@ -1,7 +1,7 @@
 
-# Evaluate la sensibilité et classification des data
+# Evaluate la sensibilité and classification des data
 
-Pour evaluate la sensibilité des data et les classer, le plus efficace est d'adopter un modèle simple en 3–4 niveaux (Public, Internal, Confidential, Restricted/Très sensitive) et d'y mapper les risques métier et réglementaires (RGPD, secret d'affaires, etc.).[^1][^2]
+Pour evaluate la sensibilité des data and les classer, le plus efficace is d'adopter un modèle simple en 3–4 niveaux (Public, Internal, Confidential, Restricted/Très sensitive) and d'y mapper les risques métier and réglementaires (RGPD, secret d'affaires, etc.).[^1][^2]
 
 ## Modèle de Classification des Data
 
@@ -23,7 +23,7 @@ graph TB
     
     subgraph Deploy["📍 Deployment IA"]
         D1[Cloud OK]
-        D2[Cloud ou Hybrid]
+        D2[Cloud or Hybrid]
         D3[On-Prem préféré]
         D4[On-Prem obligatoire]
     end
@@ -53,7 +53,7 @@ graph TB
 La plupart des organisations utilisent 4 niveaux :
 
 - Public : information destinée à être publiée, dont l’exposition ne crée pas de risque significatif.[^3][^4]
-- Internal : data réservées à l’organisation, avec impact limité en cas de fuite (comms internals courantes, docs non sensitives).[^5][^3]
+- Internal : data réservées à l’organisation, with impact limité en cas de fuite (comms internals courantes, docs non sensitives).[^5][^3]
 - Confidential : data dont l’accès non autorisé pourrait causer un dommage notable (clients, finances internals, IP non stratégique).[^6][^3]
 - Restricted / Très sensitive : data à impact sévère en cas de fuite (trade secrets, identifiants, data personnelles sensitives au sens RGPD, secrets défense).[^4][^7][^3]
 
@@ -62,37 +62,37 @@ La plupart des organisations utilisent 4 niveaux :
 
 Pour chaque type de donnée, poser trois questions :
 
-- Confidentialité : qui doit y avoir accès, et que se passe‑t‑il en cas de fuite (impact métier, réputationnel, juridique) ?[^8][^5]
+- Confidentialité : qui must y avoir accès, and que se passe‑t‑il en cas de fuite (impact métier, réputationnel, juridique) ?[^8][^5]
 - Réglementaire : la donnée est‑elle couverte par un texte spécifique (RGPD, “special category data” de l’art. 9 RGPD, PCI‑DSS, secret d’affaires, classification défense) ?[^9][^10][^11]
-- Valeur / criticité : la donnée est‑elle stratégique (IP clé, algos, roadmap), ou facilement remplaçable / déjà publique ?[^3][^8]
+- Valeur / criticité : la donnée est‑elle stratégique (IP clé, algos, roadmap), or facilement remplaçable / déjà publique ?[^3][^8]
 
-Les data personnelles “sensitives” (origine ethnique, opinions politiques, santé, biométrie, orientation sexuelle, etc.) doivent systématiquement être placées dans le niveau le plus élevé (Restricted / Très sensitive).[^12][^11][^9]
+Les data personnelles “sensitives” (origine ethnique, opinions politiques, santé, biométrie, orientation sexuelle, etc.) must systématiquement être placées in le niveau le plus élevé (Restricted / Très sensitive).[^12][^11][^9]
 
 ## 3. Process pratique de classification
 
 - Inventorier les sources : applications métier, bases de data, data lake, fichiers, mails, dépôts code, etc., en utilisant outils de découverte/scan lorsque possible.[^13][^14]
-- Associer un niveau à chaque type de jeu de data (table, collection, bucket, repo), via une politique formalisée et des labels clairs (“Public”, “Internal”, “Confidential”, “Très sensitive”).[^2][^14][^15]
+- Associer un niveau à chaque type de jeu de data (table, collection, bucket, repo), via une politique formalisée and des labels clairs (“Public”, “Internal”, “Confidential”, “Très sensitive”).[^2][^14][^15]
 
-L’objectif est de rester pragmatique : mieux vaut 3–4 niveaux bien compris et appliqués partout qu’un modèle trop fin qui ne sera pas utilisé.[^7][^1]
+L’objectif is de rester pragmatique : mieux vaut 3–4 niveaux bien compris and appliqués partout qu’un modèle trop fin qui ne sera pas utilisé.[^7][^1]
 
-## 4. Lier classification et controls techniques
+## 4. Lier classification and controls techniques
 
 Pour chaque niveau, définir les controls minimaux :
 
 - Public : accès large, peu de contraintes, pas forcément de encryption spécifique.[^4][^6]
 - Internal : authentication standard, pas d’exposition external, logs d’accès basiques.[^5][^6]
-- Confidential : control d’accès fin (RBAC), encryption au repos et en transit, DLP, journalisation détaillée.[^14][^6][^5]
+- Confidential : control d’accès fin (RBAC), encryption au repos and en transit, DLP, journalisation détaillée.[^14][^6][^5]
 - Restricted / Très sensitive : accès très limité, MFA obligatoire, micro‑segmentation, encryption fort, surveillance renforcée, éventuelles zones techniques dédiées.[^16][^7][^4]
 
-Ces niveaux serviront ensuite de base pour décider où exécuter les workloads IA : poste, server on‑prem ou cloud et sous which conditions (anonymisation, pseudonymisation, etc.).[^2][^13]
+Ces niveaux serviront ensuite de base for décider où exécuter les workloads IA : poste, server on‑prem or cloud and sous which conditions (anonymisation, pseudonymisation, etc.).[^2][^13]
 
-## 5. Intégrer la sensibilité dans tes décisions IA
+## 5. Intégrer la sensibilité in tes décisions IA
 
-- Data “Restricted / Très sensitive” : privilégier traitement sur poste ou on‑prem, voire interdiction d’envoi vers des LLM cloud non dédiés, sauf anonymisation forte.[^9][^7]
-- Data “Confidential” : possible en cloud à certaines conditions (région, encryption, contrats), ou en mode hybride (RAG local, models génériques externals).[^6][^2]
-- Data “Internal/Public” : utilisables plus librement en cloud ou via API.[^3][^5]
+- Data “Restricted / Très sensitive” : privilégier traitement on poste or on‑prem, voire interdiction d’envoi vers des LLM cloud non dédiés, sauf anonymisation forte.[^9][^7]
+- Data “Confidential” : possible en cloud à certaines conditions (région, encryption, contrats), or en mode hybride (RAG local, models génériques externals).[^6][^2]
+- Data “Internal/Public” : utilisables plus librement en cloud or via API.[^3][^5]
 
-Si tu veux, tu peux donner quelques examples de tes jeux de data (RH, patients, logs, code, etc.), et ils peuvent être classés concrètement dans cette grille avec recommendations de traitement associées.
+Si tu veux, tu peux donner quelques examples de tes jeux de data (RH, patients, logs, code, etc.), and ils can être classés concrètement in cette grille with recommendations de traitement associées.
 <span style="display:none">[^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

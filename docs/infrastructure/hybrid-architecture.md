@@ -1,9 +1,9 @@
 
-# Which architecture hybride recommander pour workloads sensitives
+# Which architecture hybride recommander for workloads sensitives
 
-Pour des workloads sensitives, la recommendation courante est une architecture hybride où les data critiques restent traitées on‑prem/edge et où le cloud n'est utilisé que pour l'entrainement lourd, l'agrégation de métriques ou des models généralistes sur data non sensitives.[^1][^2]
+Pour des workloads sensitives, la recommendation courante is une architecture hybride où les data critiques restent traitées on‑prem/edge and où le cloud n'est utilisé que for l'entrainement lourd, l'agrégation de métriques or des models généralistes on data non sensitives.[^1][^2]
 
-## Architecture Hybride pour Workloads Sensitives
+## Architecture Hybride for Workloads Sensitives
 
 ```mermaid
 graph TB
@@ -59,44 +59,44 @@ graph TB
 
 ## Principles de base
 
-- Localiser le traitement des data sensitives (PII, santé, RH, IP) sur workstation ou servers on‑prem, dans le périmètre de security de l’organisation, pour simplifier conformité et souveraineté.[^3][^4][^2]
-- Utiliser le cloud pour les workloads non sensitives ou anonymisés : entraînement de models génériques, analytics agrégées, services LLM publics sur prompts/documents “publics”.[^5][^6][^1]
+- Localiser le traitement des data sensitives (PII, santé, RH, IP) on workstation or servers on‑prem, in le périmètre de security de l’organisation, for simplifier conformité and souveraineté.[^3][^4][^2]
+- Utiliser le cloud for les workloads non sensitives or anonymisés : training de models génériques, analytics agrégées, services LLM publics on prompts/documents “publics”.[^5][^6][^1]
 
 
 ## Breakdown logique des workloads
 
-- Plan de control / orchestration en cloud private ou public : registry de models, configuration, supervision, mais sans data brutes sensitives.[^7][^8]
-- Plan de data et d’inférence sensitive on‑prem : LLM/RAG/doc intelligence déployés dans le datacenter internal ou sur postes renforcés, avec éventuels connecteurs optionnels vers des LLM cloud uniquement pour contenus non sensitives.[^4][^2][^9]
+- Plan de control / orchestration en cloud private or public : registry de models, configuration, supervision, but without data brutes sensitives.[^7][^8]
+- Plan de data and d’inference sensitive on‑prem : LLM/RAG/doc intelligence déployés in le datacenter internal or on postes renforcés, with éventuels connecteurs optionnels vers des LLM cloud uniquement for contenus non sensitives.[^4][^2][^9]
 
 
 ## Architecture cible (vue simplifiée)
 
-- Edge/postes et servers départementaux :
-    - Services d’inférence locaux (LLM, OCR, vision, classification) déployés via un orchestrateur internal (K8s on‑prem, Talos, K3s, etc.).[^10][^4]
-    - Stockage local chiffré (documents, embeddings, logs) avec accès restricted (RBAC, segmentation réseau).[^11][^4]
+- Edge/postes and servers départementaux :
+    - Services d’inference locaux (LLM, OCR, vision, classification) déployés via un orchestrateur internal (K8s on‑prem, Talos, K3s, etc.).[^10][^4]
+    - Storage local chiffré (documents, embeddings, logs) with accès restricted (RBAC, segmentation network).[^11][^4]
 - Cloud :
-    - Entraînement/fine‑tuning sur data pseudonymisées ou synthétiques, et stockage des models maîtres.[^1][^5]
-    - Services managés pour monitoring, registry de features, MLOps, bastion d’observabilité, avec retour des métriques agrégées depuis l’on‑prem.[^6][^7]
+    - Training/fine‑tuning on data pseudonymisées or synthétiques, and storage des models maîtres.[^1][^5]
+    - Services managés for monitoring, registry de features, MLOps, bastion d’observabilité, with retour des métriques agrégées depuis l’on‑prem.[^6][^7]
 
 
 ## Security : Zero Trust \& gouvernance
 
 - Appliquer du Zero Trust de bout en bout : authentication forte, micro‑segmentation, vérification continue des identités de workloads (SPIFFE/SPIRE, Vault, etc.).[^12][^13][^14]
-- Encryption systématique : au repos sur l’edge et on‑prem, et en transit vers le cloud (VPN, TLS mutualisé), avec politiques claires de classification de data définissant ce qui peut sortir ou non.[^15][^16]
+- Encryption systématique : au repos on l’edge and on‑prem, and en transit vers le cloud (VPN, TLS mutualisé), with politiques claires de classification de data définissant ce qui can sortir or non.[^15][^16]
 
 
 ## Flow de data “privacy first”
 
-- Les data brutes sensitives restent localement ; seuls des signaux dérivés ou agrégés (statistiques, gradients FL, logs anonymisés) montent vers le cloud.[^17][^1]
-- Pour certains cas limitations, usage de techniques avancées (federated learning, FHE, TEEs) pour déporter une partie de la charge tout en conservant la confidentialité.[^18][^19]
+- Les data brutes sensitives restent localement ; seuls des signaux dérivés or agrégés (statistiques, gradients FL, logs anonymisés) montent vers le cloud.[^17][^1]
+- Pour certains cas limitations, usage de techniques avancées (federated learning, FHE, TEEs) for déporter une partie de la load tout en conservant la confidentialité.[^18][^19]
 
 
 ### Exemple de pattern concret
 
-- On‑prem/edge : OnPrem.LLM ou équivalent pour RAG sur documents internals, avec models quantifiés hébergés sur GPU locaux, UI web internal.[^9][^4]
-- Cloud : LLM public ou “sovereign cloud” utilisé pour rédaction générique ou traitement de docs publics, appelé uniquement quand le classifieur local conclut que le contenu n’est pas sensitive.[^2][^8][^5]
+- On‑prem/edge : OnPrem.LLM or équivalent for RAG on documents internals, with models quantifiés hébergés on GPU locaux, UI web internal.[^9][^4]
+- Cloud : LLM public or “sovereign cloud” utilisé for rédaction générique or traitement de docs publics, appelé uniquement quand le classifieur local conclut que le contenu n’est pas sensitive.[^2][^8][^5]
 
-Si tu précises ton secteur (santé, banque, secteur public…), les contraintes réglementaires (RGPD strict, data hors UE, etc.) et ton stack K8s actuel, l’architecture peut être affinée jusqu’au niveau composants (ingress, opérateurs d’IA, types de stockage, patterns de synchronisation).
+Si tu précises ton secteur (santé, banque, secteur public…), les contraintes réglementaires (RGPD strict, data hors UE, etc.) and ton stack K8s actuel, l’architecture can être affinée jusqu’au niveau composants (ingress, opérateurs d’IA, types de storage, patterns de synchronisation).
 <span style="display:none">[^20]</span>
 
 <div align="center">⁂</div>

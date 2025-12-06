@@ -1,9 +1,9 @@
 
-# Which mecanisme de encryption, d'authentication, d'habiliation utiliser dans des process AI
+# Which mecanisme de encryption, d'authentication, d'habiliation utiliser in des process AI
 
-Pour des process IA sensitives, les mécanismes de encryption, d'authentication et d'habilitation doivent suivre une logique Zero Trust : tout flow est chiffré, toute entité (humain ou agent) est authentifiée fortement, et chaque accès est limité au strict nécessaire.[^1][^2][^3]
+Pour des process IA sensitives, les mécanismes de encryption, d'authentication and d'habilitation must suivre une logique Zero Trust : tout flow is chiffré, toute entité (humain or agent) is authentifiée fortement, and chaque accès is limité au strict nécessaire.[^1][^2][^3]
 
-## Architecture Zero Trust pour l'IA
+## Architecture Zero Trust for l'IA
 
 ```mermaid
 flowchart TB
@@ -76,44 +76,44 @@ flowchart TB
 
 ## Encryption à privilégier
 
-- En transit : TLS 1.2+ (idéalement 1.3) partout entre clients, API IA, brokers, stores de features et bases de data, avec vérification stricte des certificats et désactivation des suites faibles.[^4][^5][^1]
-- Au repos : encryption disque/volume côté bases, object storage, files de messages, et stockage de models, avec gestion centralisée des clés (KMS, HSM ou Vault) et rotation régulière.[^6][^1][^4]
-- Data très sensitives : combiner encryption avec tokenisation ou masquage dynamique des PII dans les inputs aux models, et logs systématiquement nettoyés des data brutes.[^7][^4][^6]
+- En transit : TLS 1.2+ (idéalement 1.3) partout between clients, API IA, brokers, stores de features and bases de data, with vérification stricte des certificats and désactivation des suites faibles.[^4][^5][^1]
+- Au repos : encryption disque/volume côté bases, object storage, files de messages, and storage de models, with gestion centralisée des clés (KMS, HSM or Vault) and rotation régulière.[^6][^1][^4]
+- Data très sensitives : combiner encryption with tokenisation or masquage dynamique des PII in les inputs aux models, and logs systématiquement nettoyés des data brutes.[^7][^4][^6]
 
 
 ## Authentication des humains
 
-- Utilisateurs finaux (UI, portails, IDE, outils RAG) : SSO (OIDC/SAML) connecté à l’IdP d’entreprise, MFA obligatoire pour les rôles sensitives (ops, data, security, administrateurs de models).[^2][^8][^3]
-- Accès aux consoles d’admin IA (MLOps, orchestrateurs, vector DB) : authentication forte (MFA, FIDO2/Passkeys ou certificats) et interdiction des comptes partagés.[^9][^10][^2]
+- Utilisateurs finaux (UI, portails, IDE, outils RAG) : SSO (OIDC/SAML) connecté à l’IdP d’entreprise, MFA obligatoire for les rôles sensitives (ops, data, security, administrateurs de models).[^2][^8][^3]
+- Accès aux consoles d’admin IA (MLOps, orchestrateurs, vector DB) : authentication forte (MFA, FIDO2/Passkeys or certificats) and interdiction des comptes partagés.[^9][^10][^2]
 
 
-## Authentication des services et agents IA
+## Authentication des services and agents IA
 
-- Entre microservices, pipelines, agents et backends :
-    - Utiliser des identités de workload standardisées (SPIFFE/SVID, JWT signés par une PKI internal, ou OAuth2 client credentials) plutôt que des secrets statiques.[^11][^8][^12]
-    - Préférer des credentials éphémères (tokens courts, rotation automatique, session‑based) et stockage uniquement dans des coffres chiffrés (Vault, KMS, Secret Manager), jamais dans le code ou les images.[^8][^13][^11]
+- Entre microservices, pipelines, agents and backends :
+    - Utiliser des identités de workload standardisées (SPIFFE/SVID, JWT signés par une PKI internal, or OAuth2 client credentials) plutôt que des secrets statiques.[^11][^8][^12]
+    - Préférer des credentials éphémères (tokens courts, rotation automatique, session‑based) and storage uniquement in des coffres chiffrés (Vault, KMS, Secret Manager), never in le code or les images.[^8][^13][^11]
 - Pour les appels vers des API LLM externals :
-    - Isolation des clés API par environnement et par application, rotation régulière, et filtrage réseau sortant pour limiter les destinations.[^13][^14][^1]
+    - Isolation des clés API par environnement and par application, rotation régulière, and filtrage network sortant for limiter les destinations.[^13][^14][^1]
 
 
 ## Habilitation / authorization
 
-- Modèle d’accès : RBAC ou ABAC (attributs rôle, équipe, classification des data, contexte) combiné au principe de moindre privilège pour les utilisateurs et les agents IA.[^15][^16][^8]
-- Data pour RAG / features :
-    - Le filtrage des documents doit se faire côté backend fiable, pas par le modèle lui‑même (le LLM ne “décide” pas qui a le droit de voir quoi).[^16][^10]
-    - Appliquer des filtres d’authorizations sur les requêtes au vectordb ou au data store (ex. scope utilisateur, attributs d’organisation, labels de sensibilité).[^16][^4]
+- Modèle d’accès : RBAC or ABAC (attributs rôle, équipe, classification des data, contexte) combiné au principe de moindre privilège for les utilisateurs and les agents IA.[^15][^16][^8]
+- Data for RAG / features :
+    - Le filtrage des documents must se faire côté backend fiable, pas par le modèle lui‑même (le LLM ne “décide” pas qui a le droit de voir quoi).[^16][^10]
+    - Appliquer des filtres d’authorizations on les requêtes au vectordb or au data store (ex. scope utilisateur, attributs d’organisation, labels de sensibilité).[^16][^4]
 - Agents IA :
-    - Identité propre par agent, scopes d’API stricts, access tokens limités dans le temps et dans le périmètre, journaux d’actions complets pour audit.[^17][^11][^8]
+    - Identité propre par agent, scopes d’API stricts, access tokens limités in le temps and in le périmètre, journaux d’actions complets for audit.[^17][^11][^8]
 
 
 ## Controls complémentaires spécifiques IA
 
 - Zero Trust IA / LLM :
-    - Vérification systématique de l’identité à chaque requête, control dynamique according to la sensibilité du prompt et des data, monitoring en temps réel pour détecter prompt injections et comportements anormaux.[^18][^12][^2]
+    - Vérification systématique de l’identité à chaque requête, control dynamique according to la sensibilité du prompt and des data, monitoring en temps réel for détecter prompt injections and comportements anormaux.[^18][^12][^2]
 - Protection des pipelines :
-    - Data minimization, DLP/anonymisation en amont du training, signatures ou checksums des datasets pour détecter data poisoning, et control d’accès strict au repo de models.[^19][^4][^6]
+    - Data minimization, DLP/anonymisation en amont du training, signatures or checksums des datasets for détecter data poisoning, and control d’accès strict au repo de models.[^19][^4][^6]
 
-En pratique, pour une stack moderne : TLS 1.3 partout, KMS/Vault pour les clés, SSO OIDC + MFA pour les humains, SPIFFE/OAuth2 pour les workloads, RBAC/ABAC côté data et vector DB, tokens courts pour agents, et un SIEM branché sur les logs d’API IA et de pipelines.[^5][^1][^11][^16]
+En pratique, for une stack moderne : TLS 1.3 partout, KMS/Vault for les clés, SSO OIDC + MFA for les humains, SPIFFE/OAuth2 for les workloads, RBAC/ABAC côté data and vector DB, tokens courts for agents, and un SIEM branché on les logs d’API IA and de pipelines.[^5][^1][^11][^16]
 <span style="display:none">[^20]</span>
 
 <div align="center">⁂</div>

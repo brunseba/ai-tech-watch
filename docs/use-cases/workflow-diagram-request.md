@@ -1,7 +1,7 @@
 
-# peux-tu me faire un schema en couleur sur ce sujet
+# peux-tu me faire un schema en couleur on ce sujet
 
-Un schéma simple couleur pour les mécanismes de encryption, authentication et habilitation dans un process IA peut ressembler à ceci.[^1][^2]
+Un schéma simple couleur for les mécanismes de encryption, authentication and habilitation in un process IA can ressembler à ceci.[^1][^2]
 
 ```mermaid
 flowchart LR
@@ -18,7 +18,7 @@ flowchart LR
 
     %% AuthN / AuthZ
     G[Gateway API / Proxy<br/>TLS 1.3, WAF]:::auth
-    I[IdP / IAM<br/>RBAC ou ABAC]:::auth
+    I[IdP / IAM<br/>RBAC or ABAC]:::auth
 
     %% Couche IA
     S[Service IA<br/>API LLM / RAG<br/>identité workload SPIFFE/OAuth2]:::ai
@@ -49,18 +49,18 @@ flowchart LR
     C --- M
 
     S -->|Logs, prompts, réponses<br/>sans data sensitives| L
-    G -->|Logs accès et décisions<br/>AuthN/AuthZ| L
+    G -->|Logs accès and décisions<br/>AuthN/AuthZ| L
 ```
 
 Ce schéma illustre en couleurs :
 
-- Bleu : utilisateur et entrée SSO/MFA.[^3][^4]
+- Bleu : utilisateur and entrée SSO/MFA.[^3][^4]
 - Violet : AuthN/AuthZ centralisées (Gateway + IdP/IAM).[^5][^6]
 - Jaune : services IA (API LLM, RAG, models).[^7][^1]
-- Vert : data et stores (sources, vectordb/features).[^2][^8]
+- Vert : data and stores (sources, vectordb/features).[^2][^8]
 - Rouge : security transversale (encryption, coffre‑fort à clés, logs/audit).[^1][^2]
 
-Si tu veux, ce diagramme peut être adapté à ton stack concret (Ingress K8s, Istio, Vault, Keycloak, OpenSearch, etc.) avec des noms de composants précis.
+Si tu veux, ce diagramme can être adapté à ton stack concret (Ingress K8s, Istio, Vault, Keycloak, OpenSearch, etc.) with des noms de composants précis.
 
 <div align="center">⁂</div>
 

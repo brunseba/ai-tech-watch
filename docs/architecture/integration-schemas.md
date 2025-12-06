@@ -1,9 +1,9 @@
 
 # exemple d'integration sous forme de schema
 
-Un exemple classique : intégrer un agent pour traiter automatiquement une partie d’un workflow ITSM (tickets d’incident) en s’appuyant sur tes systèmes existants.[^1][^2]
+Un exemple classique : intégrer un agent for traiter automatiquement une partie d’un workflow ITSM (tickets d’incident) en s’appuyant on tes systèmes existants.[^1][^2]
 
-## Schéma Mermaid d’intégration dans un workflow ITSM
+## Schéma Mermaid d’intégration in un workflow ITSM
 
 ```mermaid
 flowchart LR
@@ -14,30 +14,30 @@ flowchart LR
     classDef sec fill:#ffebee,stroke:#e53935,color:#b71c1c;
 
     U[Utilisateur<br/>Portail ITSM]:::user
-    ITSM[Outil ITSM<br/>ServiceNow ou Jira Service Management]:::tool
+    ITSM[Outil ITSM<br/>ServiceNow or Jira Service Management]:::tool
     ORCH[Orchestrateur workflow<br/>BPMN, n8n, Temporal, Argo]:::infra
     APIM[API Gateway / APIM]:::infra
     AGENT[AI Agent ITSM<br/>classification, enrichissement, actions]:::agent
-    LLM[LLM Runtime<br/>local ou cloud]:::agent
+    LLM[LLM Runtime<br/>local or cloud]:::agent
     CMDB[CMDB / Observabilite<br/>logs, metrics]:::tool
     APPROVE[Validation humaine<br/>Ops / Support]:::user
     SEC[Policy / Guardrails<br/>scope, filtres, audit]:::sec
 
     U -->|Cree un ticket| ITSM
-    ITSM -->|Trigger integration<br/>webhook ou event| ORCH
+    ITSM -->|Trigger integration<br/>webhook or event| ORCH
 
     ORCH -->|Appel REST ticket brut| APIM
     APIM -->|Requete securisee| AGENT
 
     AGENT -->|Consultation contexte<br/>CMDB, logs| CMDB
-    AGENT -->|Appel LLM pour analyse<br/>resume, categorie, priorite| LLM
-    LLM -->|Proposition classification et reponse| AGENT
+    AGENT -->|Appel LLM for analyse<br/>resume, categorie, priorite| LLM
+    LLM -->|Proposition classification and reponse| AGENT
 
     AGENT -->|Proposition mise a jour ticket<br/>commentaire, champs| ORCH
     ORCH -->|Met a jour ticket| ITSM
 
     ORCH -->|Si changement impactant<br/>modif config, close ticket| APPROVE
-    APPROVE -->|Validation ou rejet| ORCH
+    APPROVE -->|Validation or rejet| ORCH
 
     AGENT -->|Toutes actions journalisees| SEC
     ORCH -->|Logs workflow| SEC
@@ -46,10 +46,10 @@ flowchart LR
 
 Dans cet exemple :
 
-- Le workflow principal reste porté par l’outil ITSM et l’orchestrateur, l’agent n’est qu’un step d’analyse et de proposition d’actions.[^3][^1]
-- Les validations sensitives passent toujours par une étape humaine, l’agent fournit le contexte et les suggestions.[^4][^5]
+- Le workflow principal reste porté par l’outil ITSM and l’orchestrateur, l’agent n’est qu’un step d’analyse and de proposition d’actions.[^3][^1]
+- Les validations sensitives passent always par une étape humaine, l’agent fournit le contexte and les suggestions.[^4][^5]
 
-Le même pattern se transpose bien à d’autres workflows (onboarding client, SOC, CI/CD) en remplaçant ITSM et CMDB par tes systèmes métier.
+Le même pattern se transpose bien à d’autres workflows (onboarding client, SOC, CI/CD) en remplaçant ITSM and CMDB par tes systèmes métier.
 
 <div align="center">⁂</div>
 
