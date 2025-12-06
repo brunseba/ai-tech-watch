@@ -5,7 +5,7 @@ Pour intégrer des workflows Agentic AI dans des workflows existants, il faut tr
 
 ## 1. Partir des workflows existants
 
-- Cartographier les étapes actuelles : systèmes appelés, événements déclencheurs (webhook, cron, évènement métier), formats de données et points d’intégration (API, messages, fichiers).[^2][^4]
+- Cartographier les étapes actuelles : systèmes appelés, événements déclencheurs (webhook, cron, évènement métier), formats de data et points d’intégration (API, messages, fichiers).[^2][^4]
 - Identifier les “points de friction” où l’IA agentic apporte le plus : tâches manuelles, coordination multi‑outils, décisions répétitives à partir de beaucoup de contexte.[^5][^1]
 
 
@@ -18,7 +18,7 @@ Pour intégrer des workflows Agentic AI dans des workflows existants, il faut tr
 
 ## 3. Encapsuler l’agent derrière une orchestration
 
-- Utiliser une couche d’orchestration dédiée (Temporal, Conductor, n8n, LangGraph, etc.) qui gère les étapes, retries, timeouts, et appelle l’agent comme un composant sous contrôle.[^11][^12][^3]
+- Utiliser une couche d’orchestration dédiée (Temporal, Conductor, n8n, LangGraph, etc.) qui gère les étapes, retries, timeouts, et appelle l’agent comme un composant sous control.[^11][^12][^3]
 - Pattern courant : orchestrateur central + agents “workers” spécialisés (lecture docs, appel API, action métier), l’orchestrateur restant l’owner du workflow global (idempotence, reprise, SLA).[^13][^14]
 
 
@@ -30,7 +30,7 @@ Pour intégrer des workflows Agentic AI dans des workflows existants, il faut tr
 
 ## 5. Encadrer l’agent par des garde‑fous
 
-- Définir clairement les tâches autorisées pour l’agent (scopes) : quelles actions, sur quels systèmes, avec quels types de données, et à quelle étape du workflow.[^17][^13]
+- Définir clairement les tâches autorisées pour l’agent (scopes) : quelles actions, sur quels systèmes, avec quels types de data, et à quelle étape du workflow.[^17][^13]
 - Implémenter des garde‑fous : validation humaine sur certaines étapes (approvals), rollback possible, logs détaillés pour chaque décision et appel d’outil, et métriques de qualité (succès, erreurs, escalades).[^14][^3][^16]
 
 

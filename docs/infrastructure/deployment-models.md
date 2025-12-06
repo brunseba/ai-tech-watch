@@ -1,11 +1,11 @@
 
-# choix du modele de déploiement de l'IA entre  poste de travail, serveur departementaux,  service cloud
+# choix du modele de deployment de l'IA entre  poste de travail, serveur departementaux,  service cloud
 
-Le choix entre poste de travail, serveur départemental et service cloud dépend surtout de la sensibilité des données, de la criticité de la latence, de la variabilité de la charge et de votre capacité à exploiter/maintenir l’infra.[^1][^2]
+Le choix entre poste de travail, serveur départemental et service cloud dépend surtout de la sensibilité des data, de la criticité de la latence, de la variabilité de la charge et de votre capacité à exploiter/maintenir l’infra.[^1][^2]
 
 ## Grands critères de choix
 
-- Données et conformité : si les données sont sensibles (santé, RH, données financières détaillées), garder le traitement on‑prem (poste ou serveur) simplifie la souveraineté et les audits, alors que le cloud impose de gérer des contraintes réglementaires supplémentaires.[^2][^3][^1]
+- Data et conformité : si les data sont sensibles (santé, RH, data financières détaillées), garder le traitement on‑prem (poste ou serveur) simplifie la souveraineté et les audits, alors que le cloud impose de gérer des contraintes réglementaires supplémentaires.[^2][^3][^1]
 - Latence et disponibilité réseau : pour des cas temps réel ou en environnement peu connecté (atelier, terrain, agences mal reliées), l’inférence locale (poste ou serveur départemental) évite les allers‑retours réseau vers le cloud.[^4][^5][^6]
 - Variabilité de la charge : si la demande est très fluctuante (pics forts, POC fréquents), le cloud reste nettement plus élastique et rapide à dimensionner que l’on‑prem.[^7][^8][^2]
 - Horizon de coûts : on‑prem a un gros CAPEX mais des coûts marginaux faibles pour des charges stables, alors que le cloud est OPEX pay‑per‑use mais peut coûter plus cher sur le long terme en cas d’usage intensif.[^9][^3][^10]
@@ -16,16 +16,16 @@ Le choix entre poste de travail, serveur départemental et service cloud dépend
 Approprié quand :
 
 - Cas d’usage individuels ou petits groupes, avec besoin de confidentialité forte (LLM local, assistants code, prototypes).[^11][^5][^4]
-- Modèles relativement compacts, fréquence d’usage élevée mais locale (pas multi‑utilisateur).[^12][^4]
+- Models relativement compacts, fréquence d’usage élevée mais locale (pas multi‑utilisateur).[^12][^4]
 
 Avantages :
 
-- Données qui ne sortent jamais du poste, aucune dépendance réseau, latence minimale.[^5][^4]
+- Data qui ne sortent jamais du poste, aucune dépendance réseau, latence minimale.[^5][^4]
 - Coûts maîtrisés si le matériel existe déjà, idéal pour expérimentation et R\&D distribuée.[^13][^2]
 
 Limites :
 
-- Pas de mutualisation entre utilisateurs, difficile à administrer à grande échelle (MLOps, mises à jour modèles).[^14][^13]
+- Pas de mutualisation entre utilisateurs, difficile à administrer à grande échelle (MLOps, mises à jour models).[^14][^13]
 - Puissance limitée par la config du poste (GPU/NPU), peu adapté à de gros entraînements ou à de l’inférence massive.[^15][^4]
 
 
@@ -33,12 +33,12 @@ Limites :
 
 Approprié quand :
 
-- Besoin de mutualiser des modèles pour un service ou un département, avec données sensibles mais charges relativement prévisibles.[^10][^1][^2]
+- Besoin de mutualiser des models pour un service ou un département, avec data sensibles mais charges relativement prévisibles.[^10][^1][^2]
 - Latence faible et continuité de service locale (même si le WAN tombe).[^6][^4]
 
 Avantages :
 
-- Contrôle total sur les données, l’infra, la stack logicielle, plus simple pour aligner sécurité et conformité.[^3][^1][^7]
+- Control total sur les data, l’infra, la stack logicielle, plus simple pour aligner security et conformité.[^3][^1][^7]
 - Coût intéressant si les GPU/serveurs sont bien utilisés en continu (taux d’usage élevé sur plusieurs années).[^9][^10]
 
 Limites :
@@ -51,8 +51,8 @@ Limites :
 
 Approprié quand :
 
-- Besoin d’élasticité forte, de tests rapides de multiples modèles/fournisseurs, ou de charges très variables.[^8][^2][^7]
-- Données déjà partiellement externalisées, avec exigences de latence pas ultra‑critiques, ou pour phases d’entraînement lourdes.[^16][^17][^11]
+- Besoin d’élasticité forte, de tests rapides de multiples models/fournisseurs, ou de charges très variables.[^8][^2][^7]
+- Data déjà partiellement externalisées, avec exigences de latence pas ultra‑critiques, ou pour phases d’entraînement lourdes.[^16][^17][^11]
 
 Avantages :
 
@@ -62,24 +62,24 @@ Avantages :
 Limites :
 
 - Coûts pouvant devenir 2–3x plus élevés que l’on‑prem à usage intensif et continu (surtout sur LLM/vision) si non optimisés.[^3][^9]
-- Enjeux de souveraineté, de localisation des données et de dépendance fournisseur (lock‑in).[^1][^11][^2]
+- Enjeux de souveraineté, de localisation des data et de dépendance fournisseur (lock‑in).[^1][^11][^2]
 
 
-## Visualisation des modèles de déploiement
+## Visualisation des models de deployment
 
 ```mermaid
 graph TB
     subgraph Edge["🖥️ Poste de Travail / Edge"]
-        E1[Données ultra-sensibles]
+        E1[Data ultra-sensibles]
         E2[Latence minimale < 10ms]
         E3[Usage individuel]
         E4[Offline capable]
     end
     
     subgraph OnPrem["🏢 Serveur Départemental On-Prem"]
-        O1[Données sensibles]
+        O1[Data sensibles]
         O2[Mutualisation département]
-        O3[Contrôle total]
+        O3[Control total]
         O4[Charges prévisibles]
     end
     
@@ -106,7 +106,7 @@ graph TB
 
 | Critère principal | Poste de travail | Serveur départemental on‑prem | Service cloud public |
 | :-- | :-- | :-- | :-- |
-| Sensibilité des données | Très élevée, données locales. [^4] | Élevée, données restent dans le SI. [^1] | Variable, données chez un tiers. [^2] |
+| Sensibilité des data | Très élevée, data locales. [^4] | Élevée, data restent dans le SI. [^1] | Variable, data chez un tiers. [^2] |
 | Latence / dépendance réseau | Latence minimale, offline OK. [^4] | Faible en local, WAN optionnel. [^6] | Dépend du réseau et du DC. [^15] |
 | Variabilité de la charge | Faible, usage individuel. [^13] | Moyenne, charges prévisibles. [^10] | Forte, très élastique. [^2][^7] |
 | Coût long terme (usage fort) | Bon si déjà équipé. [^13] | Avantageux si haut taux d’usage. [^9] | Peut devenir élevé en continu. [^9] |
@@ -117,10 +117,10 @@ graph TB
 Pour une DSI/collectivité ou une grande entreprise, un modèle hybride est souvent optimal :
 
 - Cloud pour : entraînements lourds, POC rapides, charges très variables, intégration de services managés (APIs LLM, vision, traduction).[^17][^16][^2]
-- Serveur(s) départementaux pour : inférence récurrente sur données sensibles, services IA partagés (chat interne, RAG sur documents internes, scoring métier).[^10][^1][^3]
+- Serveur(s) départementaux pour : inférence récurrente sur data sensibles, services IA partagés (chat interne, RAG sur documents internes, scoring métier).[^10][^1][^3]
 - Postes de travail pour : outils personnels (copilotes dev, assistants bureautiques) et cas où aucune donnée ne doit sortir du poste.[^4][^11]
 
-Si tu veux, tu peux préciser ton contexte (taille de l’organisation, type de données, cas d’usage IA envisagés) et un budget approximatif, et une proposition d’architecture cible plus détaillée (incluant MLOps, sécurité, réseau) peut être construite.
+Si tu veux, tu peux préciser ton contexte (taille de l’organisation, type de data, cas d’usage IA envisagés) et un budget approximatif, et une proposition d’architecture cible plus détaillée (incluant MLOps, security, réseau) peut être construite.
 <span style="display:none">[^19][^20]</span>
 
 <div align="center">⁂</div>

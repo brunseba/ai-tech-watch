@@ -1,7 +1,7 @@
 
 # Quels types d'applications conviennent le mieux à l'edge poste de travail
 
-Les applications qui tirent le meilleur parti de l'edge sur poste de travail sont celles qui ont besoin de faible latence, de forte confidentialité des données ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
+Les applications qui tirent le meilleur parti de l'edge sur poste de travail sont celles qui ont besoin de faible latence, de forte confidentialité des data ou d'un mode déconnecté, avec une charge limitée à un utilisateur ou un petit groupe.[^1][^2]
 
 ## Applications Idéales pour Edge Poste de Travail
 
@@ -17,8 +17,8 @@ graph TB
     subgraph Apps["💻 Applications Edge"]
         A1[🤖 Assistants LLM Locaux<br/>Code, docs, traduction]
         A2[🎵 Temps Réel Audio/Vidéo<br/>Reconnaissance vocale, sous-titrage]
-        A3[🔐 Données Réglementées<br/>Santé, juridique, RH]
-        A4[📦 Prototypage R&D<br/>Test modèles, expérimentation]
+        A3[🔐 Data Réglementées<br/>Santé, juridique, RH]
+        A4[📦 Prototypage R&D<br/>Test models, expérimentation]
         A5[📶 Mode Offline<br/>Mobilité, terrain]
     end
     
@@ -55,8 +55,8 @@ graph TB
 
 ## Assistants personnels et productivité
 
-- Assistants LLM locaux (chat, complétion, traduction, résumé) pour développeurs ou knowledge workers, où le code source, les documents internes ou les mails ne doivent jamais sortir du poste.[^3][^4][^5]
-- Copilotes dans l’IDE (VS Code, etc.), outils d’aide bureautique (résumé de docs, analyse de feuilles de calcul) ou d’assistance rédactionnelle directement sur le laptop/Mac.[^6][^3]
+- Assistants LLM locaux (chat, complétion, traduction, summary) pour développeurs ou knowledge workers, où le code source, les documents internes ou les mails ne doivent jamais sortir du poste.[^3][^4][^5]
+- Copilotes dans l’IDE (VS Code, etc.), outils d’aide bureautique (summary de docs, analyse de feuilles de calcul) ou d’assistance rédactionnelle directement sur le laptop/Mac.[^6][^3]
 
 
 ## Applications temps réel à faible latence
@@ -67,8 +67,8 @@ graph TB
 
 ## Cas d’usage sensibles ou réglementés
 
-- Analyse locale de données réglementées (santé, juridique, RH, code propriétaire) pour recherche sémantique, RAG, classification ou détection d’anomalies, afin d’éviter tout envoi vers un fournisseur externe.[^4][^8][^1]
-- Diagnostics ou outils internes utilisés sur des postes durcis (admin, SOC, métiers) où la politique de sécurité impose que les données restent sur l’équipement.[^2][^1]
+- Analyse locale de data réglementées (santé, juridique, RH, code propriétaire) pour recherche sémantique, RAG, classification ou détection d’anomalies, afin d’éviter tout envoi vers un fournisseur externe.[^4][^8][^1]
+- Diagnostics ou outils internes utilisés sur des postes durcis (admin, SOC, métiers) où la politique de security impose que les data restent sur l’équipement.[^2][^1]
 
 
 ## Edge poste comme mini-serveur
@@ -80,9 +80,9 @@ graph TB
 ## Scénarios déconnectés ou intermittents
 
 - Travail en mobilité (consultants, techniciens terrain) avec assistant, traduction, OCR/vision et RAG sur docs embarqués, utilisables même sans réseau.[^8][^1]
-- Prototypage et R\&D : expérimenter rapidement des modèles quantifiés, pipelines d’inférence ou intégrations applicatives en local avant de porter en serveur ou cloud.[^5][^11][^4]
+- Prototypage et R\&D : expérimenter rapidement des models quantifiés, pipelines d’inférence ou intégrations applicatives en local avant de porter en serveur ou cloud.[^5][^11][^4]
 
-Si tu précises ton profil d’utilisateur (dev, analyste, terrain, etc.) et les ressources typiques d’un poste (CPU/GPU/RAM), une liste plus ciblée de patterns et d’outils (Ollama, LM Studio, runtimes, formats de modèles) peut être proposée.
+Si tu précises ton profil d’utilisateur (dev, analyste, terrain, etc.) et les ressources typiques d’un poste (CPU/GPU/RAM), une liste plus ciblée de patterns et d’outils (Ollama, LM Studio, runtimes, formats de models) peut être proposée.
 <span style="display:none">[^12][^13][^14][^15][^16][^17][^18][^19][^20]</span>
 
 <div align="center">⁂</div>

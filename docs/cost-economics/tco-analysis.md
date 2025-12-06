@@ -53,7 +53,7 @@ graph TD
 À évaluer pour chaque poste “IA‑capable” (GPU/accelerator) :
 
 - CAPEX : surcoût GPU/NPU, RAM, stockage par rapport à un poste standard, amorti sur 3–5 ans.[^5][^1]
-- OPEX : électricité approximative liée à l’IA (kWh estimés), support IT, licences locales éventuelles, temps d’admin (MAJ modèles, sécurité).[^6][^5]
+- OPEX : électricité approximative liée à l’IA (kWh estimés), support IT, licences locales éventuelles, temps d’admin (MAJ models, security).[^6][^5]
 
 Pertinent si :
 
@@ -78,7 +78,7 @@ Clés d’analyse :
 Cloud IaaS (VM GPU) :
 
 - CAPEX quasi nul.
-- OPEX : coût horaire des instances GPU (à multiplier par heures d’usage + overhead réseau/stockage), frais de sortie de données, licences managées, support, etc.[^13][^7][^9]
+- OPEX : coût horaire des instances GPU (à multiplier par heures d’usage + overhead réseau/stockage), frais de sortie de data, licences managées, support, etc.[^13][^7][^9]
 
 Cloud via API LLM :
 
@@ -103,12 +103,12 @@ Clés d’analyse :
 
 | Option | CAPEX à inclure | OPEX à inclure |
 | :-- | :-- | :-- |
-| Poste de travail | Surcoût GPU/NPU, RAM, stockage. [^5] | Énergie, temps IT, licences locales, MAJ modèles/sécurité. [^5][^6] |
+| Poste de travail | Surcoût GPU/NPU, RAM, stockage. [^5] | Énergie, temps IT, licences locales, MAJ models/security. [^5][^6] |
 | Serveur on‑prem | Serveurs, GPU, stockage, réseau, DC. [^7] | Énergie, refroidissement, licences, support HW, salaires infra/MLOps. [^7][^1] |
 | Cloud IaaS | Aucun (hors setup). [^9] | Heures VM GPU, stockage, réseau, egress, support, services managés. [^9][^13] |
 | API LLM / SaaS | Aucun. [^14] | Coût par token/requête, abonnements, frais de compliance supplémentaires. [^14][^16] |
 
-Si tu veux, tu peux donner un ordre de grandeur de ta charge (nb d’utilisateurs, requêtes/jour, taille des modèles) et un budget énergétique/DC, et un petit modèle chiffré (avec hypothèses explicites) poste vs on‑prem vs cloud peut être esquissé.
+Si tu veux, tu peux donner un ordre de grandeur de ta charge (nb d’utilisateurs, requêtes/jour, taille des models) et un budget énergétique/DC, et un petit modèle chiffré (avec hypothèses explicites) poste vs on‑prem vs cloud peut être esquissé.
 <span style="display:none">[^18][^19][^20]</span>
 
 <div align="center">⁂</div>

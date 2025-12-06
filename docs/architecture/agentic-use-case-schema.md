@@ -1,7 +1,7 @@
 
 # un schema pour le cas d'usage AI Agentic
 
-Pour un cas d’usage AI agentic, le schéma doit montrer clairement que l’agent est une identité à part entière, avec permissions minimales, audit complet et appels outillés sous contrôle.[^1][^2]
+Pour un cas d’usage AI agentic, le schéma doit montrer clairement que l’agent est une identité à part entière, avec permissions minimales, audit complet et appels outillés sous control.[^1][^2]
 
 ## Schéma Mermaid en couleur pour AI agentic
 
@@ -21,7 +21,7 @@ flowchart LR
 
     T1[Outils / APIs internes<br/>CRM, ERP, ITSM, Git, etc.]:::tool
     T2[Outils / APIs externes<br/>SaaS, LLM APIs]:::tool
-    DATA[Stores de données<br/>RAG, bases, buckets]:::tool
+    DATA[Stores de data<br/>RAG, bases, buckets]:::tool
 
     POL[Policy Engine<br/>Zero Trust, least privilege,<br/>guardrails et rate limiting]:::sec
     MON[Monitoring / Audit<br/>logs détaillés actions agent,<br/>détection anomalies]:::sec
@@ -35,7 +35,7 @@ flowchart LR
 
     A -->|Appels outils autorisés| T1
     A -->|Appels APIs autorisés| T2
-    A -->|Requêtes données filtrées<br/>par droits utilisateur+agent| DATA
+    A -->|Requêtes data filtrées<br/>par droits utilisateur+agent| DATA
 
     A -->|Prompts, réponses, décisions| MON
     POL -->|Événements de décision| MON
@@ -47,8 +47,8 @@ flowchart LR
 Dans cette architecture :
 
 - L’utilisateur délègue explicitement un scope à l’agent, traité comme une application tierce avec consentement et permissions strictes.[^3][^4]
-- L’agent possède sa propre identité et ne peut appeler outils/données qu’à travers un moteur de politiques Zero Trust qui applique least privilege, tokens courts et garde‑fous.[^5][^6][^1]
-- Toutes les actions (prompts, appels d’outils, accès données) sont journalisées et surveillées pour détecter anomalies, abus de privilèges ou attaques multi‑agents.[^2][^7][^8]
+- L’agent possède sa propre identité et ne peut appeler outils/data qu’à travers un moteur de politiques Zero Trust qui applique least privilege, tokens courts et garde‑fous.[^5][^6][^1]
+- Toutes les actions (prompts, appels d’outils, accès data) sont journalisées et surveillées pour détecter anomalies, abus de privilèges ou attaques multi‑agents.[^2][^7][^8]
 <span style="display:none">[^10][^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^9]</span>
 
 <div align="center">⁂</div>

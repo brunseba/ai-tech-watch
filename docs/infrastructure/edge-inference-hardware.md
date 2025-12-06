@@ -21,7 +21,7 @@ Le choix du matériel d’inférence en périphérie dépend surtout de la compl
 
 ## GPU vs NPU en périphérie
 
-- GPU edge : plus flexible (vision, LLM, calcul générique), bon pour gros modèles et batchs plus importants, mais consomme davantage (15–60 W+).[^11][^12][^13]
+- GPU edge : plus flexible (vision, LLM, calcul générique), bon pour gros models et batchs plus importants, mais consomme davantage (15–60 W+).[^11][^12][^13]
 - NPU edge : très efficace pour l’inférence (LLM quantifiés, CNN) avec latence faible et 2–3× meilleure perf/watt qu’un GPU comparable, particulièrement intéressant pour petits batchs et latence constante.[^12][^14][^15][^11]
 
 
@@ -29,7 +29,7 @@ Le choix du matériel d’inférence en périphérie dépend surtout de la compl
 
 | Contrainte dominante | Matériel à privilégier | Commentaires |
 | :-- | :-- | :-- |
-| Ultra basse conso, capteur simple | MCU / SoC léger | Modèles tinyML, TFLite Micro, quantifiés. [^1][^4] |
+| Ultra basse conso, capteur simple | MCU / SoC léger | Models tinyML, TFLite Micro, quantifiés. [^1][^4] |
 | Boîtier edge polyvalent (vision légère, RAG small) | SoC CPU + NPU ou petit GPU | Intel Core Ultra, Ryzen AI, Jetson Nano/Orin Nano, Hailo. [^1][^5][^6] |
 | Vision/robotique lourde, multi‑flux | Jetson AGX / edge GPU | GPU ou DPU optimisés vision. [^9][^1][^7] |
 | LLM compacts en local (edge “musclé”) | NPU performant ou GPU edge | Selon perf/watt et écosystème logiciel (ONNX, TFLite, TensorRT). [^11][^16][^17] |

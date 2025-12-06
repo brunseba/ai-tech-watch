@@ -1,12 +1,12 @@
 
 # Quels critères prioriser pour choisir entre poste, serveur départemental, cloud
 
-Les critères à prioriser sont, dans l’ordre, la sensibilité des données / conformité, les exigences de latence et de connectivité, puis le profil de charge et le modèle de coûts (CAPEX/OPEX).[^1][^2][^3]
+Les critères à prioriser sont, dans l’ordre, la sensibilité des data / conformité, les exigences de latence et de connectivité, puis le profil de charge et le modèle de coûts (CAPEX/OPEX).[^1][^2][^3]
 
-## 1. Sensibilité des données et conformité
+## 1. Sensibilité des data et conformité
 
-- Données très sensibles ou fortement réglementées (santé, finance, défense, secrets industriels) poussent vers poste ou serveur on‑prem, où l’organisation garde le contrôle sur la localisation et l’accès.[^4][^5][^2]
-- Données peu sensibles ou déjà externalisées (logs anonymisés, contenus publics) peuvent être traitées en cloud sans risque majeur, surtout avec des régions conformes et des contrats adaptés.[^6][^1]
+- Data très sensibles ou fortement réglementées (santé, finance, défense, secrets industriels) poussent vers poste ou serveur on‑prem, où l’organisation garde le control sur la localisation et l’accès.[^4][^5][^2]
+- Data peu sensibles ou déjà externalisées (logs anonymisés, contenus publics) peuvent être traitées en cloud sans risque majeur, surtout avec des régions conformes et des contrats adaptés.[^6][^1]
 
 
 ## 2. Latence, temps réel et connectivité
@@ -31,13 +31,13 @@ Les critères à prioriser sont, dans l’ordre, la sensibilité des données / 
 
 | Critère prioritaire | Poste de travail | Serveur départemental on‑prem | Cloud public / managé |
 | :-- | :-- | :-- | :-- |
-| Données très sensibles | Oui (usage individuel). [^2] | Oui (mutualisé, périmètre maîtrisé). [^4] | À éviter ou à limiter/anonymiser. [^1] |
+| Data très sensibles | Oui (usage individuel). [^2] | Oui (mutualisé, périmètre maîtrisé). [^4] | À éviter ou à limiter/anonymiser. [^1] |
 | Latence temps réel / offline | Oui, idéal. [^7][^8] | Oui en local. [^9] | Non prioritaire. [^3][^10] |
 | Charge stable et massive | Limité (monoutil). [^16] | Oui, bon coût unitaire. [^11][^12] | Possible mais plus cher à long terme. [^13] |
 | Charge très variable | Non optimal. [^16] | Moins adapté. [^11] | Oui, élasticité et rapidité. [^1][^14] |
 | Peu de ressources infra | Simple mais peu industrialisable. [^2] | Demande une vraie équipe. [^5] | Cloud/API à privilégier. [^15][^17] |
 
-En pratique, pour des workloads sensibles, un mix est souvent optimal : poste/serveur pour les traitements critiques sur données confidentielles, cloud pour entraînement, explorations et workloads moins sensibles.[^9][^12]
+En pratique, pour des workloads sensibles, un mix est souvent optimal : poste/serveur pour les traitements critiques sur data confidentielles, cloud pour entraînement, explorations et workloads moins sensibles.[^9][^12]
 <span style="display:none">[^18][^19][^20]</span>
 
 <div align="center">⁂</div>

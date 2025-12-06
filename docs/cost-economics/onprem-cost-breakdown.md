@@ -20,14 +20,14 @@ Pour un TCO on‑premises AI crédible, il faut intégrer tous les coûts CAPEX 
 ## 3. Logiciel, licences et outils
 
 - OS / hyperviseur / orchestrateur : licences éventuelles (RHEL, VMware, K8s enterprise, storage SDS, etc.).[^7][^8]
-- Outils IA / MLOps : monitoring, logging, observabilité, scheduler, registry de modèles, solutions de sécurité (EDR, WAF, IAM), éventuellement plateformes AI commerciales.[^9][^6]
+- Outils IA / MLOps : monitoring, logging, observabilité, scheduler, registry de models, solutions de security (EDR, WAF, IAM), éventuellement plateformes AI commerciales.[^9][^6]
 - Support logiciel : abonnements éditeurs, mises à jour, maintenance corrective/évolutive.[^7][^9]
 
 
 ## 4. Personnel, gestion et opérations
 
-- Équipe infra : admins systèmes, réseau, stockage, SRE, sécurité, avec temps alloué au run de la plateforme GPU (patching, capacity planning, incidents, PCA/PRA).[^2][^10][^8]
-- Équipe MLOps / LLMOps : packaging modèles, CI/CD d’inférence, optimisation, monitoring qualité/perf, gestion de versions.[^3][^9]
+- Équipe infra : admins systèmes, réseau, stockage, SRE, security, avec temps alloué au run de la plateforme GPU (patching, capacity planning, incidents, PCA/PRA).[^2][^10][^8]
+- Équipe MLOps / LLMOps : packaging models, CI/CD d’inférence, optimisation, monitoring qualité/perf, gestion de versions.[^3][^9]
 - Gestion de projet, gouvernance, audits (sécu/compliance) : temps des architectes, RSSI, DPO, etc.[^11][^9]
 
 

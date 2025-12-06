@@ -1,7 +1,7 @@
 
 # Quelle architecture hybride recommander pour workloads sensibles
 
-Pour des workloads sensibles, la recommandation courante est une architecture hybride où les données critiques restent traitées on‑prem/edge et où le cloud n'est utilisé que pour l'entrainement lourd, l'agrégation de métriques ou des modèles généralistes sur données non sensibles.[^1][^2]
+Pour des workloads sensibles, la recommandation courante est une architecture hybride où les data critiques restent traitées on‑prem/edge et où le cloud n'est utilisé que pour l'entrainement lourd, l'agrégation de métriques ou des models généralistes sur data non sensibles.[^1][^2]
 
 ## Architecture Hybride pour Workloads Sensibles
 
@@ -10,7 +10,7 @@ graph TB
     subgraph Edge["🖥️ Edge / Postes"]
         E1[LLM Local Quantifié]
         E2[RAG on-device]
-        E3[Données ultra-sensibles]
+        E3[Data ultra-sensibles]
         E4[Offline capable]
     end
     
@@ -18,11 +18,11 @@ graph TB
         O1[K8s Cluster]
         O2[LLM/RAG Services]
         O3[Vector DB]
-        O4[Données sensibles chiffrées]
+        O4[Data sensibles chiffrées]
         O5[MLOps local]
     end
     
-    subgraph SecBoundary["🚫 Périmètre Sécurité"]
+    subgraph SecBoundary["🚫 Périmètre Security"]
         S1[Zero Trust Gateway]
         S2[VPN/mTLS]
         S3[Data Classifier]
@@ -33,19 +33,19 @@ graph TB
         C2[Model Registry]
         C3[Monitoring/Metrics]
         C4[LLM APIs Génériques]
-        C5[Données anonymisées]
+        C5[Data anonymisées]
     end
     
-    Edge -.->|Sync modèles| OnPrem
+    Edge -.->|Sync models| OnPrem
     OnPrem <-->|Zero Trust| SecBoundary
     SecBoundary -->|Métriques agrégées| Cloud
     SecBoundary -->|Training data anonymisé| Cloud
-    Cloud -.->|Modèles entraînés| OnPrem
+    Cloud -.->|Models entraînés| OnPrem
     
     subgraph DataFlow[" "]
         DF1[❌ PII/Sensible: Reste local]
         DF2[✅ Public/Anonymisé: Peut monter]
-        DF3[🔄 Modèles: Descendent]
+        DF3[🔄 Models: Descendent]
     end
     
     style Edge fill:#e8f5e9,stroke:#43a047
@@ -59,14 +59,14 @@ graph TB
 
 ## Principes de base
 
-- Localiser le traitement des données sensibles (PII, santé, RH, IP) sur poste de travail ou serveurs on‑prem, dans le périmètre de sécurité de l’organisation, pour simplifier conformité et souveraineté.[^3][^4][^2]
-- Utiliser le cloud pour les workloads non sensibles ou anonymisés : entraînement de modèles génériques, analytics agrégées, services LLM publics sur prompts/documents “publics”.[^5][^6][^1]
+- Localiser le traitement des data sensibles (PII, santé, RH, IP) sur poste de travail ou serveurs on‑prem, dans le périmètre de security de l’organisation, pour simplifier conformité et souveraineté.[^3][^4][^2]
+- Utiliser le cloud pour les workloads non sensibles ou anonymisés : entraînement de models génériques, analytics agrégées, services LLM publics sur prompts/documents “publics”.[^5][^6][^1]
 
 
 ## Découpage logique des workloads
 
-- Plan de contrôle / orchestration en cloud privé ou public : registry de modèles, configuration, supervision, mais sans données brutes sensibles.[^7][^8]
-- Plan de données et d’inférence sensible on‑prem : LLM/RAG/doc intelligence déployés dans le datacenter interne ou sur postes renforcés, avec éventuels connecteurs optionnels vers des LLM cloud uniquement pour contenus non sensibles.[^4][^2][^9]
+- Plan de control / orchestration en cloud privé ou public : registry de models, configuration, supervision, mais sans data brutes sensibles.[^7][^8]
+- Plan de data et d’inférence sensible on‑prem : LLM/RAG/doc intelligence déployés dans le datacenter interne ou sur postes renforcés, avec éventuels connecteurs optionnels vers des LLM cloud uniquement pour contenus non sensibles.[^4][^2][^9]
 
 
 ## Architecture cible (vue simplifiée)
@@ -75,28 +75,28 @@ graph TB
     - Services d’inférence locaux (LLM, OCR, vision, classification) déployés via un orchestrateur interne (K8s on‑prem, Talos, K3s, etc.).[^10][^4]
     - Stockage local chiffré (documents, embeddings, logs) avec accès restreint (RBAC, segmentation réseau).[^11][^4]
 - Cloud :
-    - Entraînement/fine‑tuning sur données pseudonymisées ou synthétiques, et stockage des modèles maîtres.[^1][^5]
+    - Entraînement/fine‑tuning sur data pseudonymisées ou synthétiques, et stockage des models maîtres.[^1][^5]
     - Services managés pour monitoring, registry de features, MLOps, bastion d’observabilité, avec retour des métriques agrégées depuis l’on‑prem.[^6][^7]
 
 
-## Sécurité : Zero Trust \& gouvernance
+## Security : Zero Trust \& gouvernance
 
 - Appliquer du Zero Trust de bout en bout : authentification forte, micro‑segmentation, vérification continue des identités de workloads (SPIFFE/SPIRE, Vault, etc.).[^12][^13][^14]
-- Chiffrement systématique : au repos sur l’edge et on‑prem, et en transit vers le cloud (VPN, TLS mutualisé), avec politiques claires de classification de données définissant ce qui peut sortir ou non.[^15][^16]
+- Chiffrement systématique : au repos sur l’edge et on‑prem, et en transit vers le cloud (VPN, TLS mutualisé), avec politiques claires de classification de data définissant ce qui peut sortir ou non.[^15][^16]
 
 
-## Flux de données “privacy first”
+## Flux de data “privacy first”
 
-- Les données brutes sensibles restent localement ; seuls des signaux dérivés ou agrégés (statistiques, gradients FL, logs anonymisés) montent vers le cloud.[^17][^1]
+- Les data brutes sensibles restent localement ; seuls des signaux dérivés ou agrégés (statistiques, gradients FL, logs anonymisés) montent vers le cloud.[^17][^1]
 - Pour certains cas limites, usage de techniques avancées (federated learning, FHE, TEEs) pour déporter une partie de la charge tout en conservant la confidentialité.[^18][^19]
 
 
 ### Exemple de pattern concret
 
-- On‑prem/edge : OnPrem.LLM ou équivalent pour RAG sur documents internes, avec modèles quantifiés hébergés sur GPU locaux, UI web interne.[^9][^4]
+- On‑prem/edge : OnPrem.LLM ou équivalent pour RAG sur documents internes, avec models quantifiés hébergés sur GPU locaux, UI web interne.[^9][^4]
 - Cloud : LLM public ou “sovereign cloud” utilisé pour rédaction générique ou traitement de docs publics, appelé uniquement quand le classifieur local conclut que le contenu n’est pas sensible.[^2][^8][^5]
 
-Si tu précises ton secteur (santé, banque, secteur public…), les contraintes réglementaires (RGPD strict, données hors UE, etc.) et ton stack K8s actuel, l’architecture peut être affinée jusqu’au niveau composants (ingress, opérateurs d’IA, types de stockage, patterns de synchronisation).
+Si tu précises ton secteur (santé, banque, secteur public…), les contraintes réglementaires (RGPD strict, data hors UE, etc.) et ton stack K8s actuel, l’architecture peut être affinée jusqu’au niveau composants (ingress, opérateurs d’IA, types de stockage, patterns de synchronisation).
 <span style="display:none">[^20]</span>
 
 <div align="center">⁂</div>

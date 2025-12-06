@@ -23,10 +23,10 @@ flowchart LR
     %% Couche IA
     S[Service IA<br/>API LLM / RAG<br/>identité workload SPIFFE/OAuth2]:::ai
     V[Vector DB / Features Store<br/>filtrage par habilitation]:::store
-    M[Modèles IA<br/>LLM, modèles métier]:::ai
+    M[Models IA<br/>LLM, models métier]:::ai
 
-    %% Données
-    D[Sources de données<br/>bases, fichiers, SaaS]:::data
+    %% Data
+    D[Sources de data<br/>bases, fichiers, SaaS]:::data
     C[Chiffrement au repos<br/>KMS / Vault / HSM]:::sec
     L[Logs / Audit<br/>SIEM, traces requêtes IA]:::sec
 
@@ -36,19 +36,19 @@ flowchart LR
     I -->|Contexte d'identité<br/>rôles, attributs| G
     G -->|Requête IA autorisée| S
 
-    %% Flux IA -> données
+    %% Flux IA -> data
     S -->|Requête filtrée<br/>par droits utilisateur| V
     S -->|Accès contrôlé| M
     V -->|Documents / embeddings<br/>autorisés uniquement| S
     D -->|ETL / ingestion sécurisée| V
-    D -->|Training / Fine-tuning<br/>données minimisées| M
+    D -->|Training / Fine-tuning<br/>data minimisées| M
 
-    %% Sécurité transversale
+    %% Security transversale
     C --- D
     C --- V
     C --- M
 
-    S -->|Logs, prompts, réponses<br/>sans données sensibles| L
+    S -->|Logs, prompts, réponses<br/>sans data sensibles| L
     G -->|Logs accès et décisions<br/>AuthN/AuthZ| L
 ```
 
@@ -56,9 +56,9 @@ Ce schéma illustre en couleurs :
 
 - Bleu : utilisateur et entrée SSO/MFA.[^3][^4]
 - Violet : AuthN/AuthZ centralisées (Gateway + IdP/IAM).[^5][^6]
-- Jaune : services IA (API LLM, RAG, modèles).[^7][^1]
-- Vert : données et stores (sources, vectordb/features).[^2][^8]
-- Rouge : sécurité transversale (chiffrement, coffre‑fort à clés, logs/audit).[^1][^2]
+- Jaune : services IA (API LLM, RAG, models).[^7][^1]
+- Vert : data et stores (sources, vectordb/features).[^2][^8]
+- Rouge : security transversale (chiffrement, coffre‑fort à clés, logs/audit).[^1][^2]
 
 Si tu veux, ce diagramme peut être adapté à ton stack concret (Ingress K8s, Istio, Vault, Keycloak, OpenSearch, etc.) avec des noms de composants précis.
 

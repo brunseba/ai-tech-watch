@@ -39,7 +39,7 @@ Pour un agent qui gère les objets d’un NAS NetApp via Kubernetes avec un RAG 
 
 ## Pourquoi ce choix
 
-- LangGraph donne un contrôle fin sur les transitions (ex. étape “plan”, “vérif RAG”, “dry‑run sur NetApp”, “apply”), ce qui est précieux pour un système qui touche du stockage.[^4][^3]
+- LangGraph donne un control fin sur les transitions (ex. étape “plan”, “vérif RAG”, “dry‑run sur NetApp”, “apply”), ce qui est précieux pour un système qui touche du stockage.[^4][^3]
 - Les vectordb cités sont bien documentés pour K8s et RAG, avec bonnes pratiques de StatefulSet, storage class, autoscaling.[^12][^9][^10][^11]
 - L’intégration avec NetApp côté K8s est déjà éprouvée (CSI, Azure NetApp Files, etc.), et certains guides montrent l’intérêt de coupler LangChain/LangGraph avec stockage NetApp pour la persistance.[^2]
 

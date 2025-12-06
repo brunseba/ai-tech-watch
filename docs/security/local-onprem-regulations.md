@@ -10,7 +10,7 @@ flowchart TD
     classDef cloud fill:#fff3e0,stroke:#fb8c00,color:#e65100;
     classDef decision fill:#f5f5f5,stroke:#757575,color:#212121;
 
-    A[Début] --> B{Données très sensibles ou régulées ?}
+    A[Début] --> B{Data très sensibles ou régulées ?}
     class B decision;
 
     %% BRANCHE SENSIBLE
@@ -24,21 +24,21 @@ flowchart TD
     C -->|Usage partagé, exigences RGPD, NIS2, politique de souveraineté| E[Serveur départemental on-prem]
     class E onprem;
 
-    C -->|Non, mais toujours données sensibles sous RGPD/NIS2| E
+    C -->|Non, mais toujours data sensibles sous RGPD/NIS2| E
 
-    B -->|Oui mais uniquement données dérivées ou anonymisées, DPIA OK| M[Cloud réservé aux données dérivées uniquement]
+    B -->|Oui mais uniquement data dérivées ou anonymisées, DPIA OK| M[Cloud réservé aux data dérivées uniquement]
     class M cloud;
 
     %% BRANCHE NON SENSIBLE / MOINS CRITIQUE
 
-    B -->|Non, données peu sensibles ou anonymisées| G{Latence < 100 ms ou besoin offline ?}
+    B -->|Non, data peu sensibles ou anonymisées| G{Latence < 100 ms ou besoin offline ?}
     class G decision;
 
     G -->|Oui, contraintes temps réel ou site sans connectivité fiable| H{Portée de l'usage ?}
     class H decision;
 
     H -->|Individuel, contraintes de confidentialité locale| D
-    H -->|Service ou site, contraintes LAN, sécurité locale renforcée| E
+    H -->|Service ou site, contraintes LAN, security locale renforcée| E
 
     G -->|Non| I{Charge IA stable et élevée ?}
     class I decision;
@@ -56,7 +56,7 @@ flowchart TD
 
     %% ARCHITECTURE HYBRIDE
 
-    E --> N[Architecture hybride on-prem pour données sensibles,
+    E --> N[Architecture hybride on-prem pour data sensibles,
     cloud pour dérivées ou entraînement]
     class N onprem;
 

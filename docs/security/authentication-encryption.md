@@ -45,7 +45,7 @@ flowchart TB
     subgraph AtRest["💾 Chiffrement Repos"]
         R1[Disque/Volume]
         R2[Object Storage]
-        R3[Modèles chiffrés]
+        R3[Models chiffrés]
     end
     
     subgraph Monitor["📊 Monitoring"]
@@ -76,14 +76,14 @@ flowchart TB
 
 ## Chiffrement à privilégier
 
-- En transit : TLS 1.2+ (idéalement 1.3) partout entre clients, API IA, brokers, stores de features et bases de données, avec vérification stricte des certificats et désactivation des suites faibles.[^4][^5][^1]
-- Au repos : chiffrement disque/volume côté bases, object storage, files de messages, et stockage de modèles, avec gestion centralisée des clés (KMS, HSM ou Vault) et rotation régulière.[^6][^1][^4]
-- Données très sensibles : combiner chiffrement avec tokenisation ou masquage dynamique des PII dans les inputs aux modèles, et logs systématiquement nettoyés des données brutes.[^7][^4][^6]
+- En transit : TLS 1.2+ (idéalement 1.3) partout entre clients, API IA, brokers, stores de features et bases de data, avec vérification stricte des certificats et désactivation des suites faibles.[^4][^5][^1]
+- Au repos : chiffrement disque/volume côté bases, object storage, files de messages, et stockage de models, avec gestion centralisée des clés (KMS, HSM ou Vault) et rotation régulière.[^6][^1][^4]
+- Data très sensibles : combiner chiffrement avec tokenisation ou masquage dynamique des PII dans les inputs aux models, et logs systématiquement nettoyés des data brutes.[^7][^4][^6]
 
 
 ## Authentification des humains
 
-- Utilisateurs finaux (UI, portails, IDE, outils RAG) : SSO (OIDC/SAML) connecté à l’IdP d’entreprise, MFA obligatoire pour les rôles sensibles (ops, data, sécurité, administrateurs de modèles).[^2][^8][^3]
+- Utilisateurs finaux (UI, portails, IDE, outils RAG) : SSO (OIDC/SAML) connecté à l’IdP d’entreprise, MFA obligatoire pour les rôles sensibles (ops, data, security, administrateurs de models).[^2][^8][^3]
 - Accès aux consoles d’admin IA (MLOps, orchestrateurs, vector DB) : authentification forte (MFA, FIDO2/Passkeys ou certificats) et interdiction des comptes partagés.[^9][^10][^2]
 
 
@@ -98,22 +98,22 @@ flowchart TB
 
 ## Habilitation / autorisation
 
-- Modèle d’accès : RBAC ou ABAC (attributs rôle, équipe, classification des données, contexte) combiné au principe de moindre privilège pour les utilisateurs et les agents IA.[^15][^16][^8]
-- Données pour RAG / features :
+- Modèle d’accès : RBAC ou ABAC (attributs rôle, équipe, classification des data, contexte) combiné au principe de moindre privilège pour les utilisateurs et les agents IA.[^15][^16][^8]
+- Data pour RAG / features :
     - Le filtrage des documents doit se faire côté backend fiable, pas par le modèle lui‑même (le LLM ne “décide” pas qui a le droit de voir quoi).[^16][^10]
     - Appliquer des filtres d’autorisations sur les requêtes au vectordb ou au data store (ex. scope utilisateur, attributs d’organisation, labels de sensibilité).[^16][^4]
 - Agents IA :
     - Identité propre par agent, scopes d’API stricts, access tokens limités dans le temps et dans le périmètre, journaux d’actions complets pour audit.[^17][^11][^8]
 
 
-## Contrôles complémentaires spécifiques IA
+## Controls complémentaires spécifiques IA
 
 - Zero Trust IA / LLM :
-    - Vérification systématique de l’identité à chaque requête, contrôle dynamique selon la sensibilité du prompt et des données, monitoring en temps réel pour détecter prompt injections et comportements anormaux.[^18][^12][^2]
+    - Vérification systématique de l’identité à chaque requête, control dynamique selon la sensibilité du prompt et des data, monitoring en temps réel pour détecter prompt injections et comportements anormaux.[^18][^12][^2]
 - Protection des pipelines :
-    - Data minimization, DLP/anonymisation en amont du training, signatures ou checksums des datasets pour détecter data poisoning, et contrôle d’accès strict au repo de modèles.[^19][^4][^6]
+    - Data minimization, DLP/anonymisation en amont du training, signatures ou checksums des datasets pour détecter data poisoning, et control d’accès strict au repo de models.[^19][^4][^6]
 
-En pratique, pour une stack moderne : TLS 1.3 partout, KMS/Vault pour les clés, SSO OIDC + MFA pour les humains, SPIFFE/OAuth2 pour les workloads, RBAC/ABAC côté données et vector DB, tokens courts pour agents, et un SIEM branché sur les logs d’API IA et de pipelines.[^5][^1][^11][^16]
+En pratique, pour une stack moderne : TLS 1.3 partout, KMS/Vault pour les clés, SSO OIDC + MFA pour les humains, SPIFFE/OAuth2 pour les workloads, RBAC/ABAC côté data et vector DB, tokens courts pour agents, et un SIEM branché sur les logs d’API IA et de pipelines.[^5][^1][^11][^16]
 <span style="display:none">[^20]</span>
 
 <div align="center">⁂</div>

@@ -11,7 +11,7 @@ La bonne méthodologie consiste à évaluer le modèle float et le modèle quant
 
 ## 2. Constituer jeux de test et calibration
 
-- Jeu de test : représentatif des données réelles, suffisamment grand (et figé) pour comparer float vs INT8 de manière robuste.[^6][^2]
+- Jeu de test : représentatif des data réelles, suffisamment grand (et figé) pour comparer float vs INT8 de manière robuste.[^6][^2]
 - Jeu de calibration (PTQ) : sous‑ensemble sans labels (ou avec) utilisé pour calibrer les activations sur la target (NPU), distinct du test. Sa qualité impacte directement la perte de précision.[^7][^8][^6]
 
 
