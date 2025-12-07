@@ -83,7 +83,7 @@ Comprehensive platforms for AI/ML lifecycle management.
 Foundation model API providers.
 
 | Product | Official Website | API Docs | GitHub SDK | Pricing |
-|---------|-----------------|----------|------------|---------|  |
+|---------|-----------------|----------|------------|---------|
 | **OpenAI** | https://openai.com/ | https://platform.openai.com/docs | https://github.com/openai/openai-python | $0.03-$30/1M tokens |
 | **Azure OpenAI Service** | https://azure.microsoft.com/en-us/products/ai-services/openai-service | https://learn.microsoft.com/en-us/azure/ai-services/openai/ | https://github.com/Azure/azure-sdk-for-python | Same as OpenAI |
 | **Anthropic Claude** | https://www.anthropic.com/ | https://docs.anthropic.com/ | https://github.com/anthropics/anthropic-sdk-python | $3-$75/1M tokens |
@@ -98,7 +98,7 @@ Foundation model API providers.
 LLM/agent-specific observability platforms.
 
 | Product | Official Website | Documentation | GitHub | Pricing |
-|---------|-----------------|---------------|--------|---------|  |
+|---------|-----------------|---------------|--------|---------|
 | **LangSmith** | https://smith.langchain.com/ | https://docs.smith.langchain.com/ | N/A | Free tier / $39-$399/month |
 | **LlamaCloud** | https://cloud.llamaindex.ai/ | https://docs.cloud.llamaindex.ai/ | N/A | Free tier / Custom |
 | **Phoenix (Arize OSS)** | https://phoenix.arize.com/ | https://docs.arize.com/phoenix | https://github.com/Arize-ai/phoenix | Free (Apache 2.0) |
@@ -117,7 +117,7 @@ LLM/agent-specific observability platforms.
 General-purpose infrastructure and application monitoring.
 
 | Product | Official Website | Documentation | GitHub | License |
-|---------|-----------------|---------------|--------|---------|  |
+|---------|-----------------|---------------|--------|---------|
 | **Prometheus** | https://prometheus.io/ | https://prometheus.io/docs/ | https://github.com/prometheus/prometheus | Apache 2.0 |
 | **Grafana** | https://grafana.com/ | https://grafana.com/docs/ | https://github.com/grafana/grafana | AGPL-3.0 |
 | **OpenTelemetry** | https://opentelemetry.io/ | https://opentelemetry.io/docs/ | https://github.com/open-telemetry | Apache 2.0 |
@@ -132,7 +132,7 @@ General-purpose infrastructure and application monitoring.
 Container orchestration and infrastructure-as-code tools.
 
 | Product | Official Website | Documentation | GitHub | License |
-|---------|-----------------|---------------|--------|---------|  |
+|---------|-----------------|---------------|--------|---------|
 | **Kubernetes** | https://kubernetes.io/ | https://kubernetes.io/docs/ | https://github.com/kubernetes/kubernetes | Apache 2.0 |
 | **Docker** | https://www.docker.com/ | https://docs.docker.com/ | https://github.com/docker | Apache 2.0 |
 | **Terraform** | https://www.terraform.io/ | https://developer.hashicorp.com/terraform/docs | https://github.com/hashicorp/terraform | MPL-2.0 |
@@ -194,7 +194,7 @@ Repositories for pre-trained models and datasets.
 Specialized databases for embedding storage and semantic search.
 
 | Product | Official Website | Documentation | GitHub | License |
-|---------|-----------------|---------------|--------|---------|  |
+|---------|-----------------|---------------|--------|---------|
 | **Pinecone** | https://www.pinecone.io/ | https://docs.pinecone.io/ | N/A | Proprietary |
 | **Weaviate** | https://weaviate.io/ | https://weaviate.io/developers/weaviate | https://github.com/weaviate/weaviate | BSD-3-Clause |
 | **Chroma** | https://www.trychroma.com/ | https://docs.trychroma.com/ | https://github.com/chroma-core/chroma | Apache 2.0 |
