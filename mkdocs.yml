@@ -112,6 +112,7 @@ nav:
       - Deployment Cost Criteria: cost-economics/deployment-cost-criteria.md
   - Security & Compliance:
       - Overview: security/index.md
+      - AI Agent Security Layer: security/ai-agent-security-layer.md
       - Authentication & Encryption: security/authentication-encryption.md
       - Data Classification: security/data-classification.md
       - Compliance Risks: security/compliance-risks.md
