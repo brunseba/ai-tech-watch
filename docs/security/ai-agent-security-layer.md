@@ -1352,11 +1352,748 @@ flowchart LR
 
 ---
 
+### Domain 2: Identity & Access Management
+
+**Purpose**: Control who (users) and what (agents) can access AI systems and their underlying resources.
+
+**Why Critical**: Prevents unauthorized access to AI agents and enforces least privilege for tool execution.
+
+#### Key IAM Concepts for AI Agents
+
+1. **User Authentication**: Human users accessing AI agents (SSO, 2FA/MFA)
+2. **Agent Identity**: Each agent has unique identity for auditability
+3. **Role-Based Access Control (RBAC)**: Users/agents assigned to roles with specific permissions
+4. **Scope-Based Tool Access**: Agents can only invoke tools matching their scope
+5. **Credential Management**: Secure storage of API keys, secrets, tokens
+
+---
+
+#### Product 1: AWS IAM (Identity and Access Management)
+
+**Overview**: AWS's identity and access management service for controlling access to AWS resources.
+
+**Key Features for AI Agents**:
+1. **IAM Roles for Agents**: Assign temporary credentials via IAM roles
+2. **Session Tokens**: Short-lived tokens (1-12 hours) for agent operations
+3. **Policy-Based Access**: Fine-grained permissions (e.g., allow S3 read, deny delete)
+4. **Integration with Bedrock**: Native IAM for Amazon Bedrock LLMs
+5. **CloudTrail Logging**: Audit all agent actions
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (AWS) |
+| **Deployment** | AWS Cloud |
+| **Pricing** | Free (IAM service), pay for resources accessed |
+| **Integration** | Native for AWS services (S3, DynamoDB, Lambda, Bedrock) |
+
+**Strengths**:
+- ✅ Industry-leading access control (mature, battle-tested)
+- ✅ Temporary credentials (session tokens)
+- ✅ Fine-grained policies (JSON-based)
+- ✅ Extensive audit logs (CloudTrail)
+- ✅ Free to use (no IAM service cost)
+
+**Limitations**:
+- ❌ AWS-only (not portable to other clouds)
+- ❌ Complex policy syntax (steep learning curve)
+- ❌ No built-in agent-to-agent authentication (requires custom solution)
+
+**Best For**:
+- AWS-native AI applications
+- Teams using Amazon Bedrock
+- Enterprises requiring audit compliance
+
+**Documentation**: https://aws.amazon.com/iam/
+
+---
+
+#### Product 2: Azure Active Directory (Azure AD) / Microsoft Entra ID
+
+**Overview**: Microsoft's cloud identity and access management service.
+
+**Key Features for AI Agents**:
+1. **Conditional Access**: Context-aware authentication (location, device, risk)
+2. **Managed Identities**: Passwordless authentication for Azure services
+3. **Application Roles**: Define custom roles for AI agents
+4. **Multi-Tenant Support**: Separate identities per tenant/organization
+5. **Azure RBAC**: Role-based access for Azure resources
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (Microsoft) |
+| **Deployment** | Azure Cloud, hybrid (on-prem + cloud) |
+| **Pricing** | Free tier (basic features), Premium: $6-$9/user/month |
+| **Integration** | Native for Azure services (OpenAI Service, Cognitive Services) |
+
+**Strengths**:
+- ✅ Enterprise-grade (SOC 2, ISO 27001)
+- ✅ Conditional access (risk-based authentication)
+- ✅ Managed identities (no credential management)
+- ✅ Multi-tenant support
+- ✅ Integration with Microsoft ecosystem (Teams, Office 365)
+
+**Limitations**:
+- ❌ Azure-centric (less flexible for multi-cloud)
+- ❌ Premium features require license ($6-$9/user/month)
+- ❌ Complex setup for non-Azure services
+
+**Best For**:
+- Azure-native applications
+- Enterprises using Microsoft ecosystem
+- Teams requiring conditional access
+
+**Documentation**: https://learn.microsoft.com/en-us/entra/identity/
+
+---
+
+#### Product 3: Okta
+
+**Overview**: Cloud-native identity provider with extensive SSO and MFA capabilities.
+
+**Key Features for AI Agents**:
+1. **Universal SSO**: Single sign-on for 7,000+ pre-integrated apps
+2. **Adaptive MFA**: Risk-based multi-factor authentication
+3. **API Access Management**: OAuth 2.0/OIDC for API authentication
+4. **Lifecycle Management**: Automated user provisioning/deprovisioning
+5. **Developer APIs**: Programmatic access to identity management
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud (Okta-managed) |
+| **Pricing** | $2-$15/user/month (Workforce Identity), custom (Customer Identity) |
+| **Integration** | 7,000+ pre-integrated apps, REST APIs |
+
+**Strengths**:
+- ✅ Cloud-agnostic (works with AWS, Azure, GCP)
+- ✅ 7,000+ app integrations (largest ecosystem)
+- ✅ Developer-friendly APIs
+- ✅ Adaptive MFA (risk-based)
+- ✅ Enterprise-grade (SOC 2, ISO 27001, FedRAMP)
+
+**Limitations**:
+- ❌ Cost scales with users ($2-$15/user/month)
+- ❌ Vendor lock-in (proprietary)
+- ❌ Requires Okta account/subscription
+
+**Best For**:
+- Multi-cloud environments
+- Enterprises with diverse app ecosystem
+- Teams prioritizing SSO and MFA
+
+**Website**: https://www.okta.com/
+
+---
+
+#### Product 4: Auth0 (by Okta)
+
+**Overview**: Developer-first authentication and authorization platform.
+
+**Key Features for AI Agents**:
+1. **Customizable Auth Flows**: Build custom authentication logic
+2. **Social Login**: Google, GitHub, Microsoft, etc.
+3. **Machine-to-Machine Auth**: OAuth 2.0 client credentials for agents
+4. **Rules Engine**: JavaScript-based custom logic for auth flows
+5. **Extensive SDKs**: Python, JavaScript, Java, Go, etc.
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud (Auth0-managed), self-hosted (Enterprise) |
+| **Pricing** | Free (7,500 MAU), $35-$240/month (paid plans) |
+| **Integration** | REST APIs, SDKs for 10+ languages |
+
+**Strengths**:
+- ✅ Developer-friendly (extensive documentation, SDKs)
+- ✅ Generous free tier (7,500 MAU)
+- ✅ Machine-to-machine auth (perfect for agents)
+- ✅ Customizable (Rules Engine)
+- ✅ Fast integration (hours, not days)
+
+**Limitations**:
+- ❌ Cost scales with MAU (monthly active users)
+- ❌ Advanced features require paid plans
+- ❌ Owned by Okta (may converge with Okta over time)
+
+**Best For**:
+- Developer teams prioritizing speed
+- Startups with limited auth budget
+- Agent-to-agent authentication (machine-to-machine)
+
+**Website**: https://auth0.com/
+
+---
+
+#### Product 5: HashiCorp Vault
+
+**Overview**: Secrets management platform for API keys, passwords, and certificates.
+
+**Key Features for AI Agents**:
+1. **Dynamic Secrets**: Generate short-lived credentials on-demand
+2. **Secret Leasing**: Automatic secret rotation
+3. **Encryption as a Service**: Encrypt data without managing keys
+4. **Audit Logs**: Complete audit trail for secret access
+5. **Multi-Cloud**: Works with AWS, Azure, GCP, Kubernetes
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Open-source (MPL 2.0) + Enterprise (proprietary) |
+| **Deployment** | Self-hosted, HCP Vault (cloud-managed) |
+| **Pricing** | Free (OSS), HCP: $0.03/hour per instance, Enterprise: custom |
+| **Integration** | Native integrations for AWS, Azure, GCP, Kubernetes, databases |
+
+**Strengths**:
+- ✅ Open-source (self-hosted option)
+- ✅ Dynamic secrets (no long-lived credentials)
+- ✅ Multi-cloud (not locked to specific vendor)
+- ✅ Extensive integrations (databases, clouds, Kubernetes)
+- ✅ Encryption as a Service
+
+**Limitations**:
+- ❌ Self-managed infrastructure (DevOps overhead)
+- ❌ Complex setup and operations
+- ❌ Requires Vault expertise
+
+**Best For**:
+- Multi-cloud environments
+- Teams prioritizing dynamic secrets
+- Enterprises with dedicated security team
+
+**Website**: https://www.vaultproject.io/
+
+---
+
+#### Product 6: Ping Identity
+
+**Overview**: Enterprise identity and access management platform.
+
+**Key Features for AI Agents**:
+1. **PingFederate**: Enterprise SSO and federation
+2. **PingOne**: Cloud-based identity platform
+3. **API Security**: OAuth 2.0, OIDC, SAML
+4. **Risk-Based Authentication**: AI-powered fraud detection
+5. **Compliance**: FedRAMP, HIPAA, PCI-DSS
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud, hybrid, on-prem |
+| **Pricing** | Custom (enterprise pricing, ~$100K+/year) |
+| **Integration** | 1,000+ pre-integrated apps |
+
+**Strengths**:
+- ✅ Enterprise-grade (FedRAMP, HIPAA)
+- ✅ Deployment flexibility (cloud, hybrid, on-prem)
+- ✅ AI-powered risk detection
+- ✅ Dedicated support
+
+**Limitations**:
+- ❌ Expensive (enterprise pricing)
+- ❌ Overkill for small teams
+- ❌ Complex implementation
+
+**Best For**:
+- Large enterprises (5,000+ employees)
+- Regulated industries (government, healthcare)
+- Organizations requiring FedRAMP
+
+**Website**: https://www.pingidentity.com/
+
+---
+
+### Domain 3: Data Security
+
+**Purpose**: Protect sensitive data in AI pipelines (training, inference, retrieval) from leakage and unauthorized access.
+
+**Why Critical**: AI agents often process PII, PHI, payment data, and proprietary information that must be protected to comply with GDPR, HIPAA, PCI-DSS.
+
+#### Key Data Security Capabilities
+
+1. **PII Detection & Redaction**: Identify and mask personally identifiable information
+2. **Data Encryption**: At-rest and in-transit encryption for vector databases
+3. **Data Access Controls**: Row-level security in RAG systems
+4. **Data Minimization**: Collect only necessary data
+5. **Synthetic Data**: Generate fake data for testing
+
+---
+
+#### Product 1: Private AI
+
+**Overview**: PII detection and redaction platform for text and documents.
+
+**Key Features**:
+1. **50+ PII Types**: Names, SSN, phone, email, credit cards, medical IDs, etc.
+2. **Redaction Modes**: Mask, replace, anonymize, pseudonymize
+3. **Multi-Language**: 50+ languages supported
+4. **Document Support**: Text, PDFs, images (OCR)
+5. **API & SDK**: REST API, Python SDK
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud (Private AI), self-hosted (Enterprise) |
+| **Pricing** | Free tier (1,000 calls/month), $0.002/request (paid) |
+| **Accuracy** | 95%+ PII detection accuracy |
+
+**Strengths**:
+- ✅ 50+ PII types (most comprehensive)
+- ✅ Multi-language (50+ languages)
+- ✅ Document support (PDFs, images)
+- ✅ Multiple redaction modes
+- ✅ Generous free tier (1,000/month)
+
+**Limitations**:
+- ❌ Cost scales with volume ($0.002/request)
+- ❌ Vendor dependency (cloud-only for most)
+- ❌ Requires API integration
+
+**Best For**:
+- GDPR/HIPAA compliance
+- RAG applications with sensitive data
+- Document processing workflows
+
+**Website**: https://www.private-ai.com/
+
+---
+
+#### Product 2: Gretel.ai
+
+**Overview**: Synthetic data generation platform for safe AI development.
+
+**Key Features**:
+1. **Synthetic Data Generation**: Generate realistic fake data
+2. **Differential Privacy**: Mathematically proven privacy guarantees
+3. **Data Anonymization**: Remove PII while preserving utility
+4. **Quality Metrics**: Statistical similarity to original data
+5. **API & SDKs**: Python SDK, REST API
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary + open-source SDK |
+| **Deployment** | Cloud (Gretel), self-hosted (Enterprise) |
+| **Pricing** | Free tier (100K records/month), $0.03-$0.10/1K records |
+| **Accuracy** | 90%+ utility preservation |
+
+**Strengths**:
+- ✅ Differential privacy (provable guarantees)
+- ✅ Synthetic data for testing (no real PII exposure)
+- ✅ Quality metrics (validate data utility)
+- ✅ Open-source SDK (transparency)
+- ✅ Generous free tier (100K records/month)
+
+**Limitations**:
+- ❌ Complex setup (requires data science expertise)
+- ❌ Cost scales with volume
+- ❌ Synthetic data quality varies by use case
+
+**Best For**:
+- Testing/development environments
+- Data science teams
+- Sharing datasets externally (partners, contractors)
+
+**Website**: https://gretel.ai/
+
+---
+
+#### Product 3: AWS Macie
+
+**Overview**: AWS's data security service for discovering and protecting sensitive data.
+
+**Key Features**:
+1. **Automated Discovery**: Scan S3 buckets for PII/PHI
+2. **Data Classification**: 100+ sensitive data types
+3. **Risk Scoring**: Assess data exposure risk
+4. **Alerts**: CloudWatch integration for real-time alerts
+5. **Compliance**: GDPR, HIPAA, PCI-DSS reporting
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (AWS) |
+| **Deployment** | AWS Cloud |
+| **Pricing** | $1.00 per 1GB scanned (discovery), $0.10/1K objects (monitoring) |
+| **Integration** | S3, CloudWatch, EventBridge |
+
+**Strengths**:
+- ✅ Automated discovery (no manual tagging)
+- ✅ 100+ sensitive data types
+- ✅ Native AWS integration (S3, CloudWatch)
+- ✅ Compliance reporting (GDPR, HIPAA)
+
+**Limitations**:
+- ❌ AWS S3 only (not for other clouds/databases)
+- ❌ Cost scales with data volume ($1/GB)
+- ❌ Discovery-focused (not real-time redaction)
+
+**Best For**:
+- AWS S3 users
+- Data lake security
+- Compliance audits (GDPR, HIPAA)
+
+**Documentation**: https://aws.amazon.com/macie/
+
+---
+
+#### Product 4: Microsoft Purview
+
+**Overview**: Microsoft's data governance and compliance platform.
+
+**Key Features**:
+1. **Data Map**: Automated data discovery across Azure, AWS, GCP, on-prem
+2. **Sensitivity Labels**: Classify data (Public, Confidential, Restricted)
+3. **Data Lineage**: Track data flow across systems
+4. **Policy Enforcement**: Automated access controls based on classification
+5. **Compliance Manager**: GDPR, HIPAA, SOC 2 assessments
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (Microsoft) |
+| **Deployment** | Azure Cloud |
+| **Pricing** | $0.167/GB scanned (data map), $0.25/hour (scanning) |
+| **Integration** | Azure, AWS, GCP, on-prem sources |
+
+**Strengths**:
+- ✅ Multi-cloud (Azure, AWS, GCP)
+- ✅ Data lineage (end-to-end visibility)
+- ✅ Policy automation (enforce access controls)
+- ✅ Compliance dashboard
+
+**Limitations**:
+- ❌ Microsoft-centric (best with Azure)
+- ❌ Complex setup (requires governance team)
+- ❌ Expensive for large data estates
+
+**Best For**:
+- Multi-cloud data governance
+- Enterprises with complex data estates
+- Compliance-driven organizations
+
+**Documentation**: https://azure.microsoft.com/en-us/products/purview/
+
+---
+
+#### Product 5: Immuta
+
+**Overview**: Data access control platform with dynamic policy enforcement.
+
+**Key Features**:
+1. **Dynamic Data Masking**: Real-time PII masking based on user role
+2. **Row-Level Security**: Filter data per user/role
+3. **Policy Automation**: Define policies once, enforce everywhere
+4. **Purpose-Based Access**: Grant access based on data usage purpose
+5. **Multi-Database**: Snowflake, Databricks, Redshift, BigQuery, etc.
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud, self-hosted |
+| **Pricing** | Custom (starts ~$50K/year) |
+| **Integration** | 20+ databases/warehouses |
+
+**Strengths**:
+- ✅ Dynamic masking (real-time, role-based)
+- ✅ Row-level security (fine-grained access)
+- ✅ Purpose-based access (GDPR-friendly)
+- ✅ Multi-database (not locked to vendor)
+
+**Limitations**:
+- ❌ Expensive (enterprise pricing)
+- ❌ Complex setup
+- ❌ Requires data governance expertise
+
+**Best For**:
+- RAG applications with sensitive databases
+- Enterprises requiring row-level security
+- GDPR compliance (purpose-based access)
+
+**Website**: https://www.immuta.com/
+
+---
+
+### Domain 4: Application Security
+
+**Purpose**: Secure the AI application codebase, dependencies, and deployment pipelines.
+
+**Why Critical**: AI applications depend on 10-50+ libraries (LangChain, LlamaIndex, transformers, etc.), each a potential vulnerability. Supply chain attacks are a top threat (OWASP #5).
+
+#### Key AppSec Capabilities
+
+1. **Dependency Scanning**: Detect vulnerabilities in libraries
+2. **SBOM Generation**: Software Bill of Materials for transparency
+3. **Code Scanning**: Static analysis for security issues
+4. **Container Security**: Secure Docker images
+5. **CI/CD Integration**: Automated security checks
+
+---
+
+#### Product 1: Snyk
+
+**Overview**: Developer-first security platform for code, dependencies, containers, and IaC.
+
+**Key Features**:
+1. **Dependency Scanning**: Detects vulnerabilities in 10M+ packages
+2. **Automated Fixes**: One-click PRs to fix vulnerabilities
+3. **Container Scanning**: Docker image vulnerability detection
+4. **IaC Security**: Terraform, Kubernetes YAML scanning
+5. **IDE Integration**: VS Code, JetBrains, Eclipse
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary + free tier |
+| **Deployment** | Cloud (Snyk-managed) |
+| **Pricing** | Free (open-source projects), $25-$89/developer/month |
+| **Integration** | GitHub, GitLab, Bitbucket, CI/CD tools |
+
+**Strengths**:
+- ✅ Developer-friendly (IDE integration, automated fixes)
+- ✅ 10M+ package vulnerability database
+- ✅ Multi-language (Python, JavaScript, Java, Go, etc.)
+- ✅ CI/CD integration (GitHub Actions, Jenkins, etc.)
+- ✅ Free for open-source projects
+
+**Limitations**:
+- ❌ Cost scales with developers ($25-$89/dev/month)
+- ❌ Cloud-only (no self-hosted)
+- ❌ Some false positives
+
+**Best For**:
+- Development teams prioritizing speed
+- Open-source projects (free)
+- Teams using GitHub/GitLab
+
+**Website**: https://snyk.io/
+
+---
+
+#### Product 2: GitHub Advanced Security
+
+**Overview**: GitHub's native security features for code scanning and secret detection.
+
+**Key Features**:
+1. **Dependabot**: Automated dependency updates and vulnerability alerts
+2. **Code Scanning**: CodeQL engine for semantic analysis
+3. **Secret Scanning**: Detect API keys, tokens in code
+4. **Security Advisories**: GitHub's vulnerability database
+5. **Pull Request Integration**: Block PRs with vulnerabilities
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (GitHub) |
+| **Deployment** | GitHub Cloud, GitHub Enterprise Server |
+| **Pricing** | Free (public repos), $49/user/month (private repos) |
+| **Integration** | Native GitHub integration |
+
+**Strengths**:
+- ✅ Native GitHub integration (zero setup)
+- ✅ CodeQL (powerful semantic analysis)
+- ✅ Free for public repos
+- ✅ Automated dependency updates (Dependabot)
+- ✅ Secret scanning (prevents credential leaks)
+
+**Limitations**:
+- ❌ GitHub-only (not portable)
+- ❌ Cost for private repos ($49/user/month)
+- ❌ Limited customization vs standalone tools
+
+**Best For**:
+- GitHub users (especially public repos)
+- Teams prioritizing native integration
+- Open-source projects
+
+**Documentation**: https://docs.github.com/en/code-security
+
+---
+
+#### Product 3: GitLab Security Dashboard
+
+**Overview**: GitLab's built-in security features for SAST, DAST, dependency scanning.
+
+**Key Features**:
+1. **SAST**: Static Application Security Testing
+2. **DAST**: Dynamic Application Security Testing
+3. **Dependency Scanning**: Detects vulnerable dependencies
+4. **Container Scanning**: Docker image vulnerabilities
+5. **License Compliance**: Track open-source licenses
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (GitLab) |
+| **Deployment** | GitLab Cloud, self-hosted |
+| **Pricing** | Free tier (basic features), Ultimate: $99/user/month |
+| **Integration** | Native GitLab integration |
+
+**Strengths**:
+- ✅ All-in-one (SAST, DAST, dependency, container scanning)
+- ✅ Self-hosted option (GitLab self-managed)
+- ✅ Native CI/CD integration
+- ✅ License compliance (track OSS licenses)
+
+**Limitations**:
+- ❌ GitLab-only (not portable)
+- ❌ Advanced features require Ultimate tier ($99/user/month)
+- ❌ SAST/DAST quality varies by language
+
+**Best For**:
+- GitLab users
+- Teams requiring self-hosted security
+- All-in-one DevSecOps platform
+
+**Documentation**: https://docs.gitlab.com/ee/user/application_security/
+
+---
+
+#### Product 4: Checkmarx
+
+**Overview**: Enterprise SAST/DAST platform for application security.
+
+**Key Features**:
+1. **Checkmarx One**: Unified platform (SAST, SCA, IaC, API security)
+2. **AI-Powered Analysis**: Reduce false positives
+3. **Remediation Guidance**: Fix recommendations
+4. **IDE Plugins**: Real-time scanning in IDE
+5. **Compliance**: OWASP, PCI-DSS, HIPAA
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud, self-hosted |
+| **Pricing** | Custom (starts ~$100K/year for enterprise) |
+| **Integration** | 20+ CI/CD tools, IDEs |
+
+**Strengths**:
+- ✅ Enterprise-grade (Fortune 500 adoption)
+- ✅ AI-powered (reduced false positives)
+- ✅ Comprehensive (SAST, SCA, IaC, API)
+- ✅ Compliance reporting
+
+**Limitations**:
+- ❌ Expensive (enterprise pricing)
+- ❌ Complex setup
+- ❌ Overkill for small teams
+
+**Best For**:
+- Large enterprises (1,000+ developers)
+- Regulated industries (finance, healthcare)
+- Teams requiring compliance reporting
+
+**Website**: https://checkmarx.com/
+
+---
+
+#### Product 5: Veracode
+
+**Overview**: Cloud-based application security platform.
+
+**Key Features**:
+1. **Static Analysis**: SAST for 100+ languages
+2. **Dynamic Analysis**: DAST for web apps
+3. **SCA**: Software Composition Analysis (dependencies)
+4. **Manual Penetration Testing**: Human-driven testing (add-on)
+5. **Security Labs**: Training for developers
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary |
+| **Deployment** | Cloud (Veracode-managed) |
+| **Pricing** | Custom (starts ~$50K/year) |
+| **Integration** | CI/CD, IDEs, issue trackers |
+
+**Strengths**:
+- ✅ 100+ languages supported
+- ✅ Manual pen testing (hybrid approach)
+- ✅ Security training (developer education)
+- ✅ Cloud-based (no infrastructure)
+
+**Limitations**:
+- ❌ Expensive (enterprise pricing)
+- ❌ Cloud-only (no self-hosted)
+- ❌ Slower than modern tools (longer scan times)
+
+**Best For**:
+- Enterprises requiring manual pen testing
+- Teams prioritizing developer training
+- Regulated industries
+
+**Website**: https://www.veracode.com/
+
+---
+
+#### Product 6: FOSSA
+
+**Overview**: Open-source license compliance and vulnerability management.
+
+**Key Features**:
+1. **License Compliance**: Track 200+ OSS licenses
+2. **Vulnerability Scanning**: Detect CVEs in dependencies
+3. **SBOM Generation**: Automated Software Bill of Materials
+4. **Policy Enforcement**: Block non-compliant licenses
+5. **Attribution Reports**: Generate license attribution for legal
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary + free tier |
+| **Deployment** | Cloud, self-hosted (Enterprise) |
+| **Pricing** | Free (open-source), $5-$15/developer/month (paid) |
+| **Integration** | GitHub, GitLab, Bitbucket, CI/CD |
+
+**Strengths**:
+- ✅ License compliance (200+ licenses)
+- ✅ SBOM generation (automated)
+- ✅ Policy enforcement (block non-compliant)
+- ✅ Free for open-source projects
+
+**Limitations**:
+- ❌ Focused on licenses (not full AppSec)
+- ❌ Less comprehensive than Snyk/Checkmarx
+- ❌ Cost scales with developers
+
+**Best For**:
+- License compliance (GPL, MIT, Apache)
+- Teams requiring SBOM
+- Open-source projects
+
+**Website**: https://fossa.com/
+
+---
+
 ## Next Sections
 
 This document continues with:
-- **Section 3.2-3.6**: Identity & Access, Data Security, Application Security, Threat Detection, Observability (Sections 3.2-3.6 coming in Phase 2)
-- **Section 4.2-4.4**: Product comparison tables for remaining domains (Phase 2)
+- **Section 3.5-3.6**: Threat Detection & Response, Observability & Compliance (Sections 3.5-3.6 coming in Phase 2, Commit 5)
+- **Section 4.2-4.4**: Product comparison tables for remaining domains (Phase 2, Commit 5)
 - **Section 5**: Integration patterns for 16 AI frameworks (Python code examples) (Phase 3)
 - **Section 6**: Best practices, implementation roadmap, and vendor selection (Phase 3)
 
