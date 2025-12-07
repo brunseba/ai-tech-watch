@@ -859,6 +859,438 @@ flowchart TB
 
 ---
 
+## Day 2 Operations: Total Cost of Ownership Analysis
+
+### Power Consumption and Cooling Costs
+
+**Power consumption is often the #2 cost factor** (after hardware) for on-premises AI infrastructure.
+
+```mermaid
+flowchart TB
+    subgraph Power["Power Consumption (per card)"]
+        H100["NVIDIA H100<br/>700W TDP<br/>$613/month"]
+        A100["NVIDIA A100<br/>400W TDP<br/>$350/month"]
+        Gaudi2["Intel Gaudi2<br/>600W TDP<br/>$525/month"]
+        TPU["Google TPU v5e<br/>~200W TDP<br/>$175/month"]
+        NPU["Intel Core Ultra NPU<br/>5-15W TDP<br/>$1-13/month"]
+    end
+    
+    subgraph Cooling["Cooling Overhead"]
+        Air["Air Cooling<br/>+30% power<br/>PUE 1.3"]
+        Liquid["Liquid Cooling<br/>+10% power<br/>PUE 1.1"]
+    end
+    
+    subgraph Total["Total Power Cost"]
+        H100_Total["H100<br/>910W total<br/>$796/month"]
+        Gaudi_Total["Gaudi2<br/>660W total<br/>$577/month"]
+        NPU_Total["NPU<br/>6-20W total<br/>$1-18/month"]
+    end
+    
+    H100 --> Air --> H100_Total
+    Gaudi2 --> Liquid --> Gaudi_Total
+    NPU --> Air --> NPU_Total
+    
+    style Power fill:#ffebee
+    style Cooling fill:#fff3e0
+    style Total fill:#e8f5e9
+```
+
+**Power Cost Assumptions**:
+- **Industrial electricity**: $0.12/kWh (US average)
+- **24/7 operation**: 730 hours/month
+- **PUE (Power Usage Effectiveness)**: 1.3 (air), 1.1 (liquid)
+
+**Detailed Power Analysis** (8-card cluster, 3 years):
+
+| Accelerator | TDP/card | 8-card Power | Cooling (PUE 1.3) | Total Power | Monthly Cost | 3-Year Cost |
+|-------------|----------|--------------|-------------------|-------------|--------------|-------------|
+| **H100** | 700W | 5,600W | +1,680W | 7,280W | $636 | **$229K** |
+| **A100** | 400W | 3,200W | +960W | 4,160W | $364 | **$131K** |
+| **Gaudi2** | 600W | 4,800W | +1,440W | 6,240W | $546 | **$197K** |
+| **Gaudi3** | 600W | 4,800W | +1,440W | 6,240W | $546 | **$197K** |
+| **TPU v5e** | ~200W | ~1,600W | N/A (cloud) | N/A | Included | Included |
+| **NPU (edge)** | 15W | 120W | +36W | 156W | $14 | **$5K** |
+
+**Key Findings**:
+- **H100 power cost**: $229K over 3 years (32% of hardware cost)
+- **Gaudi2 power cost**: $197K over 3 years (41% of hardware cost)
+- **NPU power cost**: $5K over 3 years (25-100% of hardware cost)
+- **TPU**: Power included in cloud pricing
+
+**Cooling Requirements**:
+
+| Accelerator | Cooling Type | Rack Units | Special Requirements |
+|-------------|--------------|------------|----------------------|
+| **H100** | Liquid recommended | 2U per 8 GPUs | High-density cooling, 350W/sq ft |
+| **A100** | Air sufficient | 4U per 8 GPUs | Standard datacenter, 200W/sq ft |
+| **Gaudi2** | Air sufficient | 4U per 8 GPUs | Standard datacenter, 225W/sq ft |
+| **TPU** | N/A (cloud) | N/A | Google-managed |
+| **NPU** | Passive/minimal | Embedded | No special requirements |
+
+**Cooling Cost Impact** (8-card cluster):
+- **Liquid cooling system**: $50K-$100K initial + $10K/year maintenance
+- **Air cooling (sufficient)**: $20K initial + $5K/year maintenance
+- **H100 requires liquid**: +$50K capex, +$15K/year opex
+- **Gaudi2/A100 air cooling**: Standard datacenter sufficient
+
+---
+
+### Hardware Obsolescence and Refresh Cycles
+
+**AI accelerators depreciate faster than traditional IT** due to rapid innovation.
+
+```mermaid
+gantt
+    title Hardware Obsolescence Timeline
+    dateFormat YYYY
+    axisFormat %Y
+
+    section NVIDIA GPU
+    A100 competitive        :2020, 2024
+    A100 viable             :2024, 2026
+    A100 obsolete           :2026, 2028
+    H100 competitive        :2022, 2026
+    H100 viable             :2026, 2029
+    
+    section Intel Gaudi
+    Gaudi2 competitive      :2022, 2025
+    Gaudi2 viable           :2025, 2027
+    Gaudi3 competitive      :2024, 2027
+    Gaudi3 viable           :2027, 2030
+    
+    section Google TPU
+    TPU v4 competitive      :2021, 2024
+    TPU v5e competitive     :2023, 2026
+    TPU v5p competitive     :2023, 2027
+    
+    section NPU
+    NPU lifecycle           :2023, 2028
+```
+
+**Typical Lifespan** (before replacement needed):
+
+| Accelerator | Competitive | Viable | Obsolete | Typical Refresh |
+|-------------|-------------|--------|----------|------------------|
+| **NVIDIA H100** | 4 years | 7 years | 10 years | **4-5 years** |
+| **NVIDIA A100** | 4 years | 6 years | 8 years | **3-4 years** (already 5 years old) |
+| **Intel Gaudi2** | 3 years | 5 years | 7 years | **3-4 years** |
+| **Intel Gaudi3** | 4 years | 6 years | 8 years | **4-5 years** |
+| **Google TPU** | N/A (cloud) | N/A | N/A | Automatic (Google manages) |
+| **NPU (edge)** | 5 years | 8 years | 10 years | **Laptop refresh cycle** |
+
+**Obsolescence Risk Factors**:
+
+1. **New Architecture Release**
+   - NVIDIA: ~2 year cadence (Ampere → Hopper → Blackwell)
+   - Intel Gaudi: ~2 year cadence (Gaudi2 → Gaudi3)
+   - Google TPU: ~1.5 year cadence (v4 → v5e → v5p)
+
+2. **Software/Framework Support**
+   - NVIDIA: Long support (5-7 years for CUDA versions)
+   - Intel Gaudi: Shorter support (3-5 years for SynapseAI)
+   - TPU: Continuous updates (no version lock-in)
+
+3. **Model Size Growth**
+   - LLMs doubling in size every ~18 months
+   - 80GB cards (A100/H100) struggle with 100B+ models by 2026
+   - 128GB cards (Gaudi3) provide more headroom
+
+**Depreciation Schedule** (accounting):
+
+| Asset | Purchase Price | 3-Year Book Value | 5-Year Book Value | Resale Reality |
+|-------|----------------|-------------------|-------------------|----------------|
+| **H100 (8 cards)** | $240K | $96K (40%) | $48K (20%) | $60K (25%) after 3 years |
+| **A100 (8 cards)** | $120K | $48K (40%) | $24K (20%) | $20K (17%) after 3 years |
+| **Gaudi2 (8 cards)** | $120K | $48K (40%) | $24K (20%) | $10K (8%) after 3 years |
+| **Gaudi3 (8 cards)** | $200K | $80K (40%) | $40K (20%) | TBD (new) |
+
+**Key Insight**: 
+- **NVIDIA GPUs hold value better** due to larger ecosystem
+- **Gaudi2 resale value is lower** (smaller market)
+- **Plan for 3-4 year refresh cycles** for competitive performance
+
+**Refresh Cost Impact** (3-year vs 5-year hold):
+
+**Scenario: H100 Cluster (8 cards)**
+
+**Option 1: 3-Year Refresh**
+- Year 0: Buy 8x H100 @ $240K
+- Year 3: Sell 8x H100 @ $60K, buy 8x next-gen @ $300K
+- **Net 3-year cost**: $240K + power $229K + refresh $240K = **$709K**
+- **Amortized**: $236K/year
+
+**Option 2: 5-Year Hold**
+- Year 0: Buy 8x H100 @ $240K
+- Year 5: Sell 8x H100 @ $48K
+- **Net 5-year cost**: $240K + power $382K - resale $48K = **$574K**
+- **Amortized**: $115K/year
+- **Risk**: Performance gap widens after year 3
+
+**Recommendation**: 
+- **Training clusters**: 3-year refresh (competitive performance)
+- **Inference clusters**: 5-year hold (performance matters less)
+- **Edge NPU**: No refresh needed (tied to device lifecycle)
+
+---
+
+### Hosting and Infrastructure Costs
+
+**On-Premises vs Cloud hosting costs beyond the accelerators**.
+
+```mermaid
+flowchart LR
+    subgraph OnPrem["On-Premises Hosting"]
+        Rack["Rack Space<br/>$500-2K/rack/month"]
+        Network["Networking<br/>$50K-200K upfront"]
+        Security["Physical Security<br/>$10K-50K/year"]
+        Staff["24/7 Staff<br/>$200K-500K/year"]
+    end
+    
+    subgraph Colo["Colocation Hosting"]
+        ColoRack["Rack Space<br/>$1K-5K/rack/month"]
+        ColoPower["Power (metered)<br/>$0.10-0.15/kWh"]
+        ColoNetwork["Bandwidth<br/>$5-20/Mbps"]
+        ColoStaff["Remote hands<br/>$150-300/hour"]
+    end
+    
+    subgraph Cloud["Cloud Hosting"]
+        Compute["Compute<br/>Pay-per-use"]
+        CloudNetwork["Egress<br/>$0.08-0.12/GB"]
+        CloudOps["Managed Services<br/>Included"]
+    end
+    
+    style OnPrem fill:#ffebee
+    style Colo fill:#fff3e0
+    style Cloud fill:#e1f5ff
+```
+
+**Detailed Hosting Cost Breakdown** (8-card cluster, 3 years):
+
+#### On-Premises Datacenter
+
+| Cost Category | Setup | Annual | 3-Year Total | Notes |
+|---------------|-------|--------|--------------|-------|
+| **Rack Space** | $5K | $12K | $41K | 2 racks @ $500/rack/month |
+| **Power (metered)** | $0 | $66K | $197K | 6,240W @ $0.12/kWh |
+| **Cooling (HVAC)** | $50K | $10K | $80K | Air cooling system |
+| **Networking** | $100K | $20K | $160K | 100Gb switches, cables |
+| **Fire suppression** | $20K | $2K | $26K | Datacenter compliance |
+| **Monitoring** | $10K | $5K | $25K | PDU, temp sensors, DCIM |
+| **Physical security** | $30K | $10K | $60K | Access control, cameras |
+| **Staff (dedicated)** | $0 | $300K | $900K | 2 FTE sysadmins |
+| **Insurance** | $0 | $10K | $30K | Equipment insurance |
+| **Connectivity** | $10K | $30K | $100K | Redundant ISP, 10Gbps |
+| **Total (excluding HW)** | **$225K** | **$465K** | **$1.62M** | |
+
+**Per-card hosting cost**: $1.62M ÷ 8 ÷ 3 = **$67K per card over 3 years**
+
+#### Colocation Hosting
+
+| Cost Category | Setup | Annual | 3-Year Total | Notes |
+|---------------|-------|--------|--------------|-------|
+| **Rack Space** | $2K | $48K | $146K | 2 racks @ $2K/rack/month |
+| **Power (metered)** | $0 | $82K | $246K | 6,240W @ $0.15/kWh |
+| **Cross-connects** | $5K | $12K | $41K | Network connectivity |
+| **Remote hands** | $0 | $10K | $30K | $200/hour, 10 hours/month |
+| **Bandwidth** | $2K | $36K | $110K | 500Mbps commit |
+| **Staff (remote)** | $0 | $150K | $450K | 1 FTE remote admin |
+| **Total (excluding HW)** | **$9K** | **$338K** | **$1.02M** | |
+
+**Per-card hosting cost**: $1.02M ÷ 8 ÷ 3 = **$43K per card over 3 years**
+
+#### Cloud Hosting (AWS/Azure/GCP)
+
+**Not applicable for on-prem accelerators**, but for comparison:
+
+| Service | Monthly | 3-Year Total | Notes |
+|---------|---------|--------------|-------|
+| **8x A100 instances** | $22K | $792K | p4d.24xlarge on-demand |
+| **8x H100 instances** | $35K | $1.26M | p5.48xlarge on-demand |
+| **256x TPU v5e** | $200K | $7.2M | On-demand, training workload |
+| **8x Gaudi2 (AWS DL1)** | $9.5K | $342K | DL1.24xlarge on-demand |
+| **Egress (1TB/month)** | $90 | $3.2K | Data transfer out |
+
+**Key Insight**: Cloud hosting eliminates capex but has 2-3x higher 3-year TCO for 24/7 workloads.
+
+---
+
+### Comprehensive TCO Comparison (8-card cluster, 3 years)
+
+**Total Cost of Ownership including ALL Day 2 costs**:
+
+```mermaid
+gantt
+    title Total Cost of Ownership (3 Years, $K)
+    dateFormat X
+    axisFormat %s
+
+    section NVIDIA H100 (On-Prem)
+    Hardware (240)              :0, 240
+    Power (229)                 :240, 469
+    Hosting (1620)              :469, 2089
+    Software License (800)      :2089, 2889
+    Total: $2.89M               :2889, 2889
+    
+    section Intel Gaudi2 (On-Prem)
+    Hardware (120)              :0, 120
+    Power (197)                 :120, 317
+    Hosting (1620)              :317, 1937
+    Support (150)               :1937, 2087
+    Total: $2.09M               :2087, 2087
+    
+    section NVIDIA H100 (Colo)
+    Hardware (240)              :0, 240
+    Power (246)                 :240, 486
+    Hosting (1020)              :486, 1506
+    Software License (800)      :1506, 2306
+    Total: $2.31M               :2306, 2306
+    
+    section Google TPU (Cloud)
+    No Hardware                 :0, 0
+    Compute (1600/3yr)          :0, 1600
+    Total: $1.60M               :1600, 1600
+    
+    section NPU Edge (8 devices)
+    Hardware (20)               :0, 20
+    Power (5)                   :20, 25
+    Total: $25K                 :25, 25
+```
+
+**Full TCO Breakdown**:
+
+| Component | H100 (On-Prem) | Gaudi2 (On-Prem) | H100 (Colo) | Gaudi2 (Colo) | TPU (Cloud) | NPU (Edge) |
+|-----------|----------------|------------------|-------------|---------------|-------------|------------|
+| **Hardware** | $240K | $120K | $240K | $120K | $0 | $20K |
+| **Power (3yr)** | $229K | $197K | $246K | $246K | Included | $5K |
+| **Hosting (3yr)** | $1,620K | $1,620K | $1,020K | $1,020K | Included | $0 |
+| **Software License** | $800K | $150K | $800K | $150K | Included | $0 |
+| **Compute Usage** | $0 | $0 | $0 | $0 | $1,600K | $0 |
+| **Refresh (partial)** | $0 | $0 | $0 | $0 | $0 | $0 |
+| **Total** | **$2.89M** | **$2.09M** | **$2.31M** | **$1.54M** | **$1.60M** | **$25K** |
+| **Per card/year** | **$121K** | **$87K** | **$96K** | **$64K** | **$67K** | **$1K** |
+
+**Key Findings**:
+
+1. **Hosting is often the largest cost** (56% for on-prem H100)
+2. **Gaudi2 on-prem**: $2.09M total (-28% vs H100)
+3. **Gaudi2 colocation**: $1.54M total (-33% vs H100 colo)
+4. **TPU cloud**: $1.60M total (no hosting complexity)
+5. **NPU edge**: $25K total (99% cheaper, but limited use cases)
+
+**Colocation vs On-Premises**:
+- **Colocation saves ~$600K** over 3 years (37% reduction)
+- Eliminates datacenter capex, security, and some staff
+- Trade-off: Less control, higher power rates
+
+**Cloud vs On-Premises** (for intermittent workloads):
+- **Break-even point**: ~40% utilization
+- If training 4 months/year: Cloud is cheaper
+- If training 24/7: On-prem is cheaper (after year 1)
+
+---
+
+### Obsolescence Risk Mitigation Strategies
+
+**How to minimize risk of early obsolescence**:
+
+```mermaid
+flowchart TD
+    Start["Purchase Decision"]
+    
+    Q1{"Workload<br/>Stability?"}
+    Q2{"Budget<br/>Flexibility?"}
+    Q3{"Performance<br/>Criticality?"}
+    
+    Strategy1["✅ Buy Latest Gen<br/>3-4 year refresh<br/>Max performance"]
+    Strategy2["✅ Buy Previous Gen<br/>50% discount<br/>2-3 year refresh"]
+    Strategy3["✅ Lease/Cloud<br/>No obsolescence risk<br/>Higher opex"]
+    Strategy4["✅ Hybrid Approach<br/>Mix old/new<br/>Risk balanced"]
+    
+    Start --> Q1
+    Q1 -->|Stable| Q2
+    Q1 -->|Evolving| Strategy3
+    
+    Q2 -->|High| Q3
+    Q2 -->|Low| Strategy2
+    
+    Q3 -->|Critical| Strategy1
+    Q3 -->|Flexible| Strategy4
+    
+    style Strategy1 fill:#c8e6c9
+    style Strategy2 fill:#fff59d
+    style Strategy3 fill:#b3e5fc
+    style Strategy4 fill:#f5f5f5
+```
+
+**Strategy 1: Buy Latest Generation**
+- **When**: Need maximum performance, stable workload, 3-4 year hold
+- **Example**: H100 (2022), Gaudi3 (2024)
+- **Risk**: High capex, but longest competitive lifespan
+- **Cost**: $240K (H100) or $200K (Gaudi3) for 8 cards
+
+**Strategy 2: Buy Previous Generation**
+- **When**: Budget-constrained, shorter refresh cycle
+- **Example**: A100 (50% off H100 price)
+- **Risk**: Already 2-3 years behind, shorter viable period
+- **Cost**: $120K for 8 cards
+- **Savings**: $120K upfront, but refresh in 2-3 years
+
+**Strategy 3: Cloud/Lease**
+- **When**: Uncertain workload, want latest hardware always
+- **Example**: AWS p5 instances (auto-upgrade to newer GPUs)
+- **Risk**: No obsolescence (provider manages), but higher opex
+- **Cost**: $35K/month → $1.26M over 3 years
+
+**Strategy 4: Hybrid (Old + New)**
+- **When**: Diverse workloads, risk mitigation
+- **Example**: 4x H100 (new, critical) + 4x A100 (old, batch)
+- **Risk**: Balanced—extend old hardware, limit new investment
+- **Cost**: $180K for mixed cluster
+
+**Recommended Approach by Accelerator**:
+
+| Accelerator | Recommended Strategy | Rationale |
+|-------------|----------------------|-----------|
+| **NVIDIA H100** | Strategy 1 (Buy Latest) | Best resale value, longest support |
+| **NVIDIA A100** | Strategy 2 (Previous Gen) | Already 5 years old, good value |
+| **Intel Gaudi3** | Strategy 1 (Buy Latest) | New generation, future-proof |
+| **Intel Gaudi2** | Strategy 2 (Previous Gen) | Mature, but short runway |
+| **Google TPU** | Strategy 3 (Cloud) | No choice—cloud only |
+| **NPU** | Strategy 1 (Latest) | Tied to device, long lifecycle |
+
+---
+
+### Day 2 Operations Summary
+
+**Key Takeaways**:
+
+1. **Power is a major cost** ($197K-$229K over 3 years for 8 cards)
+2. **Hosting costs exceed hardware** ($1.02M-$1.62M for on-prem/colo)
+3. **Obsolescence is real** (3-4 year refresh cycles recommended)
+4. **Gaudi2 total TCO is still lower** than H100 despite hosting costs
+5. **Colocation saves ~37%** vs on-prem (eliminate datacenter capex)
+6. **Cloud is better** for intermittent workloads (<40% utilization)
+7. **NPU edge is cheapest** by far ($25K total, but limited use cases)
+
+**Total 3-Year TCO Rankings** (best to worst):
+
+1. **NPU (Edge)**: $25K ⭐ (limited use cases)
+2. **Gaudi2 (Colocation)**: $1.54M ⭐
+3. **TPU (Cloud)**: $1.60M ⭐
+4. **Gaudi2 (On-Prem)**: $2.09M
+5. **H100 (Colocation)**: $2.31M
+6. **H100 (On-Prem)**: $2.89M
+
+**Strategic Recommendations**:
+
+- **For startups**: Cloud (TPU/AWS Gaudi) to avoid capex
+- **For enterprises with DC**: Colocation with Gaudi2 (best TCO)
+- **For maximum performance**: On-prem H100 (accept higher cost)
+- **For edge inference**: NPU (lowest cost, lowest power)
+- **For hybrid**: Gaudi2 training (on-prem) + TPU bursting (cloud)
+
+---
+
 ### Platform Support Summary
 
 | Accelerator | OPEA | OpenShift AI | NVIDIA AIE | Best Use Case |
