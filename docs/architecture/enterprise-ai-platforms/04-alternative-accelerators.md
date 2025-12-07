@@ -361,7 +361,314 @@ flowchart TB
 
 ---
 
-### Strategy 7: OPEA + Intel Gaudi (On-Prem + Cloud)
+### Strategy 7: NVIDIA L40/L40S (Inference-Optimized GPU)
+
+**Cost-Effective Inference Alternative to H100/A100**
+
+**What is NVIDIA L40/L40S?**
+
+The L40/L40S is NVIDIA's Ada Lovelace-based datacenter GPU optimized for AI inference and visual computing:
+- **L40**: 48GB GDDR6, 362 TFLOPS (FP8), $7K-$8K/card
+- **L40S**: 48GB GDDR6, 733 TFLOPS (FP8), $10K-$12K/card
+- Based on consumer-grade Ada architecture (RTX 4090 lineage)
+- **No NVLink** (PCIe only)
+- Passive cooling design (requires airflow)
+- Lower power (300W L40, 350W L40S) vs H100/A100
+
+**Architecture**:
+```mermaid
+flowchart TB
+    subgraph App["Application Layer"]
+        OPEA_L40["OPEA Microservices<br/>Inference-optimized"]
+    end
+    
+    subgraph Platform["Orchestration"]
+        K8s["Kubernetes<br/>(Vanilla or OpenShift)"]
+        Triton["Triton Inference Server<br/>NVIDIA optimized"]
+    end
+    
+    subgraph Accelerators["NVIDIA L40S Infrastructure"]
+        L40S["L40S<br/>48GB GDDR6<br/>$10K/card"]
+        PCIe["PCIe Gen4<br/>No NVLink"]
+    end
+    
+    subgraph Software["NVIDIA Software Stack"]
+        NVAIE["NVIDIA AI Enterprise<br/>Optional"]
+        vLLM["vLLM<br/>LLM serving"]
+        TensorRT["TensorRT-LLM<br/>Optimized inference"]
+    end
+    
+    OPEA_L40 --> K8s
+    K8s --> L40S
+    OPEA_L40 --> vLLM
+    vLLM --> TensorRT
+    TensorRT --> PCIe
+    
+    style App fill:#e1f5ff
+    style Platform fill:#c8e6c9
+    style Accelerators fill:#90caf9
+    style Software fill:#f5f5f5
+```
+
+**Platform Compatibility**:
+
+| Platform | L40/L40S Support | Notes |
+|----------|------------------|-------|
+| **OPEA** | ✅✅✅ Excellent | Full CUDA support |
+| **OpenShift AI** | ✅✅✅ Supported | Standard GPU operator |
+| **NVIDIA AIE** | ✅✅✅ Supported | L40S officially validated |
+
+**Key Specifications**:
+
+| Spec | L40 | L40S | H100 | A100 |
+|------|-----|------|------|------|
+| **Memory** | 48GB GDDR6 | 48GB GDDR6 | 80GB HBM3 | 80GB HBM2e |
+| **Memory BW** | 864 GB/s | 864 GB/s | 3.35TB/s | 2TB/s |
+| **Compute (FP8)** | 362 TFLOPS | 733 TFLOPS | 1,979 TFLOPS | N/A |
+| **Compute (FP16)** | 181 TFLOPS | 366 TFLOPS | 989 TFLOPS | 312 TFLOPS |
+| **TDP** | 300W | 350W | 700W | 400W |
+| **Interconnect** | PCIe Gen4 x16 | PCIe Gen4 x16 | NVLink 900GB/s | NVLink 600GB/s |
+| **Price** | ~$7K | ~$10K | ~$30K | ~$15K |
+| **Form Factor** | Dual-slot passive | Dual-slot passive | Liquid/4-slot | 4-slot |
+
+**Performance Comparison** (LLM Inference):
+
+| Model | L40 | L40S | A100 | H100 | L40S vs A100 |
+|-------|-----|------|------|------|---------------|
+| **Llama2-7B (FP16)** | 800 tok/s | 1,100 tok/s | 1,600 tok/s | 2,000 tok/s | 0.69x |
+| **Llama2-13B (FP16)** | 500 tok/s | 700 tok/s | 1,100 tok/s | 1,400 tok/s | 0.64x |
+| **Llama2-70B (FP8)** | 120 tok/s | 180 tok/s | 250 tok/s | 350 tok/s | 0.72x |
+| **Mistral-7B (FP16)** | 900 tok/s | 1,300 tok/s | 1,800 tok/s | 2,200 tok/s | 0.72x |
+
+**Key Insight**: L40S delivers 65-75% of A100 inference performance at 67% of the cost
+
+**Training Performance** (L40S vs A100):
+
+| Model | L40S | A100 | Ratio | Notes |
+|-------|------|------|-------|-------|
+| **Llama2-7B** | 1,200 samples/s | 2,000 samples/s | 0.60x | No NVLink hurts |
+| **Llama2-13B** | 600 samples/s | 1,100 samples/s | 0.55x | Memory BW limited |
+
+**Key Insight**: L40S is **not recommended for training** (60% of A100 performance, no NVLink)
+
+**Cost Profile** (8-card cluster, 3 years):
+
+| Component | L40S Cost | A100 Cost | H100 Cost | L40S Savings |
+|-----------|-----------|-----------|-----------|---------------|
+| **Hardware** | $80K (8×$10K) | $120K (8×$15K) | $240K (8×$30K) | -33% vs A100 |
+| **Power (3yr)** | $131K (300W) | $131K (400W) | $229K (700W) | Same as A100 |
+| **NVIDIA AIE** | $800K | $800K | $800K | Same |
+| **Hosting (3yr)** | $1,620K | $1,620K | $1,620K | Same |
+| **Total** | **$2.63M** | **$2.67M** | **$2.89M** | **-$40K (-1.5%)** |
+
+**Key Finding**: L40S saves only 1.5% over A100 (minimal TCO difference with NVIDIA AIE)
+
+**WITHOUT NVIDIA AIE** (using open-source stack):
+
+| Component | L40S Cost | A100 Cost | Savings |
+|-----------|-----------|-----------|----------|
+| **Hardware** | $80K | $120K | -33% |
+| **Power (3yr)** | $131K | $131K | 0% |
+| **Hosting (3yr)** | $1,620K | $1,620K | 0% |
+| **Total** | **$1.83M** | **$1.87M** | **-$40K (-2%)** |
+
+**Key Insight**: Even without NVIDIA AIE, savings are minimal due to hosting/power dominance
+
+**L40/L40S Advantages**:
+- ✅ **33-67% cheaper hardware** than A100/H100
+- ✅ **Lower power** (300W vs 400-700W)
+- ✅ **Passive cooling** (standard 2U servers)
+- ✅ **Full CUDA ecosystem** (vLLM, TensorRT, Triton)
+- ✅ **Good inference performance** (65-75% of A100)
+- ✅ **Excellent FP8 support** (Ada architecture)
+- ✅ **Smaller form factor** (2-slot vs 4-slot)
+- ✅ **Works with NVIDIA AIE** (officially supported)
+
+**L40/L40S Disadvantages**:
+- ❌ **No NVLink** (poor for multi-GPU training)
+- ❌ **Lower memory bandwidth** (864GB/s vs 2TB/s A100)
+- ❌ **Only 48GB memory** (vs 80GB A100/H100)
+- ❌ **60% training performance** of A100
+- ❌ **GDDR6 vs HBM** (higher latency)
+- ❌ **Not cost-effective with NVIDIA AIE** (hosting dominates)
+- ❌ **PCIe bottleneck** for multi-GPU workloads
+
+**Best For**:
+- **Inference-only deployments** (not training)
+- **Single-GPU workloads** (no NVLink needed)
+- **Models < 40GB** (fits in 48GB)
+- **Power-constrained datacenters** (300W vs 400-700W)
+- **Standard 2U servers** (passive cooling)
+- **Organizations avoiding NVIDIA AIE** (open-source stack)
+- **Edge inference clusters** (compact form factor)
+
+**When to Choose L40S**:
+
+1. **Inference-only workload**
+   - No training or fine-tuning
+   - vLLM or TensorRT-LLM serving
+   - Models < 40GB (e.g., Llama2-7B, Mistral-7B)
+
+2. **Power/cooling constraints**
+   - Datacenter limited to 300-400W per GPU
+   - Standard air cooling (no liquid cooling)
+
+3. **Budget hardware capex**
+   - Want NVIDIA ecosystem without H100/A100 price
+   - Accept 25-35% lower inference performance
+
+4. **Single-GPU inference**
+   - Each model instance fits on one GPU
+   - No need for multi-GPU parallelism
+
+5. **Edge datacenter deployment**
+   - Need compact form factor (2-slot)
+   - Remote sites with limited power
+
+**When A100/H100 is Better**:
+
+1. **Training workloads** (L40S is 60% slower, no NVLink)
+2. **Models > 40GB** (need 80GB memory)
+3. **Multi-GPU parallelism** (NVLink essential)
+4. **Maximum performance** (accept higher cost)
+5. **Large batch inference** (memory bandwidth critical)
+
+**L40S vs Gaudi2 Comparison**:
+
+| Aspect | L40S | Gaudi2 | Winner |
+|--------|------|--------|--------|
+| **Hardware cost** | $80K (8 cards) | $120K (8 cards) | L40S ✅ |
+| **Software cost** | $800K (NVAIE) | $150K (support) | Gaudi2 ✅ |
+| **Total TCO (3yr)** | $2.63M | $2.09M | Gaudi2 ✅ |
+| **Inference perf** | 1,300 tok/s (Mistral-7B) | 1,400 tok/s | Gaudi2 ✅ |
+| **Training perf** | 60% of A100 | 75% of H100 | Gaudi2 ✅ |
+| **Ecosystem** | CUDA, vLLM, Triton | SynapseAI | L40S ✅ |
+| **Memory** | 48GB GDDR6 | 96GB HBM2e | Gaudi2 ✅ |
+| **Power** | 350W | 600W | L40S ✅ |
+
+**Key Insight**: 
+- **L40S better for**: CUDA ecosystem, lower power, single-GPU inference
+- **Gaudi2 better for**: Total TCO, training, large models (96GB), no NVIDIA license
+
+**Cloud Availability**:
+
+| Cloud Provider | Instance Type | GPUs | Cost/hour |
+|----------------|---------------|------|----------|
+| **AWS** | g6.xlarge | 1x L40S | $1.16 |
+| **AWS** | g6.48xlarge | 8x L40S | $21.11 |
+| **Azure** | NCadsA100_v4 (A100) | 1x A100 | $3.67 |
+| **GCP** | Not available | N/A | N/A |
+| **Lambda Labs** | 1x L40S | 1x L40S | $0.60 |
+
+**AWS g6 Instance TCO** (8x L40S, 3 years):
+- $21.11/hour × 24 × 365 × 3 = $555K (24/7 usage)
+- vs On-prem L40S: $2.63M (with NVIDIA AIE)
+- vs On-prem L40S: $1.83M (without NVIDIA AIE)
+
+**Break-even**: ~30% utilization (vs on-prem without NVIDIA AIE)
+
+**Real-World Use Cases**:
+
+**Use Case 1: Multi-tenant LLM Serving**
+- Deploy 8x L40S for inference
+- Serve Llama2-7B, Mistral-7B, Phi-3 concurrently
+- Each model on dedicated GPU
+- Cost: $1.83M (3-year, no NVIDIA AIE)
+- Throughput: ~10K tokens/s total
+
+**Use Case 2: Edge AI Cluster**
+- Deploy 4x L40 in remote datacenter
+- 300W per GPU (1.2kW total)
+- Standard 2U server
+- Cost: $28K hardware + $47K power (3yr) = $75K
+
+**Use Case 3: Development/Testing**
+- Use AWS g6 instances on-demand
+- $1.16/hour per GPU
+- Eliminate capex
+- Pay only when training/testing
+
+**Framework Compatibility**:
+
+| Framework | L40/L40S | Notes |
+|-----------|----------|-------|
+| **vLLM** | ✅✅✅ | Excellent, full FP8 support |
+| **TensorRT-LLM** | ✅✅✅ | Optimized for Ada architecture |
+| **Triton** | ✅✅✅ | Full support |
+| **PyTorch** | ✅✅✅ | Native CUDA support |
+| **DeepSpeed** | ✅✅ | Works, but no NVLink limits performance |
+| **vLLM PagedAttention** | ✅✅✅ | Memory-efficient inference |
+
+**OPEA Integration**:
+
+```mermaid
+flowchart LR
+    subgraph OPEA_Services["OPEA Microservices"]
+        Embedding["Embedding Service<br/>(L40S)"]
+        Reranker["Reranker Service<br/>(L40S)"]
+        LLM["LLM Service<br/>(vLLM on L40S)"]
+    end
+    
+    subgraph L40S_Stack["NVIDIA L40S Stack"]
+        vLLM_L40["vLLM<br/>FP8 inference"]
+        TensorRT_LLM["TensorRT-LLM<br/>Optimized kernels"]
+        L40S_HW["L40S Hardware<br/>48GB GDDR6"]
+    end
+    
+    Embedding --> vLLM_L40
+    Reranker --> vLLM_L40
+    LLM --> vLLM_L40
+    vLLM_L40 --> TensorRT_LLM
+    TensorRT_LLM --> L40S_HW
+    
+    style OPEA_Services fill:#e1f5ff
+    style L40S_Stack fill:#90caf9
+```
+
+**Total Cost Scenarios**:
+
+**Scenario 1: Inference-Only (8x L40S, no NVIDIA AIE)**
+- Hardware: $80K
+- Power (3yr): $131K
+- Hosting (3yr): $1,620K
+- **Total: $1.83M** 
+- **vs A100**: -$40K (-2%) ⚠️ Minimal savings
+- **vs Gaudi2**: +$260K (+16%) ❌
+
+**Scenario 2: With NVIDIA AIE (8x L40S)**
+- Hardware: $80K
+- Power (3yr): $131K
+- Hosting (3yr): $1,620K
+- NVIDIA AIE: $800K
+- **Total: $2.63M**
+- **vs A100 + AIE**: -$40K (-1.5%) ⚠️
+- **vs Gaudi2**: +$540K (+26%) ❌
+
+**Scenario 3: AWS g6 (30% utilization)**
+- $21.11/hour × 24 × 365 × 30% × 3 = $167K
+- **vs On-prem L40S (no AIE)**: -$1.66M (-91%) ✅
+
+**Recommendation**:
+
+**Choose L40/L40S when**:
+- ✅ Inference-only workload
+- ✅ Power-constrained (300W limit)
+- ✅ Need CUDA ecosystem (vLLM, TensorRT)
+- ✅ Single-GPU inference (no NVLink needed)
+- ✅ Using AWS g6 instances (low utilization)
+
+**Avoid L40/L40S when**:
+- ❌ Training workloads (use A100/H100/Gaudi2)
+- ❌ Need lowest TCO (use Gaudi2: -$540K)
+- ❌ Multi-GPU training (no NVLink)
+- ❌ Models > 40GB (need 80GB cards)
+- ❌ 24/7 on-prem deployment (hosting cost dominates)
+
+**Key Takeaway**: L40S is a niche option for **inference-only** workloads where CUDA ecosystem is critical and power is constrained. For most use cases, **Gaudi2 offers better TCO** and **A100 offers better performance**.
+
+---
+
+### Strategy 8: OPEA + Intel Gaudi (On-Prem + Cloud)
 
 **Cost Optimization**: NVIDIA-competitive performance without NVIDIA licensing
 
