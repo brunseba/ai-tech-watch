@@ -87,6 +87,7 @@ nav:
       - Overview: architecture/index.md
       - Agentic Components Model: architecture/agentic-components-model.md
       - Agent Frameworks Comparison: architecture/agent-frameworks-comparison.md
+      - Enterprise AI Platforms: architecture/enterprise-ai-platforms-comparison.md
       - Integration Schemas: architecture/integration-schemas.md
       - Agentic Use Case Schema: architecture/agentic-use-case-schema.md
       - Agentic Workflows: architecture/agentic-workflows.md
@@ -120,7 +121,6 @@ nav:
       - Application Types: use-cases/application-types.md
       - NetApp NAS Agent: use-cases/netapp-nas-agent.md
       - Workflow Diagram Examples: use-cases/workflow-diagram-request.md
-      - Data ID Column: use-cases/data-id-column.md
   - Reference:
       - Glossary: glossary.md
       - Decision Trees: decision-trees.md
