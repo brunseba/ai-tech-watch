@@ -440,6 +440,297 @@ flowchart TB
 
 ---
 
+## Low-Code / Visual Agent Frameworks
+
+### n8n
+
+**Positioning**: Open-source workflow automation with AI agent capabilities
+
+**Architecture**:
+```mermaid
+flowchart TB
+    subgraph n8n_Stack["n8n Platform"]
+        subgraph Visual["Visual Editor"]
+            Canvas["Drag-Drop Canvas<br/>Node-based workflows"]
+            Nodes["400+ Nodes<br/>Pre-built integrations"]
+            Triggers["Triggers<br/>Webhook, schedule, manual"]
+        end
+        
+        subgraph AI_Nodes["AI & Agent Nodes"]
+            LLMNode["LLM Nodes<br/>OpenAI, Anthropic, local"]
+            AgentNode["AI Agent Node<br/>ReAct, conversational"]
+            VectorStore["Vector Store Nodes<br/>Pinecone, Qdrant, Supabase"]
+            MemoryNode["Memory Nodes<br/>Conversation buffer"]
+        end
+        
+        subgraph Execution["Execution"]
+            Queue["Job Queue<br/>Redis/PostgreSQL"]
+            SelfHosted["Self-hosted<br/>Docker/K8s"]
+            Cloud["n8n Cloud<br/>Managed service"]
+        end
+        
+        subgraph Integrations["Enterprise Integrations"]
+            APIs["REST/GraphQL APIs"]
+            Databases["Databases<br/>PostgreSQL, MongoDB"]
+            Services["SaaS Tools<br/>Slack, Notion, GitHub"]
+        end
+    end
+    
+    Visual --> AI_Nodes
+    AI_Nodes --> Execution
+    Execution --> Integrations
+    
+    style Visual fill:#e8f5e9
+    style AI_Nodes fill:#fff3e0
+    style Execution fill:#e3f2fd
+    style Integrations fill:#f5f5f5
+```
+
+**Key Components**:
+- **Visual Workflow Editor**: Drag-and-drop canvas with 400+ pre-built nodes
+- **AI Agent Node**: Built-in ReAct and conversational agents
+- **LLM Integrations**: OpenAI, Anthropic, Cohere, HuggingFace, Ollama
+- **Vector Store Nodes**: Pinecone, Qdrant, Supabase, Weaviate
+- **Execution Modes**: Self-hosted (Docker/K8s) or managed cloud
+
+**Strengths**:
+- ✅ **400+ integrations** (REST APIs, databases, SaaS tools)
+- ✅ **Self-hostable** (full control, Docker/K8s deployment)
+- ✅ **Fair-code license** (open source with managed offering)
+- ✅ **Enterprise features** (SSO, RBAC, audit logs)
+- ✅ **Active community** (30K+ GitHub stars)
+- ✅ **No vendor lock-in** (export workflows as JSON)
+- ✅ **Production-ready** (used by 10K+ companies)
+
+**Limitations**:
+- ❌ **Not AI-first** (workflow tool with AI nodes, not agent framework)
+- ❌ **Limited agent patterns** (basic ReAct, no complex state machines)
+- ❌ **Visual debugging complexity** (large workflows hard to debug)
+- ❌ **Performance overhead** (node-based execution slower than code)
+- ❌ **Learning curve** (workflow paradigm different from coding)
+
+**Best For**:
+- Integration-heavy workflows (APIs, databases, SaaS)
+- Business users needing visual builder
+- Teams wanting self-hosted solution
+- Rapid prototyping with existing systems
+- Enterprise automation (approval workflows, notifications)
+
+**Pricing**:
+- **Self-hosted**: Free (fair-code license)
+- **Cloud**: $20-$500/month (based on executions)
+- **Enterprise**: Custom pricing (SSO, SLA, support)
+
+**Maturity**: 🟢 Production (v1.x, 4+ years)
+
+**Community**: 30K+ GitHub stars, 600+ contributors
+
+---
+
+### Flowise
+
+**Positioning**: Open-source visual LangChain builder
+
+**Architecture**:
+```mermaid
+flowchart TB
+    subgraph Flowise_Stack["Flowise Platform"]
+        subgraph Visual_Flow["Visual Builder"]
+            Drag["Drag-Drop Canvas<br/>LangChain components"]
+            Templates["Templates<br/>Pre-built flows"]
+            CustomNodes["Custom Nodes<br/>Extend with code"]
+        end
+        
+        subgraph LangChain_Nodes["LangChain Components as Nodes"]
+            LLMs["LLM Nodes<br/>20+ providers"]
+            Chains["Chain Nodes<br/>Sequential, RAG"]
+            Agents_F["Agent Nodes<br/>ReAct, OpenAI Functions"]
+            Memory_F["Memory Nodes<br/>Buffer, summary, vector"]
+            VectorDB_F["Vector DB Nodes<br/>10+ databases"]
+            Tools_F["Tool Nodes<br/>Web search, calculator, API"]
+        end
+        
+        subgraph Deployment["Deployment"]
+            API["REST API<br/>Auto-generated"]
+            Embed["Embedded Chat<br/>Widget"]
+            Docker_F["Docker<br/>Self-hosted"]
+        end
+    end
+    
+    Visual_Flow --> LangChain_Nodes
+    LangChain_Nodes --> Deployment
+    
+    style Visual_Flow fill:#c5e1a5
+    style LangChain_Nodes fill:#fff9c4
+    style Deployment fill:#e3f2fd
+```
+
+**Key Components**:
+- **Visual LangChain Builder**: Drag-and-drop LangChain components
+- **LLM Nodes**: OpenAI, Anthropic, Azure, Cohere, HuggingFace, Ollama
+- **Agent Nodes**: ReAct, OpenAI Functions, conversational
+- **Vector DB Nodes**: Pinecone, Chroma, Weaviate, Qdrant, Supabase
+- **Auto API Generation**: REST API for each flow
+- **Embedded Chat**: Pre-built chat widget
+
+**Strengths**:
+- ✅ **LangChain-native** (all LangChain features accessible)
+- ✅ **Rapid prototyping** (build RAG in minutes)
+- ✅ **Auto API generation** (deploy flows as REST endpoints)
+- ✅ **Embedded chat widget** (drop-in chatbot UI)
+- ✅ **Open source** (MIT license, self-hostable)
+- ✅ **Growing ecosystem** (community nodes)
+- ✅ **Easy for non-developers** (visual, no coding)
+
+**Limitations**:
+- ❌ **Limited to LangChain** (can't use other frameworks)
+- ❌ **Young project** (less mature than n8n)
+- ❌ **Limited enterprise features** (no RBAC, basic auth only)
+- ❌ **Scalability concerns** (single-instance deployment)
+- ❌ **No workflow orchestration** (focused on chains/agents only)
+- ❌ **Debugging difficult** (visual abstraction hides complexity)
+
+**Best For**:
+- LangChain prototyping
+- RAG chatbot demos
+- Internal AI tools (no coding required)
+- Teams transitioning from code to visual
+- Proof-of-concept projects
+
+**Pricing**:
+- **Self-hosted**: Free (MIT license)
+- **Cloud**: Not yet available (community project)
+
+**Maturity**: 🟡 Growing (v1.x, 1+ year)
+
+**Community**: 25K+ GitHub stars, 200+ contributors
+
+---
+
+### Langflow
+
+**Positioning**: Visual framework for building multi-agent and RAG applications
+
+**Architecture**:
+```mermaid
+flowchart TB
+    subgraph Langflow_Stack["Langflow Platform"]
+        subgraph Builder["Flow Builder"]
+            GraphEditor["Graph Editor<br/>Component-based"]
+            ComponentLib["Component Library<br/>Extensible"]
+            Playground["Playground<br/>Test flows live"]
+        end
+        
+        subgraph Components["Built-in Components"]
+            LLM_L["LLMs<br/>OpenAI, Anthropic, local"]
+            Prompts["Prompt Templates<br/>Dynamic prompts"]
+            Agents_L["Agents<br/>Tool-using, multi-agent"]
+            VectorStores_L["Vector Stores<br/>15+ databases"]
+            DataLoaders["Data Loaders<br/>PDF, web, API"]
+            Memory_L["Memory<br/>Conversation, entity"]
+        end
+        
+        subgraph Enterprise["Enterprise Features"]
+            Versioning["Version Control<br/>Flow history"]
+            Sharing["Sharing<br/>Team collaboration"]
+            Monitoring["Monitoring<br/>Usage analytics"]
+        end
+        
+        subgraph Deploy["Deployment"]
+            API_L["REST API<br/>Production endpoints"]
+            Docker_L["Docker/K8s<br/>Self-hosted"]
+            Cloud_L["DataStax Cloud<br/>Managed"]
+        end
+    end
+    
+    Builder --> Components
+    Components --> Enterprise
+    Enterprise --> Deploy
+    
+    style Builder fill:#e8f5e9
+    style Components fill:#fff3e0
+    style Enterprise fill:#f3e5f5
+    style Deploy fill:#e3f2fd
+```
+
+**Key Components**:
+- **Visual Flow Builder**: Component-based graph editor
+- **Component Library**: 100+ pre-built components (extensible with Python)
+- **Multi-agent Support**: Coordinate multiple agents visually
+- **RAG Components**: Document loaders, splitters, embeddings, retrievers
+- **Playground**: Test flows with real-time feedback
+- **Version Control**: Track flow changes over time
+
+**Strengths**:
+- ✅ **Component-based** (reusable, composable blocks)
+- ✅ **Python extensible** (create custom components)
+- ✅ **Multi-agent visual** (coordinate agents graphically)
+- ✅ **Enterprise-ready** (DataStax backing, managed cloud)
+- ✅ **Version control** (track flow changes)
+- ✅ **Playground testing** (iterate quickly)
+- ✅ **Growing fast** (active development, weekly releases)
+
+**Limitations**:
+- ❌ **LangChain dependency** (built on LangChain)
+- ❌ **Young project** (<1 year old)
+- ❌ **Limited integrations** vs n8n (focused on AI/ML)
+- ❌ **Managed cloud new** (DataStax partnership just launched)
+- ❌ **Documentation gaps** (fast-moving project)
+
+**Best For**:
+- Visual multi-agent systems
+- RAG application prototyping
+- Teams wanting Python extensibility + visual builder
+- DataStax Astra DB users
+- Experimentation and iteration
+
+**Pricing**:
+- **Self-hosted**: Free (MIT license)
+- **DataStax Cloud**: Pay-as-you-go (new offering)
+
+**Maturity**: 🟡 Growing (v1.x, <1 year)
+
+**Community**: 22K+ GitHub stars, 150+ contributors
+
+---
+
+### No-Code/Low-Code Comparison
+
+| Aspect | n8n | Flowise | Langflow |
+|--------|-----|---------|----------|
+| **Primary Focus** | Workflow automation + AI | LangChain visual builder | Multi-agent + RAG |
+| **Integrations** | 400+ (REST, DBs, SaaS) | LangChain ecosystem | AI/ML focused |
+| **Agent Capabilities** | Basic (ReAct) | LangChain agents | Multi-agent coordination |
+| **Enterprise Features** | ✅ SSO, RBAC, audit | ⚠️ Limited | ✅ Version control, monitoring |
+| **Self-hostable** | ✅ Docker/K8s | ✅ Docker | ✅ Docker/K8s |
+| **Managed Cloud** | ✅ n8n Cloud | ❌ Not yet | ✅ DataStax Cloud |
+| **Extensibility** | JavaScript functions | Custom nodes (code) | Python components |
+| **Maturity** | 🟢 Production (4+ years) | 🟡 Growing (1+ year) | 🟡 Growing (<1 year) |
+| **Best For** | Integration-heavy workflows | LangChain prototyping | Visual multi-agent |
+| **License** | Fair-code | MIT | MIT |
+| **Community** | 30K+ stars | 25K+ stars | 22K+ stars |
+
+**Key Insights**:
+- **n8n**: Best for **integration-heavy** workflows (connect AI to existing systems)
+- **Flowise**: Best for **LangChain** users wanting visual builder
+- **Langflow**: Best for **multi-agent** experimentation with visual coordination
+
+**When to Choose No-Code/Low-Code**:
+- ✅ Business users need to build AI workflows
+- ✅ Rapid prototyping required
+- ✅ Integration with existing systems critical
+- ✅ Team has limited coding resources
+- ✅ Visual debugging preferred
+
+**When Code-First is Better**:
+- ❌ Complex state management needed (use LangGraph)
+- ❌ Custom algorithms required
+- ❌ Performance critical
+- ❌ Advanced debugging needed
+- ❌ Version control for code preferred
+
+---
+
 ## AI Agent Framework Landscape
 
 ```mermaid
