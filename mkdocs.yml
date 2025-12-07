@@ -112,7 +112,16 @@ nav:
       - Deployment Cost Criteria: cost-economics/deployment-cost-criteria.md
   - Security & Compliance:
       - Overview: security/index.md
-      - AI Agent Security Layer: security/ai-agent-security-layer.md
+      - AI Agent Security Layer:
+          - Guide Index: security/ai-agent-security/index.md
+          - 1. Overview & Threat Landscape: security/ai-agent-security/01-overview-threat-landscape.md
+          - 2. Security Frameworks: security/ai-agent-security/02-security-frameworks.md
+          - 3a. Guardrails & IAM: security/ai-agent-security/03a-guardrails-iam.md
+          - 3b. Data & App Security: security/ai-agent-security/03b-data-appsec.md
+          - 3c. Threat & Observability: security/ai-agent-security/03c-threat-observability.md
+          - 4. Product Comparisons: security/ai-agent-security/04-product-comparisons.md
+          - 5. Integration Patterns: security/ai-agent-security/05-integration-patterns.md
+          - 6. Best Practices & Roadmap: security/ai-agent-security/06-best-practices-roadmap.md
       - Authentication & Encryption: security/authentication-encryption.md
       - Data Classification: security/data-classification.md
       - Compliance Risks: security/compliance-risks.md

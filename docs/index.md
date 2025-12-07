@@ -37,7 +37,7 @@ Analyze total cost of ownership (TCO) across deployment options. Understand cost
 Implement robust security measures for AI systems. Covers authentication, encryption, data classification, compliance requirements, and governance frameworks. **NEW**: Comprehensive AI Agent Security Layer guide with 42 products across 6 security domains.
 
 **Key Topics:**
-- **🆕 [AI Agent Security Layer](security/ai-agent-security-layer.md)** - Complete guide: 42 products, 16 frameworks, Python examples, implementation roadmap
+- **🆕 [AI Agent Security Layer](security/ai-agent-security/index.md)** - Complete guide: 42 products, 16 frameworks, Python examples, implementation roadmap (now split into 8 sections for easier navigation)
 - Authentication and encryption mechanisms
 - Data sensitivity classification
 - Compliance and sovereignty risks (GDPR, HIPAA, SOC 2, ISO 42001)
