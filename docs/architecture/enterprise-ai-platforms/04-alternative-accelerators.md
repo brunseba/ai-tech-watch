@@ -8,6 +8,7 @@ While NVIDIA GPUs dominate the AI acceleration market, TPUs (Tensor Processing U
 flowchart TB
     subgraph Accelerators["AI Accelerator Landscape"]
         GPU["🎮 GPU<br/>General-purpose<br/>NVIDIA dominant"]
+        Gaudi["🔷 Intel Gaudi<br/>Training & Inference<br/>Cost-effective"]
         TPU["🔷 TPU<br/>Training & Inference<br/>Google Cloud only"]
         NPU["⚡ NPU<br/>Edge Inference<br/>Low power"]
         CPU["🖥️ CPU<br/>Flexible<br/>Lower performance"]
@@ -21,11 +22,14 @@ flowchart TB
     
     GPU -.Best for.-> Training
     GPU -.Best for.-> Inference_Cloud
-    TPU -.Alternative.-> Training
-    TPU -.Alternative.-> Inference_Cloud
+    Gaudi -.Cost alternative.-> Training
+    Gaudi -.Cost alternative.-> Inference_Cloud
+    TPU -.Cloud alternative.-> Training
+    TPU -.Cloud alternative.-> Inference_Cloud
     NPU -.Best for.-> Inference_Edge
     
     style GPU fill:#b3e5fc
+    style Gaudi fill:#b39ddb
     style TPU fill:#c5e1a5
     style NPU fill:#fff59d
     style CPU fill:#eeeeee
@@ -33,15 +37,15 @@ flowchart TB
 
 **Key Differences**:
 
-| Aspect | GPU | TPU | NPU |
-|--------|-----|-----|-----|
-| **Primary Use** | Training + Inference | Training + Inference | Inference only |
-| **Location** | On-prem + Cloud | Google Cloud only | Edge devices |
-| **Power** | 300-700W | 200-450W | 5-50W |
-| **Precision** | FP32, FP16, INT8, INT4 | BF16, INT8 | INT8, INT4, Binary |
-| **Software Stack** | CUDA, ROCm | JAX, PyTorch/XLA | Vendor-specific |
-| **Cost Model** | Per GPU license | Per TPU-hour | Embedded in hardware |
-| **Best For** | Flexibility | Google Cloud workloads | Battery-powered edge |
+| Aspect | GPU | TPU | Gaudi | NPU |
+|--------|-----|-----|-------|-----|
+| **Primary Use** | Training + Inference | Training + Inference | Training + Inference | Inference only |
+| **Location** | On-prem + Cloud | Google Cloud only | On-prem + Cloud | Edge devices |
+| **Power** | 300-700W | 200-450W | 600W | 5-50W |
+| **Precision** | FP32, FP16, INT8, INT4 | BF16, INT8 | BF16, FP8, INT8 | INT8, INT4, Binary |
+| **Software Stack** | CUDA, ROCm | JAX, PyTorch/XLA | SynapseAI, PyTorch | Vendor-specific |
+| **Cost Model** | Per GPU license | Per TPU-hour | Per card + support | Embedded in hardware |
+| **Best For** | Flexibility | Google Cloud workloads | Cost-effective training | Battery-powered edge |
 
 ---
 
@@ -357,6 +361,313 @@ flowchart TB
 
 ---
 
+### Strategy 7: OPEA + Intel Gaudi (On-Prem + Cloud)
+
+**Cost Optimization**: NVIDIA-competitive performance without NVIDIA licensing
+
+**What is Intel Gaudi?**
+
+Intel Gaudi (formerly Habana Labs) is a purpose-built AI accelerator for deep learning training and inference:
+- **Gaudi2**: Current generation (2022), optimized for LLM training
+- **Gaudi3**: Next generation (2024), 2x performance of Gaudi2
+- Designed from scratch for AI workloads (not repurposed GPU)
+- Open software stack, no proprietary licensing
+
+**Architecture**:
+```mermaid
+flowchart TB
+    subgraph App["Application Layer"]
+        OPEA_Gaudi["OPEA Microservices<br/>PyTorch native"]
+    end
+    
+    subgraph Platform["Orchestration"]
+        K8s["Kubernetes<br/>(Vanilla or OpenShift)"]
+        MLOps["MLflow/KubeFlow<br/>Optional"]
+    end
+    
+    subgraph Accelerators["Intel Gaudi Infrastructure"]
+        Gaudi2["Gaudi2<br/>96GB HBM2e<br/>$15K/card"]
+        Gaudi3["Gaudi3<br/>128GB HBM2e<br/>$25K/card (est)"]
+        Scale["Scale-out via RoCE<br/>24x 100GbE per card"]
+    end
+    
+    subgraph Software["Intel Software Stack"]
+        SynapseAI["Intel SynapseAI<br/>FREE"]
+        PyTorch["PyTorch + Habana<br/>Full compatibility"]
+        TGI["Text Gen Inference<br/>Gaudi backend"]
+    end
+    
+    OPEA_Gaudi --> K8s
+    K8s --> Gaudi2
+    K8s --> Gaudi3
+    OPEA_Gaudi --> SynapseAI
+    SynapseAI --> PyTorch
+    PyTorch --> TGI
+    
+    style App fill:#e1f5ff
+    style Platform fill:#c8e6c9
+    style Accelerators fill:#b39ddb
+    style Software fill:#f5f5f5
+```
+
+**Platform Compatibility**:
+
+| Platform | Gaudi Support | Notes |
+|----------|---------------|-------|
+| **OPEA** | ✅✅ Excellent | Intel-backed, first-class support |
+| **OpenShift AI** | ✅ Supported | Via Intel operators |
+| **NVIDIA AIE** | ❌ Not applicable | NVIDIA-only |
+
+**Key Specifications** (Gaudi2 vs Gaudi3):
+
+| Spec | Gaudi2 | Gaudi3 | NVIDIA H100 | NVIDIA A100 |
+|------|--------|--------|-------------|-------------|
+| **Memory** | 96GB HBM2e | 128GB HBM2e | 80GB HBM3 | 80GB HBM2e |
+| **Memory BW** | 2.45TB/s | 3.7TB/s | 3.35TB/s | 2TB/s |
+| **Compute (BF16)** | 432 TFLOPS | 1,835 TFLOPS | 989 TFLOPS | 312 TFLOPS |
+| **Compute (FP8)** | N/A | 3,670 TFLOPS | 1,979 TFLOPS | N/A |
+| **TDP** | 600W | 600W | 700W | 400W |
+| **Network** | 24x 100GbE RoCE | 24x 200GbE RoCE | 8x 200Gb NVLink | 12x 200Gb NVLink |
+| **Price** | ~$15K | ~$25K (est) | ~$30K | ~$15K |
+
+**Performance vs NVIDIA** (LLM Training):
+
+| Model | Gaudi2 | H100 | Ratio |
+|-------|--------|------|-------|
+| **Llama2-7B** | 3,070 samples/s | 3,400 samples/s | 0.90x |
+| **Llama2-13B** | 1,550 samples/s | 1,900 samples/s | 0.82x |
+| **Llama2-70B** | 330 samples/s | 410 samples/s | 0.80x |
+| **GPT-3 175B** | 140 samples/s | 180 samples/s | 0.78x |
+
+**Performance vs NVIDIA** (LLM Inference):
+
+| Model | Gaudi2 | A100 | Ratio |
+|-------|--------|------|-------|
+| **Llama2-7B (BF16)** | 1,200 tok/s | 1,600 tok/s | 0.75x |
+| **Llama2-13B (BF16)** | 800 tok/s | 1,100 tok/s | 0.73x |
+| **Mistral-7B (BF16)** | 1,400 tok/s | 1,800 tok/s | 0.78x |
+
+**Key Insight**: Gaudi2 delivers 75-90% of NVIDIA performance at ~50% of the cost
+
+**Cost Profile** (8-card cluster, 3 years):
+
+| Component | Gaudi2 Cost | H100 Cost | Savings |
+|-----------|-------------|-----------|----------|
+| **Hardware** | $120K (8×$15K) | $240K (8×$30K) | -50% |
+| **Software License** | FREE | $800K (NVAIE) | -100% |
+| **Support (Intel)** | $50K/year × 3 = $150K | Included in NVAIE | +$150K |
+| **Networking** | $50K (RoCE switches) | $100K (InfiniBand) | -50% |
+| **Infrastructure** | $100K | $100K | Same |
+| **Operations** | $300K | $300K | Same |
+| **Total** | **$720K** | **$1.54M** | **-53%** |
+
+**3-Year TCO Comparison**:
+```mermaid
+gantt
+    title 3-Year Cost: Gaudi2 vs H100
+    dateFormat X
+    axisFormat %s
+
+    section Gaudi2
+    Hardware (120K)           :0, 120
+    Software (FREE)           :120, 120
+    Support (150K)            :120, 270
+    Networking (50K)          :270, 320
+    Infra+Ops (400K)          :320, 720
+    
+    section H100
+    Hardware (240K)           :0, 240
+    NVIDIA AIE (800K)         :240, 1040
+    Networking (100K)         :1040, 1140
+    Infra+Ops (400K)          :1140, 1540
+```
+
+**Gaudi Advantages**:
+- ✅ **50-60% lower TCO** vs NVIDIA with similar performance
+- ✅ **No proprietary licensing** (SynapseAI is free)
+- ✅ **Standard Ethernet** (RoCE) vs expensive InfiniBand
+- ✅ **Higher memory capacity** (96GB vs 80GB on A100)
+- ✅ **Excellent scale-out** (24x 100GbE per card for distributed training)
+- ✅ **PyTorch native support** (minimal code changes)
+- ✅ **Works with OPEA and OpenShift AI**
+- ✅ **Available on AWS, Azure, on-prem**
+
+**Gaudi Disadvantages**:
+- ❌ **10-25% slower** than equivalent NVIDIA cards
+- ❌ **Smaller ecosystem** (fewer third-party tools)
+- ❌ **No CUDA support** (SynapseAI only)
+- ❌ **Limited inference optimization** (vLLM, TensorRT alternatives immature)
+- ❌ **Fewer pretrained models** (most optimized for NVIDIA)
+- ❌ **Less mature tooling** (profiling, debugging)
+- ❌ **Intel support required** (not as broad as NVIDIA ecosystem)
+
+**Best For**:
+- Organizations prioritizing **cost over ecosystem**
+- **Large-scale LLM training** (70B+ models)
+- **Memory-constrained workloads** (96GB/128GB HBM)
+- Teams comfortable with **PyTorch** (primary framework)
+- Deployments where **standard Ethernet is sufficient**
+- Organizations already using **Intel technologies**
+- **OPEA-first architectures** (Intel backing)
+
+**When to Choose Gaudi over NVIDIA**:
+
+1. **Budget-constrained training**
+   - Need to train large models but have limited budget
+   - 50% hardware savings + no NVIDIA license
+   - Can tolerate 10-20% slower training
+
+2. **Large memory requirements**
+   - Models that need >80GB per accelerator
+   - Gaudi2: 96GB, Gaudi3: 128GB
+   - Avoid multi-GPU memory splitting
+
+3. **Standard networking infrastructure**
+   - Don't want to invest in InfiniBand
+   - RoCE over existing Ethernet
+   - Lower networking costs
+
+4. **Intel ecosystem alignment**
+   - Already using Intel CPUs, OneAPI
+   - OpenVINO for inference
+   - Intel support contracts
+
+5. **Cloud flexibility**
+   - Available on AWS (DL1 instances) and Azure
+   - Pay-per-use without NVIDIA lock-in
+
+**When NVIDIA is Better**:
+
+1. **Inference-heavy workloads**
+   - vLLM, TensorRT, Triton are NVIDIA-optimized
+   - Gaudi inference tooling less mature
+
+2. **Require specific NVIDIA features**
+   - Multi-Instance GPU (MIG)
+   - NVLink for tight coupling
+   - CUDA ecosystem tools
+
+3. **Ecosystem dependencies**
+   - Using tools that require CUDA
+   - Pretrained models with NVIDIA optimizations
+
+4. **Maximum performance needed**
+   - Cannot tolerate 10-20% performance gap
+   - Latency-critical applications
+
+**Migration Path** (NVIDIA → Gaudi):
+
+```
+Phase 1: Assessment (2 weeks)
+         ↓
+         • Audit PyTorch code for CUDA dependencies
+         • Identify models and frameworks used
+         • Benchmark critical workloads
+         ↓
+Phase 2: Proof of Concept (4 weeks)
+         ↓
+         • Port training code to SynapseAI
+         • Run benchmarks on Gaudi2/3
+         • Validate accuracy and performance
+         ↓
+Phase 3: Pilot Deployment (8 weeks)
+         ↓
+         • Deploy 1-2 workloads on Gaudi
+         • Train team on SynapseAI tools
+         • Establish monitoring and ops
+         ↓
+Phase 4: Production Rollout (12 weeks)
+         ↓
+         • Migrate training pipelines
+         • Scale cluster as needed
+         • Optimize for Gaudi architecture
+```
+
+**Framework Compatibility**:
+
+| Framework | Gaudi2 | Gaudi3 | Notes |
+|-----------|--------|--------|-------|
+| **PyTorch** | ✅✅✅ | ✅✅✅ | Native support, best compatibility |
+| **PyTorch Lightning** | ✅✅ | ✅✅ | Full support |
+| **Hugging Face** | ✅✅✅ | ✅✅✅ | Transformers, TGI, Optimum-Habana |
+| **DeepSpeed** | ✅✅ | ✅✅ | Distributed training support |
+| **TensorFlow** | ✅ | ✅ | Limited, not recommended |
+| **JAX** | ❌ | ❌ | Not supported |
+| **vLLM** | ⚠️ | ⚠️ | Experimental, use TGI instead |
+| **TensorRT** | ❌ | ❌ | NVIDIA-only |
+
+**Cloud Availability**:
+
+| Cloud Provider | Instance Type | Gaudi Type | Cost/hour |
+|----------------|---------------|------------|----------|
+| **AWS** | DL1.24xlarge | 8x Gaudi2 | $13.11 |
+| **Azure** | Not yet | (planned) | TBD |
+| **GCP** | Not available | N/A | N/A |
+| **Intel Tiber Cloud** | Various | Gaudi2/3 | Contact Intel |
+
+**Real-World Adoption**:
+
+- **Stability AI**: Using Gaudi2 for Stable Diffusion training
+- **Hugging Face**: Official Optimum-Habana support
+- **IBM watsonx**: Gaudi2 option for training
+- **Intel Tiber AI Cloud**: Gaudi-powered AI platform
+
+**OPEA Integration**:
+
+```mermaid
+flowchart LR
+    subgraph OPEA_Services["OPEA Microservices"]
+        Embedding["Embedding Service<br/>(Gaudi-accelerated)"]
+        Reranker["Reranker Service<br/>(Gaudi-accelerated)"]
+        LLM["LLM Service<br/>(TGI on Gaudi)"]
+    end
+    
+    subgraph Gaudi_Stack["Intel Gaudi Stack"]
+        TGI_Gaudi["Text Gen Inference<br/>Habana backend"]
+        SynapseAI["Intel SynapseAI"]
+        Gaudi_HW["Gaudi2/3 Hardware"]
+    end
+    
+    Embedding --> TGI_Gaudi
+    Reranker --> TGI_Gaudi
+    LLM --> TGI_Gaudi
+    TGI_Gaudi --> SynapseAI
+    SynapseAI --> Gaudi_HW
+    
+    style OPEA_Services fill:#e1f5ff
+    style Gaudi_Stack fill:#b39ddb
+```
+
+**Performance Optimization Tips**:
+
+1. **Use BF16 training** (native Gaudi support)
+2. **Leverage 96GB memory** for larger batch sizes
+3. **Use Habana DeepSpeed** for distributed training
+4. **Optimize with Habana Model References** (pre-tuned configs)
+5. **Use RoCE for scale-out** (24x 100GbE per card)
+6. **Enable gradient checkpointing** for memory efficiency
+
+**Total Cost Scenarios**:
+
+**Scenario 1: Small Training Cluster (4 cards)**
+- Gaudi2: $60K hardware + FREE software = **$60K**
+- H100: $120K hardware + $400K NVAIE = **$520K**
+- **Savings: -88%** 🎉
+
+**Scenario 2: Medium Cluster (32 cards)**
+- Gaudi2: $480K hardware + FREE software = **$480K**
+- H100: $960K hardware + $800K NVAIE = **$1.76M**
+- **Savings: -73%** 🎉
+
+**Scenario 3: Large Cluster (256 cards)**
+- Gaudi2: $3.84M hardware + FREE software = **$3.84M**
+- H100: $7.68M hardware + $800K NVAIE = **$8.48M**
+- **Savings: -55%** 🎉
+
+**Key Insight**: Gaudi savings increase with smaller deployments (less NVIDIA license amortization)
+
+---
+
 ### Accelerator Decision Matrix
 
 ```mermaid
@@ -368,8 +679,10 @@ flowchart TD
     Q3{"Power Budget?"}
     Q4{"Cloud Provider?"}
     Q5{"Model Size?"}
+    Q6{"Budget Priority?"}
     
     GPU["✅ NVIDIA GPU<br/>Flexible, high-performance<br/>CUDA ecosystem"]
+    Gaudi["✅ Intel Gaudi<br/>Cost-effective training<br/>50-60% cheaper"]
     TPU["✅ Google TPU<br/>Training-optimized<br/>GCP only"]
     NPU["✅ NPU (Edge)<br/>Ultra-low power<br/>< 7B models"]
     CPU["✅ CPU<br/>Development/testing<br/>Very slow"]
@@ -378,10 +691,14 @@ flowchart TD
     Q1 -->|Training + Inference| Q2
     Q1 -->|Inference Only| Q3
     
-    Q2 -->|On-prem| GPU
+    Q2 -->|On-prem| Q6
     Q2 -->|Cloud| Q4
     
+    Q6 -->|Cost priority| Gaudi
+    Q6 -->|Performance/ecosystem| GPU
+    
     Q4 -->|Google Cloud| TPU
+    Q4 -->|AWS (DL1)| Gaudi
     Q4 -->|AWS/Azure/Other| GPU
     
     Q3 -->|< 50W| Q5
@@ -391,6 +708,7 @@ flowchart TD
     Q5 -->|> 7B| GPU
     
     style GPU fill:#b3e5fc
+    style Gaudi fill:#b39ddb
     style TPU fill:#c5e1a5
     style NPU fill:#fff59d
     style CPU fill:#eeeeee
@@ -398,19 +716,19 @@ flowchart TD
 
 **Comprehensive Comparison**:
 
-| Criteria | NVIDIA GPU | Google TPU | Intel/AMD NPU | Apple Silicon |
-|----------|------------|------------|---------------|---------------|
-| **Training** | ✅✅✅ | ✅✅✅ | ❌ | ✅ |
-| **Inference** | ✅✅✅ | ✅✅ | ✅ | ✅✅ |
-| **On-premises** | ✅✅✅ | ❌ | ✅✅✅ | ✅✅ |
-| **Cloud** | ✅✅✅ | ✅✅✅ (GCP) | ⚠️ | ❌ |
-| **Edge** | ✅ (power hungry) | ❌ | ✅✅✅ | ✅✅✅ |
-| **Power Efficiency** | 🟡 (300-700W) | 🟢 (200-450W) | 🟢🟢 (5-50W) | 🟢🟢 (10-30W) |
-| **Cost** | 🔴 (hardware + license) | 🟡 (pay-per-use) | 🟢 (included) | 🟡 (hardware) |
-| **Software Ecosystem** | ✅✅✅ (CUDA) | 🟡 (JAX/PyTorch) | ⚠️ (fragmented) | 🟡 (Core ML) |
-| **OPEA Support** | ✅✅✅ | ✅✅ | ✅ | ✅✅ |
-| **OpenShift AI Support** | ✅✅✅ | ❌ | ⚠️ | ❌ |
-| **NVIDIA AIE Support** | ✅✅✅ | ❌ | ❌ | ❌ |
+| Criteria | NVIDIA GPU | Intel Gaudi | Google TPU | Intel/AMD NPU | Apple Silicon |
+|----------|------------|-------------|------------|---------------|---------------|
+| **Training** | ✅✅✅ | ✅✅✅ | ✅✅✅ | ❌ | ✅ |
+| **Inference** | ✅✅✅ | ✅✅ | ✅✅ | ✅ | ✅✅ |
+| **On-premises** | ✅✅✅ | ✅✅✅ | ❌ | ✅✅✅ | ✅✅ |
+| **Cloud** | ✅✅✅ | ✅✅ (AWS) | ✅✅✅ (GCP) | ⚠️ | ❌ |
+| **Edge** | ✅ (power hungry) | ❌ | ❌ | ✅✅✅ | ✅✅✅ |
+| **Power Efficiency** | 🟡 (300-700W) | 🟡 (600W) | 🟢 (200-450W) | 🟢🟢 (5-50W) | 🟢🟢 (10-30W) |
+| **Cost** | 🔴 (hardware + license) | 🟢 (hardware only) | 🟡 (pay-per-use) | 🟢 (included) | 🟡 (hardware) |
+| **Software Ecosystem** | ✅✅✅ (CUDA) | 🟡 (SynapseAI) | 🟡 (JAX/PyTorch) | ⚠️ (fragmented) | 🟡 (Core ML) |
+| **OPEA Support** | ✅✅✅ | ✅✅✅ | ✅✅ | ✅ | ✅✅ |
+| **OpenShift AI Support** | ✅✅✅ | ✅ | ❌ | ⚠️ | ❌ |
+| **NVIDIA AIE Support** | ✅✅✅ | ❌ | ❌ | ❌ | ❌ |
 
 ---
 
@@ -448,14 +766,16 @@ flowchart TB
 
 **Example Architecture**:
 
-**Training Pipeline** (TPU):
-- Train LLM on TPU v5p Pods (Google Cloud)
-- Cost: $4.60/TPU/hour × 256 TPUs × 100 hours = $117K per training run
+**Option A: Training on Intel Gaudi (Cost-Optimized)**
+
+**Training Pipeline** (Gaudi2 on-prem):
+- Train LLM on 32x Gaudi2 cluster
+- Cost: $480K hardware + $150K support (3-year) = $630K
 - Export to PyTorch/ONNX format
 
 **Cloud Deployment** (GPU):
 - Serve via NVIDIA GPU with vLLM or Triton
-- Cost: $800K NVIDIA AIE + $300K hardware (3-year)
+- Cost: $800K NVIDIA AIE + $300K hardware (3-year) = $1.1M
 - Throughput: 10K requests/hour per GPU
 
 **Edge Deployment** (NPU):
@@ -465,18 +785,77 @@ flowchart TB
 - Throughput: 100 requests/hour per device
 
 **Total Cost** (3-year):
-- Training: $117K × 10 runs = $1.17M
-- Cloud inference: $1.1M
+- Training: $630K (Gaudi2)
+- Cloud inference: $1.1M (NVIDIA GPU)
+- Edge deployment: $50K (distribution)
+- **Total**: $1.78M
+
+---
+
+**Option B: Training on TPU (Cloud-Only)**
+
+**Training Pipeline** (TPU v5p):
+- Train LLM on TPU v5p Pods (Google Cloud)
+- Cost: $4.60/TPU/hour × 256 TPUs × 100 hours = $117K per training run
+- Cost (10 runs): $1.17M
+- Export to PyTorch/ONNX format
+
+**Cloud Deployment** (GPU):
+- Serve via NVIDIA GPU with vLLM or Triton
+- Cost: $800K NVIDIA AIE + $300K hardware (3-year) = $1.1M
+- Throughput: 10K requests/hour per GPU
+
+**Edge Deployment** (NPU):
+- Quantize to INT4 for NPU
+- Deploy to user devices (laptops, phones)
+- Cost: $0 incremental (NPU built-in)
+- Throughput: 100 requests/hour per device
+
+**Total Cost** (3-year):
+- Training: $1.17M (TPU cloud)
+- Cloud inference: $1.1M (NVIDIA GPU)
 - Edge deployment: $50K (distribution)
 - **Total**: $2.32M
 
+---
+
+**Option C: All-Gaudi (Maximum Cost Savings)**
+
+**Training Pipeline** (Gaudi2):
+- Train LLM on 32x Gaudi2 cluster
+- Cost: $630K (hardware + support, 3-year)
+
+**Cloud Deployment** (Gaudi2 inference):
+- Serve via Gaudi2 with Text Generation Inference
+- Cost: $480K hardware + $150K support = $630K
+- Throughput: 7K requests/hour per Gaudi2 (70% of GPU)
+
+**Edge Deployment** (NPU):
+- Quantize to INT4 for NPU
+- Deploy to user devices
+- Cost: $50K (distribution)
+
+**Total Cost** (3-year):
+- Training: $630K (Gaudi2)
+- Cloud inference: $630K (Gaudi2)
+- Edge deployment: $50K (NPU)
+- **Total**: $1.31M 🎉
+
+---
+
 **vs. GPU-Only**:
-- Training on GPUs: $500K (less efficient)
+- Training on H100: $960K hardware + $800K NVAIE = $1.76M
 - Cloud inference: $1.1M
 - Edge with discrete GPUs: $500K (power/cost prohibitive)
-- **Total**: $2.1M (but no edge deployment)
+- **Total**: $3.36M (but no edge deployment)
 
-**Key Insight**: Hybrid accelerator strategy provides best TCO and coverage
+**Cost Comparison**:
+- **Option C (All-Gaudi + NPU)**: $1.31M ✅ **-61% savings**
+- **Option A (Gaudi training + GPU inference + NPU)**: $1.78M ✅ **-47% savings**
+- **Option B (TPU training + GPU inference + NPU)**: $2.32M ✅ **-31% savings**
+- **GPU-Only (no edge)**: $3.36M ❌ Baseline
+
+**Key Insight**: Intel Gaudi provides the best hybrid strategy for cost-sensitive deployments
 
 ---
 
@@ -485,6 +864,7 @@ flowchart TB
 | Accelerator | OPEA | OpenShift AI | NVIDIA AIE | Best Use Case |
 |-------------|------|--------------|------------|---------------|
 | **NVIDIA GPU** | ✅✅✅ | ✅✅✅ | ✅✅✅ | All workloads, most flexible |
+| **Intel Gaudi** | ✅✅✅ | ✅ | ❌ | Cost-effective LLM training |
 | **AMD GPU** | ✅✅ | ✅ | ❌ | Cost alternative to NVIDIA |
 | **Intel GPU** | ✅✅ | ✅ | ❌ | Intel-backed workloads |
 | **Google TPU** | ✅✅ | ❌ | ❌ | GCP training/inference |
@@ -495,28 +875,41 @@ flowchart TB
 **Platform Recommendations**:
 
 1. **OPEA Only**
-   - Works with ALL accelerators
+   - Works with ALL accelerators (NVIDIA, Gaudi, TPU, NPU)
    - Maximum flexibility
    - No vendor lock-in
    - Best for experimentation
 
-2. **OPEA + OpenShift AI**
+2. **OPEA + Intel Gaudi**
+   - 50-60% cost savings vs NVIDIA
+   - First-class OPEA support (Intel-backed)
+   - PyTorch native
+   - Best for cost-sensitive training
+
+3. **OPEA + OpenShift AI**
    - NVIDIA GPU support (best)
+   - Intel Gaudi support (experimental)
    - AMD/Intel GPU support (limited)
    - No TPU/NPU production support
 
-3. **OPEA + NVIDIA AIE**
+4. **OPEA + NVIDIA AIE**
    - NVIDIA GPU only
    - Maximum GPU performance
-   - No TPU/NPU support
+   - Highest cost
+   - No Gaudi/TPU/NPU support
 
-4. **Full Stack (OPEA + OpenShift + NVIDIA)**
+5. **Full Stack (OPEA + OpenShift + NVIDIA)**
    - NVIDIA GPU only
-   - Most expensive
+   - Most expensive ($1.5M+ for 8 cards)
    - Best enterprise support
    - No accelerator flexibility
 
-**Recommendation**: If using TPUs or NPUs, stick with OPEA + open source stack (no OpenShift AI or NVIDIA AIE)
+**Recommendation**: 
+- For **training-heavy workloads**: OPEA + Intel Gaudi (-50% cost)
+- For **GCP deployments**: OPEA + TPU
+- For **edge inference**: OPEA + NPU
+- For **maximum ecosystem**: OPEA + NVIDIA GPU
+- **Avoid**: Dual licensing (OpenShift AI + NVIDIA AIE) unless justified
 
 ---
 
