@@ -87,7 +87,13 @@ nav:
       - Overview: architecture/index.md
       - Agentic Components Model: architecture/agentic-components-model.md
       - Agent Frameworks Comparison: architecture/agent-frameworks-comparison.md
-      - Enterprise AI Platforms: architecture/enterprise-ai-platforms-comparison.md
+      - Enterprise AI Platforms:
+          - Guide Index: architecture/enterprise-ai-platforms/index.md
+          - 1. Platforms Overview: architecture/enterprise-ai-platforms/01-platforms-overview.md
+          - 2. GenAI Use Cases: architecture/enterprise-ai-platforms/02-genai-use-cases.md
+          - 3. License Optimization: architecture/enterprise-ai-platforms/03-license-optimization.md
+          - 4. Alternative Accelerators: architecture/enterprise-ai-platforms/04-alternative-accelerators.md
+          - 5. Training vs Inference: architecture/enterprise-ai-platforms/05-training-vs-inference.md
       - Integration Schemas: architecture/integration-schemas.md
       - Agentic Use Case Schema: architecture/agentic-use-case-schema.md
       - Agentic Workflows: architecture/agentic-workflows.md
