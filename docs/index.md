@@ -111,8 +111,8 @@ This is a living document. To suggest updates or additions:
 
 - [Glossary](glossary.md) - AI/ML terminology and acronyms
 - [Decision Trees](decision-trees.md) - Structured decision frameworks
-- [Security Product URIs](reference/security-product-uris.md) - Official links and documentation for 45 AI security products
-- [Security SBOM](reference/security-sbom.md) - Software Bill of Materials for AI agent security stacks
+- [AI Software Catalog](reference/ai-software-catalog.md) - Comprehensive URI reference for 120+ AI/ML products across 18 categories
+- [AI Software SBOM](reference/ai-software-sbom.md) - Software Bill of Materials for 15 AI/ML deployment stack patterns
 
 ---
 

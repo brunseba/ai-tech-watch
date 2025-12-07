@@ -140,8 +140,8 @@ nav:
   - Reference:
       - Glossary: glossary.md
       - Decision Trees: decision-trees.md
-      - Security Product URIs: reference/security-product-uris.md
-      - Security SBOM: reference/security-sbom.md
+      - AI Software Catalog: reference/ai-software-catalog.md
+      - AI Software SBOM: reference/ai-software-sbom.md
 
 extra:
   social:
