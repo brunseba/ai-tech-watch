@@ -639,6 +639,250 @@
 
 ---
 
+#### Product 9: Azure Monitor & Application Insights
+
+**Overview**: Microsoft's comprehensive cloud monitoring solution with native Azure AI Services integration.
+
+**Key Features for AI Agents**:
+
+1. **Application Insights (AI Observability)**
+   - **Distributed Tracing**: End-to-end trace across Azure OpenAI, Functions, App Service
+   - **Dependency Tracking**: Automatic tracking of Azure OpenAI API calls
+   - **Performance Monitoring**: Request rates, response times, failure rates
+   - **Smart Detection**: AI-powered anomaly detection
+
+2. **Logging & Diagnostics**
+   - **Log Analytics**: Query logs using KQL (Kusto Query Language)
+   - **Azure OpenAI Logs**: Request/response logging with PII filtering
+   - **Diagnostic Settings**: Route logs to storage, Event Hub, or Log Analytics
+   - **Custom Telemetry**: Track custom AI agent metrics
+
+3. **Metrics & Dashboards**
+   - **Pre-Built Metrics**: Token usage, latency, error rates
+   - **Custom Metrics**: Define agent-specific KPIs
+   - **Azure Dashboards**: Visual monitoring dashboards
+   - **Workbooks**: Interactive reports with KQL queries
+
+4. **Alerting & Actions**
+   - **Metric Alerts**: Alert on token usage thresholds, latency spikes
+   - **Log Alerts**: Complex queries with KQL
+   - **Action Groups**: Webhook, email, SMS, Azure Functions
+   - **Smart Detection Alerts**: Automatic anomaly notifications
+
+5. **Cost Management**
+   - **Cost Analysis**: Track Azure OpenAI costs per resource/tag
+   - **Budget Alerts**: Notify when costs exceed thresholds
+   - **Usage Metrics**: Token consumption by model/deployment
+
+6. **Integration with Azure AI Services**
+   - **Azure OpenAI Service**: Native diagnostic logs and metrics
+   - **Azure AI Search**: Index operations, query latency
+   - **Azure Cognitive Services**: Speech, Vision, Language metrics
+   - **Azure Bot Service**: Bot conversations, LUIS queries
+
+7. **Security & Compliance**
+   - **PII Filtering**: Auto-redact PII in logs (preview)
+   - **Audit Logs**: Azure Activity Log for resource changes
+   - **RBAC**: Control access to monitoring data
+   - **Data Residency**: Store logs in specific Azure regions
+
+8. **Azure OpenAI-Specific Features**
+   - **Request Logging**: Full request/response capture (opt-in)
+   - **Token Tracking**: Prompt vs completion tokens
+   - **Model Metrics**: Per-model performance analysis
+   - **Abuse Monitoring**: Track rate limiting, content filtering
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (Microsoft Azure) |
+| **Deployment** | Azure Cloud (60+ regions) |
+| **Pricing** | Pay-as-you-go: $2.30/GB ingested (first 5GB free), $0.12/GB retention |
+| **Log Analytics** | $2.76/GB ingested (first 5GB free per workspace/month) |
+| **Application Insights** | Included with App Service, Functions (pay for data ingestion) |
+| **Integration** | Native: Azure OpenAI, AI Search, Functions, App Service, AKS, ML |
+
+**Code Example 1: Azure OpenAI with Application Insights**
+```python path=null start=null
+import os
+from azure.identity import DefaultAzureCredential
+from azure.monitor.opentelemetry import configure_azure_monitor
+from openai import AzureOpenAI
+from opentelemetry import trace
+
+# 1. Configure Application Insights (automatic telemetry)
+connection_string = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+configure_azure_monitor(connection_string=connection_string)
+tracer = trace.get_tracer(__name__)
+
+# 2. Azure OpenAI client with Managed Identity
+credential = DefaultAzureCredential()
+client = AzureOpenAI(
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_version="2024-02-15-preview",
+    azure_ad_token_provider=lambda: credential.get_token(
+        "https://cognitiveservices.azure.com/.default"
+    ).token
+)
+
+# 3. Traced AI agent call (automatic tracking)
+with tracer.start_as_current_span("ai_agent_query") as span:
+    span.set_attribute("user.id", "user-123")
+    span.set_attribute("model", "gpt-4")
+    
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": "Explain AI safety"}]
+    )
+    
+    # Add custom telemetry
+    span.set_attribute("tokens.prompt", response.usage.prompt_tokens)
+    span.set_attribute("tokens.completion", response.usage.completion_tokens)
+    span.set_attribute("tokens.total", response.usage.total_tokens)
+
+# All telemetry automatically sent to Application Insights!
+```
+
+**Code Example 2: KQL Query for Azure OpenAI Monitoring**
+```kusto
+// Azure OpenAI request logs (Log Analytics)
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.COGNITIVESERVICES"
+| where Category == "RequestResponse"
+| where TimeGenerated > ago(1h)
+| extend model = tostring(parse_json(properties_s).model)
+| extend prompt_tokens = toint(parse_json(properties_s).usage.prompt_tokens)
+| extend completion_tokens = toint(parse_json(properties_s).usage.completion_tokens)
+| summarize 
+    TotalRequests = count(),
+    AvgPromptTokens = avg(prompt_tokens),
+    AvgCompletionTokens = avg(completion_tokens),
+    P95Latency = percentile(DurationMs, 95)
+  by model, bin(TimeGenerated, 5m)
+| render timechart
+```
+
+**Code Example 3: Cost Alert (Bicep)**
+```bicep
+// Alert when Azure OpenAI costs exceed $1000/day
+resource costAlert 'Microsoft.Insights/metricAlerts@2018-03-01' = {
+  name: 'azure-openai-cost-alert'
+  location: 'global'
+  properties: {
+    description: 'Alert when daily Azure OpenAI costs exceed $1000'
+    severity: 2
+    enabled: true
+    scopes: [
+      azureOpenAIAccount.id
+    ]
+    evaluationFrequency: 'PT1H'
+    windowSize: 'PT1H'
+    criteria: {
+      'odata.type': 'Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria'
+      allOf: [
+        {
+          name: 'TokenUsageThreshold'
+          metricName: 'TokenTransaction'
+          operator: 'GreaterThan'
+          threshold: 20000000  // ~$1000 for GPT-4
+          timeAggregation: 'Total'
+        }
+      ]
+    }
+    actions: [
+      {
+        actionGroupId: actionGroup.id
+      }
+    ]
+  }
+}
+```
+
+**Strengths**:
+- ✅ **Native Azure Integration**: Zero-config for Azure OpenAI, Functions, App Service
+- ✅ **Azure OpenAI Specific**: Request/response logging, token tracking, model metrics
+- ✅ **Application Insights**: Automatic distributed tracing across Azure services
+- ✅ **KQL Queries**: Powerful log analytics with Kusto Query Language
+- ✅ **Cost Management**: Built-in cost tracking and budget alerts
+- ✅ **Smart Detection**: AI-powered anomaly detection (no configuration)
+- ✅ **PII Filtering**: Automatic PII redaction in logs (preview)
+- ✅ **Workbooks**: Pre-built Azure OpenAI monitoring templates
+- ✅ **Enterprise SLA**: 99.9% availability, 24/7 support
+- ✅ **Data Residency**: Keep logs in specific Azure regions (compliance)
+
+**Limitations**:
+- ❌ **Azure-Only**: Optimized for Azure services (limited multi-cloud)
+- ❌ **Cost at Scale**: $2.30-$2.76/GB can add up (10GB/day = $700/month)
+- ❌ **Learning Curve**: KQL requires expertise
+- ❌ **No Agent-Specific Features**: General observability (vs LangSmith's agent focus)
+- ❌ **Retention Costs**: $0.12/GB/month for long-term retention
+
+**Best For**:
+- **Azure OpenAI Users**: Native integration with automatic telemetry
+- **Azure-Native Stacks**: Functions, App Service, AKS workloads
+- **Enterprise Compliance**: Data residency, PII filtering, audit trails
+- **Cost-Conscious**: Built-in cost tracking and alerts
+- **Multi-Service Monitoring**: Unified observability for all Azure resources
+
+**Azure OpenAI Monitoring Checklist**:
+1. **Enable Diagnostic Settings**: Route logs to Log Analytics workspace
+2. **Configure Application Insights**: Add to Functions/App Service
+3. **Set Up Cost Alerts**: Alert at 80% of monthly budget
+4. **Create Dashboards**: Token usage, latency, error rates
+5. **Enable Smart Detection**: Automatic anomaly alerts
+6. **Configure PII Filtering**: Redact sensitive data in logs
+7. **Set Up Workbooks**: Use Azure OpenAI pre-built templates
+8. **Monitor Abuse**: Track rate limiting, content filtering events
+
+**Integration with Azure AI Services**:
+- ✅ **Azure OpenAI**: Request/response logs, token metrics, model performance
+- ✅ **Azure AI Search**: Query latency, index operations, cost tracking
+- ✅ **Azure Cognitive Services**: API call tracking, error rates
+- ✅ **Azure Bot Service**: Conversation analytics, LUIS metrics
+- ✅ **Azure Machine Learning**: Model training, inference metrics
+- ✅ **Azure Key Vault**: Secret access auditing (via diagnostic logs)
+
+**Pricing Breakdown (Example: 10GB logs/month)**:
+- **Log Analytics Ingestion**: 10GB * $2.76/GB = $27.60/month (first 5GB free: $13.80)
+- **Retention (90 days)**: 10GB * $0.12/GB/month * 3 = $3.60/month
+- **Total**: ~$17.40/month for 10GB logs
+
+**vs Competitors**:
+| Feature | Azure Monitor | DataDog | LangSmith |
+|---------|--------------|---------|----------|
+| **Azure OpenAI Native** | ✅ Yes | ❌ Limited | ❌ No |
+| **Cost Tracking** | ✅ Built-in | ❌ Manual | ✅ Yes |
+| **Agent-Specific** | ❌ No | ❌ No | ✅ Yes |
+| **Multi-Cloud** | ❌ Azure-only | ✅ Yes | ✅ Yes |
+| **Pricing** | $2.30/GB | $15-$31/host | $39-$399/month |
+| **Setup Complexity** | Low (Azure) | Medium | Low |
+
+**Real-World Use Case**:
+**Company**: Financial Services AI Chatbot (Azure-Native)
+- **Challenge**: Monitor 1M Azure OpenAI requests/day, track costs, detect anomalies
+- **Solution**:
+  - Application Insights for Functions (AI agent runtime)
+  - Diagnostic logs to Log Analytics (Azure OpenAI)
+  - Daily cost alerts at $500 threshold
+  - KQL queries for token usage by user/department
+  - Smart Detection for latency spikes
+- **Result**:
+  - 100% Azure OpenAI visibility (all requests logged)
+  - $1.2K/month cost optimization (identified inefficient prompts)
+  - 40% faster incident response (automated alerts)
+  - Compliance achieved (audit logs, PII filtering)
+
+**Recommendation**: Use **Azure Monitor + Application Insights** for Azure-native AI agents (seamless integration, cost-effective). Supplement with **LangSmith** for agent-specific debugging if using LangChain.
+
+**Documentation**:
+- [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/)
+- [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+- [Azure OpenAI Monitoring](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/monitoring)
+- [KQL Reference](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/)
+
+---
+
 ---
 
 **Previous**: [Data Security & Application Security](03b-data-appsec.md)  

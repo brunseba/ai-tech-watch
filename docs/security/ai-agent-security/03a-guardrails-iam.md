@@ -945,7 +945,290 @@ spec:
 
 ---
 
-#### Product 6: Ping Identity
+#### Product 6: Azure Key Vault
+
+**Overview**: Microsoft's cloud-based secrets management service with native Azure integration for AI workloads.
+
+**Key Features for AI Agents**:
+
+1. **Secrets Management**
+   - **API Keys**: Securely store Azure OpenAI, third-party LLM API keys
+   - **Connection Strings**: Database, storage account credentials
+   - **Certificates**: X.509 certificates for mTLS authentication
+   - **Secret Versioning**: Maintain history of all secret versions
+   - **Soft Delete**: Recover accidentally deleted secrets (90-day retention)
+
+2. **Managed Identity Integration**
+   - **Passwordless Access**: AI agents retrieve secrets using Managed Identity
+   - **No Credential Storage**: Zero API keys in code or config files
+   - **Automatic Token Refresh**: Azure handles token lifecycle
+   - **RBAC Integration**: Fine-grained permissions (Key Vault Secrets User)
+
+3. **Key Management (Encryption)**
+   - **Encryption Keys**: Manage keys for encrypting AI agent data
+   - **Azure-Managed Keys**: Microsoft handles key rotation
+   - **Customer-Managed Keys (CMK)**: BYOK (Bring Your Own Key)
+   - **HSM Support**: FIPS 140-2 Level 3 hardware security modules
+
+4. **Certificate Management**
+   - **Automated Renewal**: Auto-renew Let's Encrypt, DigiCert certs
+   - **Import Certificates**: Store custom CA/self-signed certs
+   - **Certificate Policies**: Define renewal thresholds
+
+5. **Access Policies & RBAC**
+   - **RBAC Model**: Azure role-based access (recommended)
+   - **Access Policies**: Legacy model (key/secret/certificate permissions)
+   - **Scope-Based**: Assign permissions at vault, secret, or key level
+   - **Conditional Access**: Integrate with Entra ID policies
+
+6. **Network Security**
+   - **Private Endpoints**: Restrict access to Azure VNet
+   - **Firewall Rules**: IP-based access restrictions
+   - **Service Endpoints**: Secure access from Azure services
+   - **VNet Integration**: No public internet exposure
+
+7. **Logging & Monitoring**
+   - **Azure Monitor Integration**: Centralized logging
+   - **Diagnostic Logs**: Secret access auditing
+   - **Alerts**: Notify on unauthorized access attempts
+   - **Key Vault Insights**: Pre-built dashboards
+
+8. **Compliance & Security**
+   - **Certifications**: SOC 1/2/3, ISO 27001, FedRAMP High, HIPAA
+   - **Purge Protection**: Prevent permanent deletion of secrets
+   - **Audit Trails**: Immutable logs for compliance
+   - **Geo-Replication**: Automatic backup across Azure regions
+
+**Specifications**:
+
+| Dimension | Details |
+|-----------|----------|
+| **License** | Proprietary (Microsoft Azure) |
+| **Deployment** | Azure Cloud (60+ regions), Azure Stack (on-prem) |
+| **Pricing** | Standard: $0.03/10K operations, Premium: $1.00/10K operations (HSM) |
+| **Storage** | Secrets: Free, Keys/Certificates: $0.03/month per object |
+| **Availability** | 99.99% SLA |
+| **Integration** | Native: Azure OpenAI, AI Search, Functions, App Service, AKS, ML |
+
+**Code Example 1: Python - Retrieve Secret with Managed Identity**
+```python path=null start=null
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
+from openai import OpenAI
+
+# 1. Authenticate to Key Vault using Managed Identity
+credential = DefaultAzureCredential()
+kv_client = SecretClient(
+    vault_url="https://my-ai-vault.vault.azure.net/",
+    credential=credential
+)
+
+# 2. Retrieve OpenAI API key (no hardcoded secrets!)
+openai_key = kv_client.get_secret("openai-api-key").value
+
+# 3. Use retrieved secret with OpenAI
+client = OpenAI(api_key=openai_key)
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+**Code Example 2: Azure OpenAI + Key Vault (Full Stack)**
+```python path=null start=null
+import os
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
+from openai import AzureOpenAI
+
+# Environment variables (no secrets!)
+KEY_VAULT_NAME = os.getenv("KEY_VAULT_NAME")  # e.g., "my-ai-vault"
+AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
+
+# Authenticate using Managed Identity
+credential = DefaultAzureCredential()
+
+# Option 1: Use Managed Identity directly with Azure OpenAI (recommended)
+az_openai_client = AzureOpenAI(
+    azure_endpoint=AZURE_OPENAI_ENDPOINT,
+    api_version="2024-02-15-preview",
+    azure_ad_token_provider=lambda: credential.get_token(
+        "https://cognitiveservices.azure.com/.default"
+    ).token
+)
+
+# Option 2: Use API key from Key Vault (for third-party LLMs)
+kv_client = SecretClient(
+    vault_url=f"https://{KEY_VAULT_NAME}.vault.azure.net/",
+    credential=credential
+)
+third_party_key = kv_client.get_secret("anthropic-api-key").value
+
+# Both approaches: zero hardcoded secrets!
+```
+
+**Code Example 3: Secret Rotation with Versioning**
+```python path=null start=null
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+
+credential = DefaultAzureCredential()
+client = SecretClient(
+    vault_url="https://my-ai-vault.vault.azure.net/",
+    credential=credential
+)
+
+# Set new secret version (automatic versioning)
+client.set_secret("openai-api-key", "new-rotated-key-value")
+
+# Retrieve latest version (default)
+latest = client.get_secret("openai-api-key")
+
+# Retrieve specific version (rollback scenario)
+old_version = client.get_secret(
+    "openai-api-key",
+    version="abc123def456"  # version ID
+)
+
+# List all versions (audit trail)
+versions = client.list_properties_of_secret_versions("openai-api-key")
+for version in versions:
+    print(f"Version: {version.version}, Created: {version.created_on}")
+```
+
+**Infrastructure as Code (Bicep)**
+```bicep
+// Key Vault for AI Agent secrets
+resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
+  name: 'ai-agent-vault'
+  location: resourceGroup().location
+  properties: {
+    sku: {
+      family: 'A'
+      name: 'standard'  // or 'premium' for HSM
+    }
+    tenantId: subscription().tenantId
+    enableRbacAuthorization: true  // Use RBAC (recommended)
+    enableSoftDelete: true
+    softDeleteRetentionInDays: 90
+    enablePurgeProtection: true  // Prevent permanent deletion
+    networkAcls: {
+      defaultAction: 'Deny'  // Private access only
+      bypass: 'AzureServices'
+      ipRules: [
+        { value: '203.0.113.0/24' }  // Your corporate IP
+      ]
+    }
+  }
+}
+
+// Grant AI agent Managed Identity access to secrets
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(keyVault.id, aiAgentIdentity.id, keyVaultSecretsUserRole)
+  scope: keyVault
+  properties: {
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      '4633458b-17de-408a-b874-0445c86b69e6'  // Key Vault Secrets User
+    )
+    principalId: aiAgentIdentity.properties.principalId
+    principalType: 'ServicePrincipal'
+  }
+}
+```
+
+**Strengths**:
+- ✅ **Managed Identity Native**: Passwordless secret retrieval for AI agents
+- ✅ **Azure OpenAI Integration**: Seamless authentication workflow
+- ✅ **Automatic Versioning**: Complete secret history with rollback
+- ✅ **HSM Support**: FIPS 140-2 Level 3 hardware security (Premium tier)
+- ✅ **Soft Delete + Purge Protection**: Recover from accidental deletion
+- ✅ **Private Endpoints**: Zero public internet exposure
+- ✅ **Compliance**: SOC 2, ISO 27001, HIPAA, FedRAMP High
+- ✅ **Geo-Replication**: Automatic backup across Azure regions
+- ✅ **Certificate Management**: Auto-renewal for Let's Encrypt/DigiCert
+- ✅ **Azure Monitor Integration**: Unified logging and alerting
+- ✅ **Cost-Effective**: $0.03/10K operations (vs Vault's $0.03/hour)
+
+**Limitations**:
+- ❌ **Azure-Only**: Managed Identity only works within Azure
+- ❌ **No Dynamic Secrets**: Cannot generate database credentials on-demand (vs Vault)
+- ❌ **Limited Secret Types**: Strings only (no complex objects)
+- ❌ **No Built-in Rotation**: Must implement custom rotation logic
+- ❌ **Vendor Lock-In**: Azure-specific (not portable to AWS/GCP)
+
+**Best For**:
+- **Azure OpenAI Users**: Native Managed Identity integration
+- **Azure-Native Stacks**: Functions, App Service, AKS workloads
+- **Compliance Requirements**: HIPAA, FedRAMP High, SOC 2
+- **Hybrid Scenarios**: Azure Stack for on-prem + cloud
+- **Cost-Sensitive**: Pay-per-operation vs Vault's per-instance cost
+
+**Security Best Practices**:
+1. **Use Managed Identities**: Never use access keys for AI agents
+2. **Enable RBAC**: Use Azure RBAC (not legacy access policies)
+3. **Enable Soft Delete**: Recover from accidental deletions (90 days)
+4. **Enable Purge Protection**: Prevent permanent deletion
+5. **Use Private Endpoints**: Disable public access
+6. **Rotate Secrets**: Implement rotation every 90 days
+7. **Monitor Access**: Enable diagnostic logs to Azure Monitor
+8. **Separate Vaults**: One vault per environment (dev/staging/prod)
+9. **Use Key Vault References**: Azure App Service/Functions config
+10. **Least Privilege**: Grant only "Key Vault Secrets User" role
+
+**Integration with Azure AI Services**:
+- ✅ **Azure OpenAI**: Store API keys or use Managed Identity (preferred)
+- ✅ **Azure AI Search**: Store admin keys, use Managed Identity for indexing
+- ✅ **Azure Functions**: Key Vault references in app settings
+- ✅ **Azure App Service**: Automatic secret injection via references
+- ✅ **Azure Kubernetes Service**: CSI driver for pod secret injection
+- ✅ **Azure Machine Learning**: Store model registry credentials
+
+**Pricing Comparison (1M operations/month)**:
+- **Azure Key Vault Standard**: $3/month (1M operations * $0.03/10K)
+- **Azure Key Vault Premium**: $100/month (HSM-backed)
+- **HashiCorp Vault HCP**: $21.60/month ($0.03/hour * 720 hours)
+- **AWS Secrets Manager**: $400/month (1M operations * $0.40/10K)
+
+**Real-World Use Case**:
+**Company**: Multi-Cloud AI Platform
+- **Challenge**: Secure 100+ API keys for Azure OpenAI, Anthropic, OpenAI, Cohere
+- **Solution**:
+  - Azure Key Vault with Managed Identity for Azure services
+  - Private Endpoints (no public internet access)
+  - Separate vaults per environment (dev/staging/prod)
+  - Automated secret rotation every 90 days
+  - Azure Monitor alerts on unauthorized access
+- **Result**:
+  - Zero API key leaks in 18 months
+  - $2K/month saved vs managing secrets manually
+  - Audit compliance (SOC 2) achieved
+  - 99.99% availability (Azure SLA)
+
+**vs HashiCorp Vault**:
+| Feature | Azure Key Vault | HashiCorp Vault |
+|---------|----------------|----------------|
+| **Managed Identity** | ✅ Native | ❌ Custom |
+| **Dynamic Secrets** | ❌ No | ✅ Yes |
+| **HSM Support** | ✅ Premium tier | ✅ Enterprise |
+| **Multi-Cloud** | ❌ Azure-only | ✅ Yes |
+| **Pricing** | $0.03/10K ops | $0.03/hour |
+| **Setup Complexity** | Low | High |
+| **Maintenance** | Fully managed | Self-managed |
+
+**Recommendation**: Use **Azure Key Vault** for Azure-native AI agents (simpler, cheaper), use **HashiCorp Vault** for multi-cloud or dynamic secrets.
+
+**Documentation**:
+- [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/)
+- [Managed Identity + Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/general/authentication)
+- [Key Vault with Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/managed-identity)
+- [AKS CSI Driver](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver)
+
+---
+
+#### Product 7: Ping Identity
 
 **Overview**: Enterprise identity and access management platform.
 
