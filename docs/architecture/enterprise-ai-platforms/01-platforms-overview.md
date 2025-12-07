@@ -301,6 +301,448 @@ flowchart TB
 
 ---
 
+## Detailed Component Models
+
+This section provides a comprehensive breakdown of the technical components within each platform.
+
+### OPEA Component Model
+
+**Architectural Layers**: 4-tier microservice architecture for GenAI applications
+
+```mermaid
+flowchart TB
+    subgraph Gateway_Layer["🚪 Gateway Layer"]
+        API_GW["API Gateway<br/>- Request routing<br/>- Auth/authz<br/>- Rate limiting"]
+        Web_UI["Web UI<br/>- Admin console<br/>- User interface"]
+    end
+    
+    subgraph Megaservice_Layer["📦 Megaservice Layer (Compositions)"]
+        RAG_Mega["ChatQnA Megaservice<br/>- RAG pipeline<br/>- E2E workflow"]
+        CodeGen_Mega["CodeGen Megaservice<br/>- Code generation<br/>- Context-aware"]
+        Visual_Mega["VisualQnA Megaservice<br/>- Multimodal<br/>- Image+text"]
+    end
+    
+    subgraph Microservice_Layer["⚙️ Microservice Layer (Building Blocks)"]
+        subgraph Retrieval["Retrieval Services"]
+            Embedding_MS["Embedding Service<br/>- Text embedding<br/>- Vector generation"]
+            VectorDB_MS["Vector DB Service<br/>- ChromaDB<br/>- Milvus<br/>- Redis"]
+            Rerank_MS["Reranking Service<br/>- Result reranking<br/>- Relevance scoring"]
+        end
+        
+        subgraph Generation["Generation Services"]
+            LLM_MS["LLM Service<br/>- Text generation<br/>- vLLM/TGI backend"]
+            Guardrail_MS["Guardrail Service<br/>- Content filtering<br/>- Safety checks"]
+        end
+        
+        subgraph Processing["Processing Services"]
+            Prompt_MS["Prompt Service<br/>- Template management<br/>- Dynamic prompts"]
+            DataPrep_MS["Data Prep Service<br/>- Document parsing<br/>- Chunking"]
+            ASR_MS["ASR Service<br/>- Speech-to-text<br/>- Audio processing"]
+            TTS_MS["TTS Service<br/>- Text-to-speech<br/>- Voice synthesis"]
+        end
+    end
+    
+    subgraph Integration_Layer["🔌 Integration Layer (Connectors)"]
+        Model_Conn["Model Providers<br/>- HuggingFace<br/>- OpenAI<br/>- Anthropic<br/>- Local models"]
+        Data_Conn["Data Sources<br/>- Object storage<br/>- Databases<br/>- APIs"]
+        Infra_Conn["Infrastructure<br/>- Kubernetes<br/>- Docker<br/>- Cloud platforms"]
+    end
+    
+    Gateway_Layer --> Megaservice_Layer
+    Megaservice_Layer --> Microservice_Layer
+    Microservice_Layer --> Integration_Layer
+    
+    style Gateway_Layer fill:#e3f2fd
+    style Megaservice_Layer fill:#c5e1a5
+    style Microservice_Layer fill:#fff9c4
+    style Integration_Layer fill:#f3e5f5
+    style Retrieval fill:#ffebee
+    style Generation fill:#e8f5e9
+    style Processing fill:#f3e5f5
+```
+
+**OPEA Component Catalog**:
+
+| Component Type | Component Name | Purpose | Technology Options |
+|----------------|----------------|---------|--------------------|
+| **Gateway** | API Gateway | Request routing, auth | Kong, Envoy, NGINX |
+| | Web UI | User interface | React, Vue.js |
+| **Megaservice** | ChatQnA | RAG chat application | Pre-built workflow |
+| | CodeGen | Code generation | Pre-built workflow |
+| | DocSum | Document summarization | Pre-built workflow |
+| | VisualQnA | Multimodal QA | Pre-built workflow |
+| **Microservice** | Embedding | Text vectorization | TEI, Sentence-Transformers |
+| | Vector DB | Similarity search | ChromaDB, Milvus, Redis, Qdrant |
+| | Reranking | Result reordering | BGE, Cohere |
+| | LLM | Text generation | vLLM, TGI, Ollama |
+| | Prompt Engine | Prompt templating | LangChain, custom |
+| | Guardrails | Safety/filtering | LlamaGuard, NeMo Guardrails |
+| | Data Prep | Document processing | Unstructured, LlamaParse |
+| | ASR | Speech-to-text | Whisper |
+| | TTS | Text-to-speech | FastSpeech, VITS |
+| **Connector** | Model Providers | External LLM APIs | OpenAI, Anthropic, Azure |
+| | Data Sources | External data | S3, PostgreSQL, APIs |
+
+**OPEA Deployment Models**:
+1. **Docker Compose**: Single-node development
+2. **Kubernetes**: Production multi-node
+3. **Helm Charts**: Kubernetes packaging
+4. **Cloud Marketplace**: AWS, Azure, GCP
+
+**Key Design Principles**:
+- **Composability**: Mix and match microservices
+- **Replaceability**: Swap implementations without breaking contracts
+- **Scalability**: Independent scaling of each microservice
+- **Observability**: Distributed tracing with OpenTelemetry
+
+---
+
+### OpenShift AI Component Model
+
+**Architectural Layers**: Full-stack AI/ML platform on OpenShift
+
+```mermaid
+flowchart TB
+    subgraph User_Interface["👤 User Interface Layer"]
+        Dashboard["OpenShift AI Dashboard<br/>- Project management<br/>- Resource allocation<br/>- Model catalog"]
+        Workbench["Data Science Workbenches<br/>- Jupyter<br/>- VS Code<br/>- RStudio"]
+    end
+    
+    subgraph Development_Layer["💻 Development Layer"]
+        subgraph IDE["IDEs & Notebooks"]
+            Jupyter["JupyterLab<br/>- Interactive notebooks<br/>- Extensions"]
+            VSCode_Web["VS Code Web<br/>- Cloud IDE<br/>- Git integration"]
+            RStudio_IDE["RStudio<br/>- R development"]
+        end
+        
+        subgraph Libraries["ML Libraries"]
+            TF["TensorFlow"]
+            PyTorch_Lib["PyTorch"]
+            ScikitLearn["scikit-learn"]
+            XGBoost_Lib["XGBoost"]
+        end
+    end
+    
+    subgraph Training_Layer["🎓 Training & Experimentation Layer"]
+        subgraph Distributed["Distributed Training"]
+            Horovod["Horovod<br/>- Multi-GPU<br/>- Multi-node"]
+            PyTorch_Dist["PyTorch DDP<br/>- Distributed data parallel"]
+            Ray["Ray Train<br/>- Scalable ML"]
+        end
+        
+        subgraph Optimization["Hyperparameter Tuning"]
+            Katib["Katib<br/>- HPO framework<br/>- NAS support"]
+        end
+        
+        subgraph Tracking["Experiment Tracking"]
+            MLflow["MLflow<br/>- Metrics logging<br/>- Artifact storage"]
+        end
+    end
+    
+    subgraph Pipeline_Layer["🔄 Pipeline Orchestration Layer"]
+        KFP["Kubeflow Pipelines<br/>- Workflow DAGs<br/>- Scheduling<br/>- Versioning"]
+        Data_Pipeline["Data Science Pipelines<br/>- ETL workflows<br/>- Data validation"]
+    end
+    
+    subgraph Serving_Layer["🚀 Model Serving Layer"]
+        subgraph Inference["Inference Servers"]
+            KServe["KServe<br/>- Single-model serving<br/>- Autoscaling<br/>- Canary/blue-green"]
+            ModelMesh["ModelMesh<br/>- Multi-model serving<br/>- Resource pooling"]
+            OVMS["OpenVINO Model Server<br/>- Intel optimization"]
+        end
+        
+        subgraph Runtime["Runtime Backends"]
+            Triton["Triton Inference Server<br/>- NVIDIA optimized"]
+            TorchServe["TorchServe<br/>- PyTorch models"]
+            TFServing["TensorFlow Serving<br/>- TF models"]
+        end
+    end
+    
+    subgraph Management_Layer["📊 Management & Governance Layer"]
+        subgraph Registry["Model Registry"]
+            ModelReg["Model Registry<br/>- Version control<br/>- Metadata<br/>- Lineage tracking"]
+        end
+        
+        subgraph Monitoring["Observability"]
+            Prometheus["Prometheus<br/>- Metrics collection"]
+            Grafana["Grafana<br/>- Dashboards<br/>- Alerting"]
+            ModelMonitor["Model Monitoring<br/>- Drift detection<br/>- Performance tracking"]
+        end
+        
+        subgraph Governance["Governance"]
+            RBAC["RBAC<br/>- Access control<br/>- Namespaces"]
+            Audit["Audit Logging<br/>- Compliance<br/>- Security"]
+        end
+    end
+    
+    subgraph Platform_Layer["☸️ OpenShift Platform Layer"]
+        K8s["Kubernetes<br/>- Container orchestration"]
+        Operators["Operators<br/>- GPU Operator<br/>- Network Operator<br/>- Storage Operator"]
+        Storage["Persistent Storage<br/>- PV/PVC<br/>- CSI drivers"]
+        Networking["Networking<br/>- SDN<br/>- Service mesh"]
+    end
+    
+    subgraph Infrastructure_Layer["🔧 Infrastructure Layer"]
+        Compute["Compute<br/>- CPU<br/>- GPU (NVIDIA, AMD)<br/>- TPU"]
+        StorageInfra["Storage<br/>- Block<br/>- Object<br/>- File"]
+        NetworkInfra["Network<br/>- InfiniBand<br/>- Ethernet"]
+    end
+    
+    User_Interface --> Development_Layer
+    Development_Layer --> Training_Layer
+    Training_Layer --> Pipeline_Layer
+    Pipeline_Layer --> Serving_Layer
+    Serving_Layer --> Management_Layer
+    Management_Layer --> Platform_Layer
+    Platform_Layer --> Infrastructure_Layer
+    
+    style User_Interface fill:#e3f2fd
+    style Development_Layer fill:#f3e5f5
+    style Training_Layer fill:#fff3e0
+    style Pipeline_Layer fill:#e8f5e9
+    style Serving_Layer fill:#ffebee
+    style Management_Layer fill:#f5f5f5
+    style Platform_Layer fill:#e1f5ff
+    style Infrastructure_Layer fill:#eeeeee
+```
+
+**OpenShift AI Component Catalog**:
+
+| Layer | Component | Purpose | Key Features |
+|-------|-----------|---------|-------------|
+| **UI** | Dashboard | Central console | Project mgmt, resource quotas |
+| | Workbenches | Development env | Persistent, GPU-attached |
+| **Development** | JupyterLab | Interactive notebooks | Extensions, kernels |
+| | VS Code | Cloud IDE | Git, debugging, extensions |
+| | RStudio | R environment | Statistical computing |
+| **Training** | Distributed Training | Multi-GPU/node | Horovod, PyTorch DDP, Ray |
+| | Katib | HPO | Grid, random, Bayesian search |
+| | MLflow | Experiment tracking | Metrics, params, artifacts |
+| **Pipeline** | Kubeflow Pipelines | Workflow orchestration | DAG execution, scheduling |
+| | Data Pipelines | ETL workflows | Data validation, transformation |
+| **Serving** | KServe | Single-model serving | Autoscaling, canary, A/B |
+| | ModelMesh | Multi-model serving | Resource sharing, batching |
+| | Triton | NVIDIA inference | TensorRT, multi-framework |
+| **Management** | Model Registry | Version control | Metadata, lineage, promotion |
+| | Prometheus/Grafana | Monitoring | Metrics, dashboards, alerts |
+| | Model Monitoring | ML observability | Drift, performance, fairness |
+| **Governance** | RBAC | Access control | Namespaces, roles, policies |
+| | Audit Logging | Compliance | Security events, API calls |
+| **Platform** | OpenShift | Kubernetes distro | Enterprise features, operators |
+| | GPU Operator | GPU management | Drivers, monitoring, time-slicing |
+
+**OpenShift AI Operators** (Kubernetes Operators):
+1. **Data Science Operator**: Core orchestration
+2. **KServe Operator**: Model serving management
+3. **Model Registry Operator**: Registry lifecycle
+4. **Dashboard Operator**: UI deployment
+5. **Workbench Operator**: Notebook management
+6. **Pipeline Operator**: Kubeflow Pipelines
+
+**Integration Points**:
+- **OpenShift GitOps**: ArgoCD for CI/CD
+- **OpenShift Pipelines**: Tekton for build automation
+- **OpenShift Service Mesh**: Istio for traffic management
+- **OpenShift Data Foundation**: Ceph for storage
+
+---
+
+### NVIDIA AI Enterprise Component Model
+
+**Architectural Layers**: GPU-accelerated AI software stack
+
+```mermaid
+flowchart TB
+    subgraph Application_Layer["🎯 Application & Microservices Layer"]
+        subgraph NIM["NIM (NVIDIA Inference Microservices)"]
+            LLM_NIM["LLM NIMs<br/>- Llama, Mistral<br/>- Gemma, Mixtral<br/>- Optimized containers"]
+            Vision_NIM["Vision NIMs<br/>- CLIP, DINO<br/>- ViT, Stable Diffusion"]
+            Speech_NIM["Speech NIMs<br/>- Whisper, Riva<br/>- ASR, TTS"]
+            Custom_NIM["Custom NIMs<br/>- User models<br/>- TensorRT optimized"]
+        end
+        
+        subgraph Domain_Apps["Domain Applications"]
+            Healthcare["Healthcare<br/>- MONAI<br/>- Medical imaging"]
+            Robotics["Robotics<br/>- Isaac ROS<br/>- Autonomous systems"]
+            RecSys["Recommenders<br/>- Merlin<br/>- Personalization"]
+        end
+    end
+    
+    subgraph Framework_Layer["🧠 AI Framework Layer"]
+        subgraph Training["Training Frameworks"]
+            NeMo["NeMo Framework<br/>- LLM training<br/>- Multimodal<br/>- Distributed"]
+            JAX_Opt["JAX (Optimized)<br/>- Research<br/>- Transformers"]
+            PyTorch_Opt["PyTorch (CUDA)<br/>- Native GPU<br/>- Distributed"]
+            TF_Opt["TensorFlow (CUDA)<br/>- Production ML"]
+        end
+        
+        subgraph Inference["Inference Frameworks"]
+            Triton_Server["Triton Inference Server<br/>- Multi-model<br/>- Multi-framework<br/>- Dynamic batching"]
+            TensorRT_LLM["TensorRT-LLM<br/>- LLM optimization<br/>- FP8, INT8, INT4<br/>- Flash Attention"]
+            TensorRT["TensorRT<br/>- Model optimization<br/>- Layer fusion<br/>- Precision calibration"]
+        end
+        
+        subgraph DataSci["Data Science"]
+            RAPIDS["RAPIDS<br/>- cuDF (pandas)<br/>- cuML (sklearn)<br/>- cuGraph"]
+            Spark_RAPIDS["Spark RAPIDS<br/>- GPU Spark<br/>- ETL acceleration"]
+        end
+    end
+    
+    subgraph Library_Layer["📚 CUDA-X Libraries Layer"]
+        subgraph Deep_Learning["Deep Learning"]
+            cuDNN["cuDNN<br/>- Neural network<br/>- Convolutions<br/>- Attention"]
+            cuBLAS["cuBLAS<br/>- Linear algebra<br/>- Matrix ops"]
+            cuSPARSE["cuSPARSE<br/>- Sparse matrices"]
+        end
+        
+        subgraph Compute["Compute & Communication"]
+            NCCL["NCCL<br/>- Multi-GPU<br/>- All-reduce<br/>- Ring topology"]
+            cuFFT["cuFFT<br/>- Fast Fourier Transform"]
+            Thrust["Thrust<br/>- Parallel algorithms"]
+        end
+        
+        subgraph Vision["Computer Vision"]
+            cuCIM["cuCIM<br/>- Medical imaging<br/>- Image processing"]
+            NPP["NPP<br/>- Image/video<br/>- Filters"]
+            VPI["VPI<br/>- Vision pipeline<br/>- Stereo, optical flow"]
+        end
+    end
+    
+    subgraph Runtime_Layer["⚙️ Runtime & Container Layer"]
+        CUDA_Runtime["CUDA Runtime<br/>- GPU execution<br/>- Memory management"]
+        Container_Toolkit["NVIDIA Container Toolkit<br/>- GPU containers<br/>- Docker/Podman"]
+        Enroot["Enroot<br/>- HPC containers<br/>- Unprivileged"]
+    end
+    
+    subgraph Infrastructure_Layer["🔌 Infrastructure & Orchestration Layer"]
+        subgraph K8s_Components["Kubernetes Components"]
+            GPU_Operator["GPU Operator<br/>- Driver management<br/>- Device plugin<br/>- Monitoring"]
+            Network_Operator["Network Operator<br/>- RDMA/InfiniBand<br/>- GPUDirect"]
+            GPU_Feature_Discovery["GPU Feature Discovery<br/>- Node labeling<br/>- Capabilities"]
+        end
+        
+        subgraph Monitoring["Monitoring & Management"]
+            DCGM["DCGM<br/>- GPU telemetry<br/>- Health checks<br/>- Metrics export"]
+            MIG_Manager["MIG Manager<br/>- Multi-Instance GPU<br/>- Partitioning"]
+        end
+    end
+    
+    subgraph Driver_Layer["🖥️ Driver & Firmware Layer"]
+        Driver["NVIDIA Driver<br/>- Kernel module<br/>- GPU control<br/>- Validated versions"]
+        Firmware["GPU Firmware<br/>- VBIOS<br/>- InfoROM<br/>- Updates"]
+        CUDA_Driver["CUDA Driver<br/>- GPU programming<br/>- API"]
+    end
+    
+    subgraph Hardware_Layer["🔧 Hardware Layer"]
+        GPUs["NVIDIA GPUs<br/>- H100, A100, L40S<br/>- Ada, Hopper, Ampere<br/>- NVLink, PCIe"]
+        DPU["BlueField DPU<br/>- SmartNIC<br/>- Offloading"]
+        NVSwitch["NVSwitch<br/>- GPU interconnect<br/>- Scale-up"]
+    end
+    
+    Application_Layer --> Framework_Layer
+    Framework_Layer --> Library_Layer
+    Library_Layer --> Runtime_Layer
+    Runtime_Layer --> Infrastructure_Layer
+    Infrastructure_Layer --> Driver_Layer
+    Driver_Layer --> Hardware_Layer
+    
+    style Application_Layer fill:#e8f5e9
+    style Framework_Layer fill:#fff3e0
+    style Library_Layer fill:#f3e5f5
+    style Runtime_Layer fill:#e3f2fd
+    style Infrastructure_Layer fill:#fff9c4
+    style Driver_Layer fill:#ffebee
+    style Hardware_Layer fill:#eeeeee
+```
+
+**NVIDIA AI Enterprise Component Catalog**:
+
+| Layer | Component | Purpose | Key Features |
+|-------|-----------|---------|-------------|
+| **NIM** | LLM NIMs | LLM inference containers | Llama, Mistral, Gemma optimized |
+| | Vision NIMs | Vision model containers | CLIP, SD, ViT optimized |
+| | Speech NIMs | Speech model containers | Whisper, Riva ASR/TTS |
+| **Training** | NeMo Framework | LLM/multimodal training | Distributed, checkpointing |
+| | PyTorch (CUDA) | Deep learning | Native GPU acceleration |
+| **Inference** | Triton Server | Multi-model serving | Dynamic batching, ensembles |
+| | TensorRT-LLM | LLM optimization | FP8, Flash Attention, KV cache |
+| | TensorRT | Model optimization | Layer fusion, quantization |
+| **Data Science** | RAPIDS | GPU data science | cuDF, cuML, cuGraph |
+| | Spark RAPIDS | GPU Spark | Distributed ETL |
+| **Libraries** | cuDNN | Neural networks | Convolution, attention, RNN |
+| | cuBLAS | Linear algebra | GEMM, matrix ops |
+| | NCCL | Multi-GPU | All-reduce, broadcast |
+| **Runtime** | CUDA Runtime | GPU execution | Memory, streams, events |
+| | Container Toolkit | GPU containers | Docker integration |
+| **Infrastructure** | GPU Operator | K8s GPU mgmt | Drivers, plugin, monitoring |
+| | DCGM | GPU telemetry | Metrics, health, diagnostics |
+| | MIG Manager | GPU partitioning | Multi-instance GPU |
+| **Driver** | NVIDIA Driver | GPU control | Validated, LTS versions |
+| | CUDA Driver | GPU programming | Low-level API |
+| **Hardware** | H100/A100/L40S | GPU compute | Tensor Cores, NVLink |
+
+**NVIDIA AI Enterprise NIM Catalog** (Inference Microservices):
+
+| NIM Type | Models Included | Optimization | Use Cases |
+|----------|-----------------|--------------|------------|
+| **LLM** | Llama 3.1 (8B, 70B, 405B) | TensorRT-LLM, FP8 | Chat, RAG, agents |
+| | Mistral 7B, Mixtral 8x7B | TensorRT-LLM, FP8 | Efficient inference |
+| | Gemma 2B, 7B | TensorRT-LLM | Edge deployment |
+| | CodeLlama | TensorRT-LLM | Code generation |
+| **Vision** | CLIP | TensorRT | Image-text embedding |
+| | Stable Diffusion | TensorRT | Text-to-image |
+| | ViT (Vision Transformer) | TensorRT | Image classification |
+| **Speech** | Whisper (tiny-large) | TensorRT | Speech-to-text |
+| | FastPitch/HiFi-GAN | TensorRT | Text-to-speech |
+| | Riva | Custom optimization | Production ASR/TTS |
+| **Multimodal** | LLaVA | TensorRT-LLM | Visual question answering |
+| | BLIP | TensorRT | Image captioning |
+
+**NVIDIA AI Enterprise Licensing Model**:
+- **Per GPU socket**: Annual subscription
+- **Includes**: All software, updates, support
+- **Support tiers**: Standard, Premium
+- **Validation**: Tested on specific NVIDIA GPUs
+
+**Validated Hardware Platforms**:
+- **On-premises**: DGX systems, HGX platforms, certified servers
+- **Cloud**: AWS (P4d, P5), Azure (NC-series), GCP (A2, A3)
+- **Edge**: Jetson AGX Orin, IGX Orin
+
+---
+
+### Cross-Platform Component Mapping
+
+**How components map across the three platforms**:
+
+| Function | OPEA | OpenShift AI | NVIDIA AI Enterprise |
+|----------|------|--------------|---------------------|
+| **LLM Inference** | LLM Microservice (vLLM, TGI) | KServe + Triton | NIM (TensorRT-LLM) |
+| **Embedding** | Embedding Microservice (TEI) | Custom deployment | NIM (Embeddings) |
+| **Vector DB** | Vector DB Microservice | Custom deployment | Not included (BYO) |
+| **Model Training** | Not included (BYO) | Distributed Training | NeMo Framework |
+| **Experiment Tracking** | Not included | MLflow | Not included (partner) |
+| **Model Registry** | Not included | Model Registry | Not included (partner) |
+| **Pipeline Orchestration** | Megaservices (workflow) | Kubeflow Pipelines | Not included (partner) |
+| **Observability** | OpenTelemetry (DIY) | Prometheus/Grafana | DCGM (GPU only) |
+| **GPU Management** | Kubernetes native | GPU Operator | GPU Operator (enhanced) |
+| **Multi-GPU Training** | Not included | Horovod, PyTorch DDP | NCCL, NeMo |
+| **Inference Optimization** | Model-dependent | TensorRT, OpenVINO | TensorRT, TensorRT-LLM |
+| **Container Runtime** | Docker, containerd | CRI-O (OpenShift) | NVIDIA Container Toolkit |
+
+**Key Insights**:
+- **OPEA**: Application architecture layer, requires platform underneath
+- **OpenShift AI**: Full platform, includes dev, training, serving, ops
+- **NVIDIA AI Enterprise**: Optimized runtime + inference, requires platform
+
+**Recommended Combinations**:
+1. **OPEA + OpenShift AI + NVIDIA AIE**: Full stack, maximum capability
+2. **OPEA + Kubernetes + Open Source**: Cost-optimized, vendor-neutral
+3. **OpenShift AI + NVIDIA AIE**: Traditional ML + GenAI, no OPEA
+4. **OPEA + Kubernetes + Gaudi**: Intel-backed, cost-effective
+
+---
+
 ## Detailed Comparison Matrix
 
 ### Strategic Positioning
