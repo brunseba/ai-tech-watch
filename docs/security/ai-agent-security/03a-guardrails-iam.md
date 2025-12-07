@@ -612,42 +612,213 @@ flowchart LR
 
 #### Product 2: Azure Active Directory (Azure AD) / Microsoft Entra ID
 
-**Overview**: Microsoft's cloud identity and access management service.
+**Overview**: Microsoft's comprehensive cloud identity and access management platform, rebranded as Microsoft Entra ID, providing advanced security features specifically designed for AI agent workloads.
 
 **Key Features for AI Agents**:
-1. **Conditional Access**: Context-aware authentication (location, device, risk)
-2. **Managed Identities**: Passwordless authentication for Azure services
-3. **Application Roles**: Define custom roles for AI agents
-4. **Multi-Tenant Support**: Separate identities per tenant/organization
-5. **Azure RBAC**: Role-based access for Azure resources
+
+1. **Conditional Access Policies**
+   - **Risk-Based Authentication**: Real-time risk assessment (sign-in risk, user risk)
+   - **Context-Aware**: Location, device, IP address, application sensitivity
+   - **AI-Specific Policies**: Custom policies for Azure OpenAI Service access
+   - **Session Controls**: Limit session lifetime for high-risk AI operations
+
+2. **Managed Identities for AI Workloads**
+   - **System-Assigned**: Automatic identity tied to Azure resource lifecycle
+   - **User-Assigned**: Shared identity across multiple AI services
+   - **Passwordless**: Zero credential management (no API keys to leak)
+   - **Azure OpenAI Integration**: Native authentication for Azure OpenAI Service
+   - **Token Acquisition**: Automatic Azure AD token refresh
+
+3. **Workload Identities (Preview)**
+   - **Service Principals**: Dedicated identities for AI agent applications
+   - **Federated Credentials**: Trust external identity providers (GitHub Actions, Kubernetes)
+   - **Certificate-Based Auth**: Use X.509 certificates for agent-to-agent
+
+4. **Application Roles & Permissions**
+   - **Custom App Roles**: Define agent-specific roles (ReadAgent, WriteAgent, AdminAgent)
+   - **Scope-Based Permissions**: Fine-grained API permissions
+   - **Consent Framework**: User/admin consent for agent tool access
+
+5. **Azure RBAC Integration**
+   - **Cognitive Services Contributor**: Full access to Azure OpenAI/AI services
+   - **Cognitive Services User**: Read-only access (inference only)
+   - **Cognitive Services OpenAI User**: Azure OpenAI Service specific role
+   - **Custom Roles**: Define least-privilege roles for AI agents
+
+6. **Multi-Tenant Architecture**
+   - **B2B Collaboration**: Share AI agents across organizations
+   - **B2C Identity**: Customer-facing AI agents with social logins
+   - **Tenant Isolation**: Separate identities per customer/department
+
+7. **Identity Protection**
+   - **Risk Detections**: Leaked credentials, anonymous IP, atypical travel
+   - **Automated Remediation**: Force password reset, block access
+   - **Sign-in Risk Policies**: Real-time risk-based access decisions
+
+8. **Privileged Identity Management (PIM)**
+   - **Just-In-Time Access**: Temporary elevated permissions for agents
+   - **Approval Workflows**: Require approval for high-privilege operations
+   - **Access Reviews**: Periodic review of agent permissions
 
 **Specifications**:
 
 | Dimension | Details |
 |-----------|----------|
-| **License** | Proprietary (Microsoft) |
-| **Deployment** | Azure Cloud, hybrid (on-prem + cloud) |
-| **Pricing** | Free tier (basic features), Premium: $6-$9/user/month |
-| **Integration** | Native for Azure services (OpenAI Service, Cognitive Services) |
+| **License** | Free (External Identities), Premium P1: $6/user/month, Premium P2: $9/user/month |
+| **Deployment** | Azure Cloud, hybrid (Azure AD Connect), Azure AD DS (domain services) |
+| **Pricing** | Free tier: 50K MAU, P1/P2 for advanced features (Conditional Access, PIM) |
+| **Integration** | Native: Azure OpenAI, AI Search, Cognitive Services, Bot Service, Machine Learning |
+| **Compliance** | SOC 1/2/3, ISO 27001/27018, HIPAA BAA, FedRAMP High, PCI-DSS |
+| **Availability** | 99.99% SLA (Premium), 60+ Azure regions |
+
+**Advanced Features for AI Agents**:
+
+**1. Conditional Access for Azure OpenAI**:
+```json
+{
+  "displayName": "Require MFA for Azure OpenAI Access",
+  "conditions": {
+    "applications": {
+      "includeApplications": ["Azure OpenAI Service"]
+    },
+    "users": {
+      "includeRoles": ["AI Agent Operators"]
+    },
+    "signInRiskLevels": ["medium", "high"]
+  },
+  "grantControls": {
+    "builtInControls": ["mfa"],
+    "operator": "AND"
+  }
+}
+```
+
+**2. Managed Identity Code Example** (Python - Azure OpenAI):
+```python
+from azure.identity import DefaultAzureCredential
+from openai import AzureOpenAI
+
+# Automatic credential acquisition (Managed Identity or Azure CLI)
+credential = DefaultAzureCredential()
+token = credential.get_token("https://cognitiveservices.azure.com/.default")
+
+# Azure OpenAI client with Managed Identity
+client = AzureOpenAI(
+    azure_endpoint="https://your-resource.openai.azure.com",
+    api_version="2024-02-15-preview",
+    azure_ad_token=token.token
+)
+
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+```
+
+**3. Workload Identity for Kubernetes**:
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ai-agent-sa
+  annotations:
+    azure.workload.identity/client-id: "<managed-identity-client-id>"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-agent
+spec:
+  template:
+    metadata:
+      labels:
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: ai-agent-sa
+      containers:
+      - name: agent
+        image: myregistry.azurecr.io/ai-agent:latest
+```
 
 **Strengths**:
-- ✅ Enterprise-grade (SOC 2, ISO 27001)
-- ✅ Conditional access (risk-based authentication)
-- ✅ Managed identities (no credential management)
-- ✅ Multi-tenant support
-- ✅ Integration with Microsoft ecosystem (Teams, Office 365)
+- ✅ **Passwordless AI Authentication**: Managed Identities eliminate API key management
+- ✅ **Conditional Access**: Risk-based policies specifically for AI workloads
+- ✅ **Azure OpenAI Native**: Seamless integration with Azure OpenAI Service
+- ✅ **Workload Identities**: Support for Kubernetes, GitHub Actions, and CI/CD
+- ✅ **Enterprise Compliance**: SOC 2, ISO 27001, HIPAA, FedRAMP High
+- ✅ **Identity Protection**: AI-powered anomaly detection for sign-ins
+- ✅ **PIM Integration**: Just-in-time access for sensitive AI operations
+- ✅ **Multi-Tenant**: Separate identities per customer/department
+- ✅ **Microsoft Ecosystem**: Seamless integration with Teams, Office 365, Power Platform
+- ✅ **Hybrid Support**: On-prem Active Directory integration via Azure AD Connect
 
 **Limitations**:
-- ❌ Azure-centric (less flexible for multi-cloud)
-- ❌ Premium features require license ($6-$9/user/month)
-- ❌ Complex setup for non-Azure services
+- ❌ **Azure-Centric**: Optimized for Azure services (less portable to AWS/GCP)
+- ❌ **Premium Licensing**: Advanced features (Conditional Access, PIM) require P1/P2 ($6-$9/user/month)
+- ❌ **Complexity**: Steep learning curve for advanced features
+- ❌ **Managed Identity Limitations**: Only works within Azure (not for external APIs)
+- ❌ **Regional Restrictions**: Some features not available in all Azure regions
 
 **Best For**:
-- Azure-native applications
-- Enterprises using Microsoft ecosystem
-- Teams requiring conditional access
+- **Azure OpenAI Service users**: Native integration with passwordless auth
+- **Enterprises using Microsoft 365**: Unified identity across ecosystem
+- **Regulated Industries**: HIPAA, FedRAMP, SOC 2 compliance requirements
+- **Kubernetes Workloads**: Workload Identity for AKS-based AI agents
+- **Multi-Tenant SaaS**: B2B/B2C scenarios with tenant isolation
+- **Hybrid Environments**: On-prem + cloud identity integration
 
-**Documentation**: https://learn.microsoft.com/en-us/entra/identity/
+**Security Best Practices for AI Agents**:
+1. **Use Managed Identities**: Eliminate API keys for Azure services
+2. **Enable Conditional Access**: Require MFA for Azure OpenAI access
+3. **Implement PIM**: Just-in-time access for privileged operations
+4. **Configure Identity Protection**: Enable risk-based policies
+5. **Use Custom Roles**: Define least-privilege RBAC roles
+6. **Enable Audit Logs**: Monitor sign-ins and token acquisition
+7. **Rotate Certificates**: For service principals using cert auth (90 days max)
+8. **Separate Service Principals**: One per AI agent application
+
+**Integration with Azure AI Services**:
+- ✅ **Azure OpenAI Service**: Native Entra ID authentication
+- ✅ **Azure AI Search**: Managed Identity for indexing/querying
+- ✅ **Azure Cognitive Services**: Speech, Vision, Language with Entra ID
+- ✅ **Azure Bot Service**: Identity-based bot authentication
+- ✅ **Azure Machine Learning**: Managed Identity for training/inference
+- ✅ **Azure Key Vault**: Managed Identity for secret retrieval
+
+**Pricing Breakdown for AI Workloads**:
+- **Free Tier**: 50,000 MAU (Monthly Active Users)
+  - Basic authentication, SSO, MFA
+  - External Identities (B2B/B2C)
+  - No Conditional Access or PIM
+- **Premium P1** ($6/user/month):
+  - Conditional Access policies
+  - Self-service password reset
+  - Cloud app discovery
+  - Hybrid identity (Azure AD Connect)
+- **Premium P2** ($9/user/month):
+  - Identity Protection (risk-based policies)
+  - Privileged Identity Management (PIM)
+  - Access Reviews
+  - Entitlement Management
+
+**Note**: Managed Identities are **free** (no per-identity charge)
+
+**Real-World Use Case**:
+**Company**: Healthcare AI Platform (HIPAA-compliant)
+- **Challenge**: Secure Azure OpenAI access for 50 AI agents processing PHI
+- **Solution**:
+  - User-Assigned Managed Identity per agent application
+  - Conditional Access: Require MFA + compliant device
+  - Custom RBAC Role: "Healthcare AI Agent" (Azure OpenAI User + Key Vault Secrets User)
+  - PIM: Just-in-time access for model fine-tuning operations
+  - Identity Protection: Block sign-ins from risky locations
+- **Result**: Zero API key leaks, HIPAA compliance, $8K/month savings (vs managing credentials)
+
+**Documentation**:
+- [Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity/)
+- [Managed Identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/)
+- [Conditional Access](https://learn.microsoft.com/en-us/entra/identity/conditional-access/)
+- [Azure OpenAI + Entra ID](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/managed-identity)
 
 ---
 
