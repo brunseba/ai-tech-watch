@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="abe20ab6a9ca489f" name="Application Types Graph Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TB\n    subgraph Requirements[\&quot;\u2696\ufe0f Requirements\&quot;]\n        R1[\ud83d\udd12 Confidentialit\u00e9 forte]\n        R2[\u26a1 Latency &lt; 100ms]\n        R3[\ud83d\udeab Mode d\u00e9connect\u00e9]\n        R4[\ud83d\udc64 Usage individuel]\n    end\n    \n    subgraph Apps[\&quot;\ud83d\udcbb Applications Edge\&quot;]\n        A1[\ud83e\udd16 Assistants LLM Locaux&lt;br/&gt;Code, docs, traduction]\n        A2[\ud83c\udfb5 Temps R\u00e9el Audio/Vid\u00e9o&lt;br/&gt;Reconnaissance vocale, sous-titrage]\n        A3[\ud83d\udd10 Data R\u00e9glement\u00e9es&lt;br/&gt;Sant\u00e9, juridique, RH]\n        A4[\ud83d\udce6 Prototypage R&amp;D&lt;br/&gt;Test models, exp\u00e9rimentation]\n        A5[\ud83d\udcf6 Mode Offline&lt;br/&gt;Mobilit\u00e9, terrain]\n    end\n    \n    subgraph Tools[\&quot;\ud83d\udee0\ufe0f Outils\&quot;]\n        T1[Ollama&lt;br/&gt;LM Studio]\n        T2[Whisper Local&lt;br/&gt;Vision models]\n        T3[Vector DB locale&lt;br/&gt;RAG on-device]\n        T4[Quantized models&lt;br/&gt;INT8/INT4]\n    end\n    \n    R1 --&gt; A1\n    R1 --&gt; A3\n    R2 --&gt; A2\n    R3 --&gt; A5\n    R4 --&gt; A1\n    R4 --&gt; A4\n    \n    A1 --&gt; T1\n    A2 --&gt; T2\n    A3 --&gt; T3\n    A4 --&gt; T4\n    A5 --&gt; T1\n    \n    style R1 fill:#ffebee,stroke:#e53935\n    style R2 fill:#fff3e0,stroke:#fb8c00\n    style R3 fill:#e8f5e9,stroke:#43a047\n    style R4 fill:#e3f2fd,stroke:#1e88e5\n    style A1 fill:#c8e6c9\n    style A2 fill:#ffe0b2\n    style A3 fill:#ffcdd2\n    style A4 fill:#b3e5fc\n    style A5 fill:#f8bbd0&quot;}" id="faaec017ef2e46d6">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

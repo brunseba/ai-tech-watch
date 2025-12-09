@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="1acb8fc7b6a145f1" name="Authentication Encryption Flowchart Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Users[\&quot;\ud83d\udc65 Utilisateurs\&quot;]\n        U1[UI/Portails]\n        U2[IDE/Dev Tools]\n    end\n    \n    subgraph Auth[\&quot;\ud83d\udd10 Authentication\&quot;]\n        A1[SSO/OIDC]\n        A2[MFA obligatoire]\n        A3[IdP Entreprise]\n    end\n    \n    subgraph Transit[\&quot;\ud83d\udd12 Encryption Transit\&quot;]\n        T1[TLS 1.3]\n        T2[mTLS Service Mesh]\n        T3[Certificats PKI]\n    end\n    \n    subgraph AI[\&quot;\ud83e\udd16 Syst\u00e8me IA\&quot;]\n        AI1[AI Agents]\n        AI2[LLM Runtime]\n        AI3[Vector DB]\n    end\n    \n    subgraph Secrets[\&quot;\ud83d\udd11 Gestion Secrets\&quot;]\n        S1[Vault/KMS]\n        S2[Rotation auto]\n        S3[HSM]\n    end\n    \n    subgraph AuthZ[\&quot;\u2705 Authorization\&quot;]\n        Z1[RBAC/ABAC]\n        Z2[Policy Engine OPA]\n        Z3[Least Privilege]\n    end\n    \n    subgraph AtRest[\&quot;\ud83d\udcbe Encryption Repos\&quot;]\n        R1[Disque/Volume]\n        R2[Object Storage]\n        R3[Models chiffr\u00e9s]\n    end\n    \n    subgraph Monitor[\&quot;\ud83d\udcca Monitoring\&quot;]\n        M1[SIEM]\n        M2[Audit Logs]\n        M3[Anomaly Detection]\n    end\n    \n    Users --&gt; Auth\n    Auth --&gt; Transit\n    Transit --&gt; AI\n    AI --&gt; Secrets\n    AI --&gt; AuthZ\n    AI --&gt; AtRest\n    AI --&gt; Monitor\n    Secrets --&gt; Transit\n    AuthZ --&gt; Monitor\n    \n    style Users fill:#e3f2fd,stroke:#1e88e5\n    style Auth fill:#fff3e0,stroke:#fb8c00\n    style Transit fill:#e8f5e9,stroke:#43a047\n    style AI fill:#f3e5f5,stroke:#8e24aa\n    style Secrets fill:#ffebee,stroke:#e53935\n    style AuthZ fill:#c8e6c9,stroke:#2e7d32\n    style AtRest fill:#ffe0b2,stroke:#ef6c00\n    style Monitor fill:#b3e5fc,stroke:#0277bd&quot;}" id="efb8b722bd4e4f88">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,80 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="6">
+  <diagram id="03890b8470324d53" name="03 License Optimization Flowchart Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Overlap[\&quot;\ud83d\udcb0 License Overlap\&quot;]\n        Both[\&quot;Both Licenses&lt;br/&gt;$1.3M (3-year)\&quot;]\n        OSAI_Cost[\&quot;OpenShift AI: $500K&lt;br/&gt;K8s platform + MLOps\&quot;]\n        NVAIE_Cost[\&quot;NVIDIA AIE: $800K&lt;br/&gt;GPU stack + frameworks\&quot;]\n        Duplicate[\&quot;Overlapping Features:&lt;br/&gt;- Model serving (KServe vs Triton)&lt;br/&gt;- Monitoring&lt;br/&gt;- Container runtime&lt;br/&gt;- Some frameworks\&quot;]\n    end\n    \n    style Overlap fill:#ffebee\n    style Duplicate fill:#ffcdd2&quot;}" id="b051dff86ca0461c">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="34e2be976d7a4356" name="03 License Optimization Flowchart Tb 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App[\&quot;Application Layer\&quot;]\n        OPEA_Stack[\&quot;OPEA Microservices&lt;br/&gt;RAG/GenAI\&quot;]\n    end\n    \n    subgraph Platform[\&quot;Platform (Open Source)\&quot;]\n        K8s[\&quot;Vanilla Kubernetes&lt;br/&gt;FREE (EKS/GKE/AKS/RKE2)\&quot;]\n        Kubeflow[\&quot;Kubeflow&lt;br/&gt;FREE - MLOps pipelines\&quot;]\n        Monitoring[\&quot;Prometheus + Grafana&lt;br/&gt;FREE\&quot;]\n    end\n    \n    subgraph GPU[\&quot;GPU Stack (Open Source)\&quot;]\n        vLLM[\&quot;vLLM&lt;br/&gt;FREE - LLM serving\&quot;]\n        TGI[\&quot;Text Generation Inference&lt;br/&gt;FREE - HuggingFace\&quot;]\n        GPUOp[\&quot;NVIDIA GPU Operator&lt;br/&gt;FREE - Driver management\&quot;]\n    end\n    \n    subgraph Infra[\&quot;Infrastructure\&quot;]\n        GPUs[\&quot;NVIDIA GPUs&lt;br/&gt;Hardware cost only\&quot;]\n    end\n    \n    OPEA_Stack --&gt; K8s\n    K8s --&gt; vLLM\n    vLLM --&gt; GPUs\n    \n    style App fill:#e1f5ff\n    style Platform fill:#c8e6c9\n    style GPU fill:#c8e6c9\n    style Infra fill:#f5f5f5&quot;}" id="56ea04bce9dd417f">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="2583be14240044c0" name="03 License Optimization Flowchart Tb 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App[\&quot;Application\&quot;]\n        OPEA_App[\&quot;OPEA GenAI Apps\&quot;]\n    end\n    \n    subgraph OSAI[\&quot;OpenShift AI Platform\&quot;]\n        K8s_OSAI[\&quot;OpenShift Kubernetes\&quot;]\n        MLOps[\&quot;MLOps Tools\&quot;]\n        Security[\&quot;Security &amp; RBAC\&quot;]\n    end\n    \n    subgraph GPU_Open[\&quot;Open Source GPU Stack\&quot;]\n        vLLM_Stack[\&quot;vLLM / TGI&lt;br/&gt;FREE inference\&quot;]\n        GPUOp_Stack[\&quot;GPU Operator&lt;br/&gt;FREE drivers\&quot;]\n    end\n    \n    subgraph Infra_Stack[\&quot;Infrastructure\&quot;]\n        GPU_HW[\&quot;NVIDIA GPUs&lt;br/&gt;Hardware only\&quot;]\n    end\n    \n    OPEA_App --&gt; K8s_OSAI\n    K8s_OSAI --&gt; vLLM_Stack\n    vLLM_Stack --&gt; GPU_HW\n    \n    style App fill:#e1f5ff\n    style OSAI fill:#fff3e0\n    style GPU_Open fill:#c8e6c9\n    style Infra_Stack fill:#f5f5f5&quot;}" id="fda5934f50d149bb">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="2d7c7157fa304c1b" name="03 License Optimization Flowchart Tb 4">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App_Layer[\&quot;Application\&quot;]\n        OPEA_Svc[\&quot;OPEA Services\&quot;]\n    end\n    \n    subgraph K8s_Layer[\&quot;Vanilla Kubernetes\&quot;]\n        EKS[\&quot;EKS / GKE / AKS&lt;br/&gt;Managed K8s\&quot;]\n        BasicMLOps[\&quot;Basic MLOps&lt;br/&gt;Kubeflow (free)\&quot;]\n    end\n    \n    subgraph NVIDIA_Layer[\&quot;NVIDIA AI Enterprise\&quot;]\n        Triton[\&quot;Triton Server\&quot;]\n        NIM[\&quot;NIM Microservices\&quot;]\n        TensorRT[\&quot;TensorRT\&quot;]\n    end\n    \n    subgraph GPU_Layer[\&quot;Infrastructure\&quot;]\n        NVIDIA_GPU[\&quot;NVIDIA GPUs\&quot;]\n    end\n    \n    OPEA_Svc --&gt; EKS\n    EKS --&gt; Triton\n    Triton --&gt; NVIDIA_GPU\n    \n    style App_Layer fill:#e1f5ff\n    style K8s_Layer fill:#c8e6c9\n    style NVIDIA_Layer fill:#b3e5fc\n    style GPU_Layer fill:#f5f5f5&quot;}" id="2d1e8c9f711c4f30">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7fce11a435f94caf" name="03 License Optimization Flowchart Tb 5">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Edge[\&quot;Edge Deployment\&quot;]\n        OPEA_Edge[\&quot;OPEA Microservices&lt;br/&gt;Lightweight\&quot;]\n        Local_LLM[\&quot;Local LLM&lt;br/&gt;Quantized models\&quot;]\n        Embedded_DB[\&quot;Embedded Vector DB&lt;br/&gt;ChromaDB/LanceDB\&quot;]\n    end\n    \n    subgraph Hardware[\&quot;Consumer Hardware\&quot;]\n        Workstation[\&quot;Workstation/Server&lt;br/&gt;RTX 4090 or similar\&quot;]\n    end\n    \n    OPEA_Edge --&gt; Local_LLM\n    Local_LLM --&gt; Workstation\n    OPEA_Edge --&gt; Embedded_DB\n    \n    style Edge fill:#e1f5ff\n    style Hardware fill:#f5f5f5&quot;}" id="6b98339040ea4258">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="8893a1f8368d4f58" name="03 License Optimization Flowchart Td">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start[\&quot;Need Enterprise AI Platform\&quot;]\n    \n    Q1{\&quot;Compliance&lt;br/&gt;required?&lt;br/&gt;(HIPAA/FedRAMP)\&quot;}\n    Q2{\&quot;Need maximum&lt;br/&gt;GPU performance?&lt;br/&gt;(&lt;100ms latency)\&quot;}\n    Q3{\&quot;Have strong&lt;br/&gt;K8s/MLOps&lt;br/&gt;team?\&quot;}\n    Q4{\&quot;Budget&lt;br/&gt;constraints?\&quot;}\n    Q5{\&quot;Enterprise&lt;br/&gt;scale?&lt;br/&gt;(50+ users)\&quot;}\n    \n    Full[\&quot;\u2705 Full Stack&lt;br/&gt;OPEA + OpenShift AI + NVIDIA AIE&lt;br/&gt;Cost: $5M\&quot;]\n    OSAI_Only[\&quot;\u2705 OpenShift AI + OPEA&lt;br/&gt;Open source GPU stack&lt;br/&gt;Cost: $1.45M&lt;br/&gt;Save: $800K\&quot;]\n    NVAIE_Only[\&quot;\u2705 NVIDIA AIE + OPEA&lt;br/&gt;Vanilla K8s&lt;br/&gt;Cost: $2.1M&lt;br/&gt;Save: $500K\&quot;]\n    Open_Stack[\&quot;\u2705 Full Open Source&lt;br/&gt;OPEA + K8s + vLLM&lt;br/&gt;Cost: $1.15M&lt;br/&gt;Save: $2.5M\&quot;]\n    Minimal[\&quot;\u2705 OPEA Only&lt;br/&gt;Edge deployment&lt;br/&gt;Cost: $5K-$10K&lt;br/&gt;Save: $3M+\&quot;]\n    \n    Start --&gt; Q1\n    Q1 --&gt;|Yes| Q2\n    Q1 --&gt;|No| Q3\n    \n    Q2 --&gt;|Yes| Full\n    Q2 --&gt;|No| OSAI_Only\n    \n    Q3 --&gt;|Yes| Q4\n    Q3 --&gt;|No| Q5\n    \n    Q4 --&gt;|Tight| Open_Stack\n    Q4 --&gt;|Moderate| NVAIE_Only\n    \n    Q5 --&gt;|Yes| NVAIE_Only\n    Q5 --&gt;|No| Minimal\n    \n    style Full fill:#ffcdd2\n    style OSAI_Only fill:#fff9c4\n    style NVAIE_Only fill:#b3e5fc\n    style Open_Stack fill:#c8e6c9\n    style Minimal fill:#c8e6c9&quot;}" id="197d66d24c474b3a">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

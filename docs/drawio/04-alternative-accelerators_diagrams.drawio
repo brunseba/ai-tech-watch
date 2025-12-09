@@ -1,0 +1,210 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="16">
+  <diagram id="17439212ca6d4949" name="04 Alternative Accelerators Flowchart Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Accelerators[\&quot;AI Accelerator Landscape\&quot;]\n        GPU[\&quot;\ud83c\udfae GPU&lt;br/&gt;General-purpose&lt;br/&gt;NVIDIA dominant\&quot;]\n        Gaudi[\&quot;\ud83d\udd37 Intel Gaudi&lt;br/&gt;Training &amp; Inference&lt;br/&gt;Cost-effective\&quot;]\n        TPU[\&quot;\ud83d\udd37 TPU&lt;br/&gt;Training &amp; Inference&lt;br/&gt;Google Cloud only\&quot;]\n        NPU[\&quot;\u26a1 NPU&lt;br/&gt;Edge Inference&lt;br/&gt;Low power\&quot;]\n        CPU[\&quot;\ud83d\udda5\ufe0f CPU&lt;br/&gt;Flexible&lt;br/&gt;Lower performance\&quot;]\n    end\n    \n    subgraph Workloads[\&quot;GenAI Workloads\&quot;]\n        Training[\&quot;Model Training&lt;br/&gt;Large scale\&quot;]\n        Inference_Cloud[\&quot;Cloud Inference&lt;br/&gt;High throughput\&quot;]\n        Inference_Edge[\&quot;Edge Inference&lt;br/&gt;Low latency\&quot;]\n    end\n    \n    GPU -.Best for.-&gt; Training\n    GPU -.Best for.-&gt; Inference_Cloud\n    Gaudi -.Cost alternative.-&gt; Training\n    Gaudi -.Cost alternative.-&gt; Inference_Cloud\n    TPU -.Cloud alternative.-&gt; Training\n    TPU -.Cloud alternative.-&gt; Inference_Cloud\n    NPU -.Best for.-&gt; Inference_Edge\n    \n    style GPU fill:#b3e5fc\n    style Gaudi fill:#b39ddb\n    style TPU fill:#c5e1a5\n    style NPU fill:#fff59d\n    style CPU fill:#eeeeee&quot;}" id="9d9f34459a2f4002">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9a555600bf084d88" name="04 Alternative Accelerators Flowchart Tb 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App[\&quot;Application Layer\&quot;]\n        OPEA_TPU[\&quot;OPEA Microservices&lt;br/&gt;TPU-optimized\&quot;]\n    end\n    \n    subgraph Platform[\&quot;Google Cloud Platform\&quot;]\n        GKE[\&quot;Google Kubernetes Engine&lt;br/&gt;Managed K8s\&quot;]\n        Vertex[\&quot;Vertex AI&lt;br/&gt;Optional MLOps\&quot;]\n    end\n    \n    subgraph Accelerators[\&quot;TPU Infrastructure\&quot;]\n        TPU_v5[\&quot;TPU v5e/v5p&lt;br/&gt;Inference/Training\&quot;]\n        TPU_Pods[\&quot;TPU Pods&lt;br/&gt;Multi-host training\&quot;]\n    end\n    \n    subgraph Services[\&quot;Google Services\&quot;]\n        CloudStorage[\&quot;Cloud Storage&lt;br/&gt;Model + Data\&quot;]\n        Monitoring[\&quot;Cloud Monitoring&lt;br/&gt;Observability\&quot;]\n    end\n    \n    OPEA_TPU --&gt; GKE\n    GKE --&gt; TPU_v5\n    OPEA_TPU --&gt; CloudStorage\n    TPU_v5 --&gt; Monitoring\n    \n    style App fill:#e1f5ff\n    style Platform fill:#c8e6c9\n    style Accelerators fill:#c5e1a5\n    style Services fill:#f5f5f5&quot;}" id="3f47578755194130">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="1b153686d31946b0" name="04 Alternative Accelerators Flowchart Tb 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph EdgeDevice[\&quot;\ud83d\udd0c Edge Device\&quot;]\n        App[\&quot;OPEA Lightweight&lt;br/&gt;Edge-optimized\&quot;]\n        Runtime[\&quot;ONNX Runtime&lt;br/&gt;NPU backend\&quot;]\n        Models[\&quot;Quantized Models&lt;br/&gt;INT8/INT4\&quot;]\n    end\n    \n    subgraph NPU[\&quot;\u26a1 NPU Hardware\&quot;]\n        Intel_NPU[\&quot;Intel Core Ultra&lt;br/&gt;NPU (10-13 TOPS)\&quot;]\n        Qualcomm_NPU[\&quot;Snapdragon NPU&lt;br/&gt;(45 TOPS)\&quot;]\n        AMD_NPU[\&quot;AMD Ryzen AI&lt;br/&gt;NPU (16 TOPS)\&quot;]\n        Apple_ANE[\&quot;Apple Neural Engine&lt;br/&gt;(15-17 TOPS)\&quot;]\n    end\n    \n    subgraph UseCase[\&quot;\ud83d\udca1 Use Cases\&quot;]\n        Local_LLM[\&quot;Local LLM&lt;br/&gt;3B-7B models\&quot;]\n        Voice[\&quot;Voice Assistant&lt;br/&gt;Real-time\&quot;]\n        Vision[\&quot;Computer Vision&lt;br/&gt;On-device\&quot;]\n    end\n    \n    App --&gt; Runtime\n    Runtime --&gt; NPU\n    Models --&gt; Runtime\n    NPU --&gt; UseCase\n    \n    style EdgeDevice fill:#e1f5ff\n    style NPU fill:#fff59d\n    style UseCase fill:#c8e6c9&quot;}" id="261202904f7e40ea">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="605117f98d424624" name="04 Alternative Accelerators Flowchart Tb 4">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App_Layer[\&quot;Application\&quot;]\n        OPEA_Edge[\&quot;OPEA Edge&lt;br/&gt;Lightweight RAG\&quot;]\n    end\n    \n    subgraph Framework[\&quot;Framework\&quot;]\n        ONNX[\&quot;ONNX Runtime&lt;br/&gt;Cross-platform\&quot;]\n        OpenVINO[\&quot;OpenVINO&lt;br/&gt;Intel NPU optimized\&quot;]\n        CoreML[\&quot;Core ML&lt;br/&gt;Apple only\&quot;]\n    end\n    \n    subgraph Backend[\&quot;NPU Backend\&quot;]\n        DirectML[\&quot;DirectML&lt;br/&gt;Windows\&quot;]\n        QNN[\&quot;Qualcomm Neural Network SDK&lt;br/&gt;Snapdragon\&quot;]\n        ANE[\&quot;Apple Neural Engine&lt;br/&gt;macOS/iOS\&quot;]\n    end\n    \n    OPEA_Edge --&gt; ONNX\n    OPEA_Edge --&gt; OpenVINO\n    ONNX --&gt; DirectML\n    ONNX --&gt; QNN\n    OpenVINO --&gt; DirectML\n    CoreML --&gt; ANE\n    \n    style App_Layer fill:#e1f5ff\n    style Framework fill:#c8e6c9\n    style Backend fill:#fff59d&quot;}" id="7d22519d82d245f3">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="5673590a464b44d9" name="04 Alternative Accelerators Flowchart Tb 5">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App[\&quot;Application Layer\&quot;]\n        OPEA_L40[\&quot;OPEA Microservices&lt;br/&gt;Inference-optimized\&quot;]\n    end\n    \n    subgraph Platform[\&quot;Orchestration\&quot;]\n        K8s[\&quot;Kubernetes&lt;br/&gt;(Vanilla or OpenShift)\&quot;]\n        Triton[\&quot;Triton Inference Server&lt;br/&gt;NVIDIA optimized\&quot;]\n    end\n    \n    subgraph Accelerators[\&quot;NVIDIA L40S Infrastructure\&quot;]\n        L40S[\&quot;L40S&lt;br/&gt;48GB GDDR6&lt;br/&gt;$10K/card\&quot;]\n        PCIe[\&quot;PCIe Gen4&lt;br/&gt;No NVLink\&quot;]\n    end\n    \n    subgraph Software[\&quot;NVIDIA Software Stack\&quot;]\n        NVAIE[\&quot;NVIDIA AI Enterprise&lt;br/&gt;Optional\&quot;]\n        vLLM[\&quot;vLLM&lt;br/&gt;LLM serving\&quot;]\n        TensorRT[\&quot;TensorRT-LLM&lt;br/&gt;Optimized inference\&quot;]\n    end\n    \n    OPEA_L40 --&gt; K8s\n    K8s --&gt; L40S\n    OPEA_L40 --&gt; vLLM\n    vLLM --&gt; TensorRT\n    TensorRT --&gt; PCIe\n    \n    style App fill:#e1f5ff\n    style Platform fill:#c8e6c9\n    style Accelerators fill:#90caf9\n    style Software fill:#f5f5f5&quot;}" id="7dc6cea5c5a24bd9">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="f82eef24e2c6485b" name="04 Alternative Accelerators Flowchart Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph OPEA_Services[\&quot;OPEA Microservices\&quot;]\n        Embedding[\&quot;Embedding Service&lt;br/&gt;(L40S)\&quot;]\n        Reranker[\&quot;Reranker Service&lt;br/&gt;(L40S)\&quot;]\n        LLM[\&quot;LLM Service&lt;br/&gt;(vLLM on L40S)\&quot;]\n    end\n    \n    subgraph L40S_Stack[\&quot;NVIDIA L40S Stack\&quot;]\n        vLLM_L40[\&quot;vLLM&lt;br/&gt;FP8 inference\&quot;]\n        TensorRT_LLM[\&quot;TensorRT-LLM&lt;br/&gt;Optimized kernels\&quot;]\n        L40S_HW[\&quot;L40S Hardware&lt;br/&gt;48GB GDDR6\&quot;]\n    end\n    \n    Embedding --&gt; vLLM_L40\n    Reranker --&gt; vLLM_L40\n    LLM --&gt; vLLM_L40\n    vLLM_L40 --&gt; TensorRT_LLM\n    TensorRT_LLM --&gt; L40S_HW\n    \n    style OPEA_Services fill:#e1f5ff\n    style L40S_Stack fill:#90caf9&quot;}" id="cfe19c3761ed4621">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ffb99f1bf00540aa" name="04 Alternative Accelerators Flowchart Tb 6">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph App[\&quot;Application Layer\&quot;]\n        OPEA_Gaudi[\&quot;OPEA Microservices&lt;br/&gt;PyTorch native\&quot;]\n    end\n    \n    subgraph Platform[\&quot;Orchestration\&quot;]\n        K8s[\&quot;Kubernetes&lt;br/&gt;(Vanilla or OpenShift)\&quot;]\n        MLOps[\&quot;MLflow/KubeFlow&lt;br/&gt;Optional\&quot;]\n    end\n    \n    subgraph Accelerators[\&quot;Intel Gaudi Infrastructure\&quot;]\n        Gaudi2[\&quot;Gaudi2&lt;br/&gt;96GB HBM2e&lt;br/&gt;$15K/card\&quot;]\n        Gaudi3[\&quot;Gaudi3&lt;br/&gt;128GB HBM2e&lt;br/&gt;$25K/card (est)\&quot;]\n        Scale[\&quot;Scale-out via RoCE&lt;br/&gt;24x 100GbE per card\&quot;]\n    end\n    \n    subgraph Software[\&quot;Intel Software Stack\&quot;]\n        SynapseAI[\&quot;Intel SynapseAI&lt;br/&gt;FREE\&quot;]\n        PyTorch[\&quot;PyTorch + Habana&lt;br/&gt;Full compatibility\&quot;]\n        TGI[\&quot;Text Gen Inference&lt;br/&gt;Gaudi backend\&quot;]\n    end\n    \n    OPEA_Gaudi --&gt; K8s\n    K8s --&gt; Gaudi2\n    K8s --&gt; Gaudi3\n    OPEA_Gaudi --&gt; SynapseAI\n    SynapseAI --&gt; PyTorch\n    PyTorch --&gt; TGI\n    \n    style App fill:#e1f5ff\n    style Platform fill:#c8e6c9\n    style Accelerators fill:#b39ddb\n    style Software fill:#f5f5f5&quot;}" id="1fb9d20e723e427b">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="eedf2f79fbe14e10" name="04 Alternative Accelerators Gantt">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;gantt\n    title 3-Year Cost: Gaudi2 vs H100\n    dateFormat X\n    axisFormat %s\n\n    section Gaudi2\n    Hardware (120K)           :0, 120\n    Software (FREE)           :120, 120\n    Support (150K)            :120, 270\n    Networking (50K)          :270, 320\n    Infra+Ops (400K)          :320, 720\n    \n    section H100\n    Hardware (240K)           :0, 240\n    NVIDIA AIE (800K)         :240, 1040\n    Networking (100K)         :1040, 1140\n    Infra+Ops (400K)          :1140, 1540&quot;}" id="53e3f8b7f1b749c9">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="debd4a32cd094e44" name="04 Alternative Accelerators Flowchart Lr 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph OPEA_Services[\&quot;OPEA Microservices\&quot;]\n        Embedding[\&quot;Embedding Service&lt;br/&gt;(Gaudi-accelerated)\&quot;]\n        Reranker[\&quot;Reranker Service&lt;br/&gt;(Gaudi-accelerated)\&quot;]\n        LLM[\&quot;LLM Service&lt;br/&gt;(TGI on Gaudi)\&quot;]\n    end\n    \n    subgraph Gaudi_Stack[\&quot;Intel Gaudi Stack\&quot;]\n        TGI_Gaudi[\&quot;Text Gen Inference&lt;br/&gt;Habana backend\&quot;]\n        SynapseAI[\&quot;Intel SynapseAI\&quot;]\n        Gaudi_HW[\&quot;Gaudi2/3 Hardware\&quot;]\n    end\n    \n    Embedding --&gt; TGI_Gaudi\n    Reranker --&gt; TGI_Gaudi\n    LLM --&gt; TGI_Gaudi\n    TGI_Gaudi --&gt; SynapseAI\n    SynapseAI --&gt; Gaudi_HW\n    \n    style OPEA_Services fill:#e1f5ff\n    style Gaudi_Stack fill:#b39ddb&quot;}" id="541f54ffd516413e">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="b77e6e3d8c4d40a2" name="04 Alternative Accelerators Flowchart Td">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start[\&quot;Select AI Accelerator\&quot;]\n    \n    Q1{\&quot;Workload Type?\&quot;}\n    Q2{\&quot;Deployment?\&quot;}\n    Q3{\&quot;Power Budget?\&quot;}\n    Q4{\&quot;Cloud Provider?\&quot;}\n    Q5{\&quot;Model Size?\&quot;}\n    Q6{\&quot;Budget Priority?\&quot;}\n    \n    GPU[\&quot;\u2705 NVIDIA GPU&lt;br/&gt;Flexible, high-performance&lt;br/&gt;CUDA ecosystem\&quot;]\n    Gaudi[\&quot;\u2705 Intel Gaudi&lt;br/&gt;Cost-effective training&lt;br/&gt;50-60% cheaper\&quot;]\n    TPU[\&quot;\u2705 Google TPU&lt;br/&gt;Training-optimized&lt;br/&gt;GCP only\&quot;]\n    NPU[\&quot;\u2705 NPU (Edge)&lt;br/&gt;Ultra-low power&lt;br/&gt;&lt; 7B models\&quot;]\n    CPU[\&quot;\u2705 CPU&lt;br/&gt;Development/testing&lt;br/&gt;Very slow\&quot;]\n    \n    Start --&gt; Q1\n    Q1 --&gt;|Training + Inference| Q2\n    Q1 --&gt;|Inference Only| Q3\n    \n    Q2 --&gt;|On-prem| Q6\n    Q2 --&gt;|Cloud| Q4\n    \n    Q6 --&gt;|Cost priority| Gaudi\n    Q6 --&gt;|Performance/ecosystem| GPU\n    \n    Q4 --&gt;|Google Cloud| TPU\n    Q4 --&gt;|AWS (DL1)| Gaudi\n    Q4 --&gt;|AWS/Azure/Other| GPU\n    \n    Q3 --&gt;|&lt; 50W| Q5\n    Q3 --&gt;|&gt; 50W| GPU\n    \n    Q5 --&gt;|&lt; 7B| NPU\n    Q5 --&gt;|&gt; 7B| GPU\n    \n    style GPU fill:#b3e5fc\n    style Gaudi fill:#b39ddb\n    style TPU fill:#c5e1a5\n    style NPU fill:#fff59d\n    style CPU fill:#eeeeee&quot;}" id="3ef32726c84e4f1d">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9386a2566f2f4e2a" name="04 Alternative Accelerators Flowchart Tb 7">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Training[\&quot;\ud83c\udf93 Training (Cloud)\&quot;]\n        TPU_Train[\&quot;TPU v5p Pods&lt;br/&gt;Large model training&lt;br/&gt;Cost-effective\&quot;]\n    end\n    \n    subgraph Cloud_Inference[\&quot;\u2601\ufe0f Cloud Inference\&quot;]\n        GPU_Cloud[\&quot;NVIDIA GPU&lt;br/&gt;High-throughput serving&lt;br/&gt;Multi-tenant\&quot;]\n    end\n    \n    subgraph Edge_Inference[\&quot;\ud83d\udcf1 Edge Inference\&quot;]\n        NPU_Edge[\&quot;NPU&lt;br/&gt;On-device inference&lt;br/&gt;Privacy + Low power\&quot;]\n    end\n    \n    subgraph Storage[\&quot;\ud83d\udcbe Model Repository\&quot;]\n        Registry[\&quot;Model Registry&lt;br/&gt;Multi-format&lt;br/&gt;(PyTorch, ONNX, TFLite)\&quot;]\n    end\n    \n    TPU_Train --&gt;|Export| Registry\n    Registry --&gt;|Deploy| GPU_Cloud\n    Registry --&gt;|Optimize + Deploy| NPU_Edge\n    \n    style Training fill:#c5e1a5\n    style Cloud_Inference fill:#b3e5fc\n    style Edge_Inference fill:#fff59d\n    style Storage fill:#f5f5f5&quot;}" id="a74d2953e21c48e8">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="1b5624488e9447d6" name="04 Alternative Accelerators Flowchart Tb 8">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Power[\&quot;Power Consumption (per card)\&quot;]\n        H100[\&quot;NVIDIA H100&lt;br/&gt;700W TDP&lt;br/&gt;$613/month\&quot;]\n        A100[\&quot;NVIDIA A100&lt;br/&gt;400W TDP&lt;br/&gt;$350/month\&quot;]\n        Gaudi2[\&quot;Intel Gaudi2&lt;br/&gt;600W TDP&lt;br/&gt;$525/month\&quot;]\n        TPU[\&quot;Google TPU v5e&lt;br/&gt;~200W TDP&lt;br/&gt;$175/month\&quot;]\n        NPU[\&quot;Intel Core Ultra NPU&lt;br/&gt;5-15W TDP&lt;br/&gt;$1-13/month\&quot;]\n    end\n    \n    subgraph Cooling[\&quot;Cooling Overhead\&quot;]\n        Air[\&quot;Air Cooling&lt;br/&gt;+30% power&lt;br/&gt;PUE 1.3\&quot;]\n        Liquid[\&quot;Liquid Cooling&lt;br/&gt;+10% power&lt;br/&gt;PUE 1.1\&quot;]\n    end\n    \n    subgraph Total[\&quot;Total Power Cost\&quot;]\n        H100_Total[\&quot;H100&lt;br/&gt;910W total&lt;br/&gt;$796/month\&quot;]\n        Gaudi_Total[\&quot;Gaudi2&lt;br/&gt;660W total&lt;br/&gt;$577/month\&quot;]\n        NPU_Total[\&quot;NPU&lt;br/&gt;6-20W total&lt;br/&gt;$1-18/month\&quot;]\n    end\n    \n    H100 --&gt; Air --&gt; H100_Total\n    Gaudi2 --&gt; Liquid --&gt; Gaudi_Total\n    NPU --&gt; Air --&gt; NPU_Total\n    \n    style Power fill:#ffebee\n    style Cooling fill:#fff3e0\n    style Total fill:#e8f5e9&quot;}" id="f583661538094ddf">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="f6afb7d46a0641dd" name="04 Alternative Accelerators Gantt 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;gantt\n    title Hardware Obsolescence Timeline\n    dateFormat YYYY\n    axisFormat %Y\n\n    section NVIDIA GPU\n    A100 competitive        :2020, 2024\n    A100 viable             :2024, 2026\n    A100 obsolete           :2026, 2028\n    H100 competitive        :2022, 2026\n    H100 viable             :2026, 2029\n    \n    section Intel Gaudi\n    Gaudi2 competitive      :2022, 2025\n    Gaudi2 viable           :2025, 2027\n    Gaudi3 competitive      :2024, 2027\n    Gaudi3 viable           :2027, 2030\n    \n    section Google TPU\n    TPU v4 competitive      :2021, 2024\n    TPU v5e competitive     :2023, 2026\n    TPU v5p competitive     :2023, 2027\n    \n    section NPU\n    NPU lifecycle           :2023, 2028&quot;}" id="7cd4be40c7f04caa">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="d303d095d63947b7" name="04 Alternative Accelerators Flowchart Lr 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph OnPrem[\&quot;On-Premises Hosting\&quot;]\n        Rack[\&quot;Rack Space&lt;br/&gt;$500-2K/rack/month\&quot;]\n        Network[\&quot;Networking&lt;br/&gt;$50K-200K upfront\&quot;]\n        Security[\&quot;Physical Security&lt;br/&gt;$10K-50K/year\&quot;]\n        Staff[\&quot;24/7 Staff&lt;br/&gt;$200K-500K/year\&quot;]\n    end\n    \n    subgraph Colo[\&quot;Colocation Hosting\&quot;]\n        ColoRack[\&quot;Rack Space&lt;br/&gt;$1K-5K/rack/month\&quot;]\n        ColoPower[\&quot;Power (metered)&lt;br/&gt;$0.10-0.15/kWh\&quot;]\n        ColoNetwork[\&quot;Bandwidth&lt;br/&gt;$5-20/Mbps\&quot;]\n        ColoStaff[\&quot;Remote hands&lt;br/&gt;$150-300/hour\&quot;]\n    end\n    \n    subgraph Cloud[\&quot;Cloud Hosting\&quot;]\n        Compute[\&quot;Compute&lt;br/&gt;Pay-per-use\&quot;]\n        CloudNetwork[\&quot;Egress&lt;br/&gt;$0.08-0.12/GB\&quot;]\n        CloudOps[\&quot;Managed Services&lt;br/&gt;Included\&quot;]\n    end\n    \n    style OnPrem fill:#ffebee\n    style Colo fill:#fff3e0\n    style Cloud fill:#e1f5ff&quot;}" id="0f19d5503f0e48be">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="3b24228f163241b5" name="04 Alternative Accelerators Gantt 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;gantt\n    title Total Cost of Ownership (3 Years, $K)\n    dateFormat X\n    axisFormat %s\n\n    section NVIDIA H100 (On-Prem)\n    Hardware (240)              :0, 240\n    Power (229)                 :240, 469\n    Hosting (1620)              :469, 2089\n    Software License (800)      :2089, 2889\n    Total: $2.89M               :2889, 2889\n    \n    section Intel Gaudi2 (On-Prem)\n    Hardware (120)              :0, 120\n    Power (197)                 :120, 317\n    Hosting (1620)              :317, 1937\n    Support (150)               :1937, 2087\n    Total: $2.09M               :2087, 2087\n    \n    section NVIDIA H100 (Colo)\n    Hardware (240)              :0, 240\n    Power (246)                 :240, 486\n    Hosting (1020)              :486, 1506\n    Software License (800)      :1506, 2306\n    Total: $2.31M               :2306, 2306\n    \n    section Google TPU (Cloud)\n    No Hardware                 :0, 0\n    Compute (1600/3yr)          :0, 1600\n    Total: $1.60M               :1600, 1600\n    \n    section NPU Edge (8 devices)\n    Hardware (20)               :0, 20\n    Power (5)                   :20, 25\n    Total: $25K                 :25, 25&quot;}" id="28e9678a23bc471a">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="1c23444d64a94a9b" name="04 Alternative Accelerators Flowchart Td 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start[\&quot;Purchase Decision\&quot;]\n    \n    Q1{\&quot;Workload&lt;br/&gt;Stability?\&quot;}\n    Q2{\&quot;Budget&lt;br/&gt;Flexibility?\&quot;}\n    Q3{\&quot;Performance&lt;br/&gt;Criticality?\&quot;}\n    \n    Strategy1[\&quot;\u2705 Buy Latest Gen&lt;br/&gt;3-4 year refresh&lt;br/&gt;Max performance\&quot;]\n    Strategy2[\&quot;\u2705 Buy Previous Gen&lt;br/&gt;50% discount&lt;br/&gt;2-3 year refresh\&quot;]\n    Strategy3[\&quot;\u2705 Lease/Cloud&lt;br/&gt;No obsolescence risk&lt;br/&gt;Higher opex\&quot;]\n    Strategy4[\&quot;\u2705 Hybrid Approach&lt;br/&gt;Mix old/new&lt;br/&gt;Risk balanced\&quot;]\n    \n    Start --&gt; Q1\n    Q1 --&gt;|Stable| Q2\n    Q1 --&gt;|Evolving| Strategy3\n    \n    Q2 --&gt;|High| Q3\n    Q2 --&gt;|Low| Strategy2\n    \n    Q3 --&gt;|Critical| Strategy1\n    Q3 --&gt;|Flexible| Strategy4\n    \n    style Strategy1 fill:#c8e6c9\n    style Strategy2 fill:#fff59d\n    style Strategy3 fill:#b3e5fc\n    style Strategy4 fill:#f5f5f5&quot;}" id="89d8db6a27c44ab5">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

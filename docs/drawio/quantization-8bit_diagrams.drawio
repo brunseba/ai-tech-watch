@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="23cba5f4cbe844ac" name="Quantization 8Bit Graph Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph LR\n    subgraph Precision [\&quot;Format de Precision\&quot;]\n        FP32[FP32&lt;br/&gt;Baseline&lt;br/&gt;100% Accuracy]\n        FP16[FP16&lt;br/&gt;~99.9% Acc&lt;br/&gt;2x faster]\n        INT8[INT8&lt;br/&gt;~99% Acc&lt;br/&gt;4x faster]\n        INT4[INT4&lt;br/&gt;~95-98% Acc&lt;br/&gt;8x faster]\n    end\n    \n    subgraph UseCase [\&quot;Cas d&#x27;Usage\&quot;]\n        U1[M\u00e9dical/L\u00e9gal&lt;br/&gt;\u2192 FP32/FP16]\n        U2[Production G\u00e9n\u00e9rale&lt;br/&gt;\u2192 INT8]\n        U3[Edge Ultra-Low Power&lt;br/&gt;\u2192 INT8/INT4]\n    end\n    \n    subgraph Metrics [\&quot;M\u00e9triques\&quot;]\n        M1[\u2705 Perte &lt; 1%]\n        M2[\u26a0\ufe0f Perte 1-2%]\n        M3[\u274c Perte &gt; 2%]\n    end\n    \n    FP32 -.-&gt; U1\n    FP16 -.-&gt; U1\n    INT8 -.-&gt; U2\n    INT8 -.-&gt; U3\n    INT4 -.-&gt; U3\n    \n    INT8 --&gt; M1\n    INT4 --&gt; M2\n    M3 --&gt; Recovery[QAT ou&lt;br/&gt;SmoothQuant]\n    \n    style FP32 fill:#ffebee,stroke:#e53935\n    style FP16 fill:#fff3e0,stroke:#fb8c00\n    style INT8 fill:#e8f5e9,stroke:#43a047\n    style INT4 fill:#e3f2fd,stroke:#1e88e5\n    style M1 fill:#c8e6c9\n    style M2 fill:#ffe0b2\n    style M3 fill:#ffcdd2&quot;}" id="dc246ef20cf14bcc">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

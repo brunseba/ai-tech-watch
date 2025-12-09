@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="24c14e58392a41b9" name="Tco Analysis Graph Td">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[TCO = CAPEX + OPEX] --&gt; B[Poste de Travail]\n    A --&gt; C[Server On-Prem]\n    A --&gt; D[Cloud]\n    \n    B --&gt; B1[CAPEX: GPU/NPU, RAM]\n    B --&gt; B2[OPEX: \u00c9lectricit\u00e9, Support IT]\n    B --&gt; B3[\u26a0\ufe0f Amorti on 3-5 ans]\n    \n    C --&gt; C1[CAPEX: Servers, GPU, DC]\n    C --&gt; C2[OPEX: Energy, MLOps, Licences]\n    C --&gt; C3[\u2705 \u00c9conomique if usage &gt; 60%]\n    \n    D --&gt; D1[CAPEX: ~0]\n    D --&gt; D2[OPEX: Heures GPU, Storage, Egress]\n    D --&gt; D3[\u26a0\ufe0f 2-3x plus cher long terme]\n    \n    B3 --&gt; E{Point de bascule}\n    C3 --&gt; E\n    D3 --&gt; E\n    \n    E --&gt;|&lt; 4h/jour| F[Cloud meilleur]\n    E --&gt;|&gt; 4h/jour stable| G[On-Prem meilleur]\n    E --&gt;|Variable| H[Hybride optimal]\n    \n    style A fill:#e3f2fd,stroke:#1e88e5,color:#0d47a1\n    style B fill:#e8f5e9,stroke:#43a047\n    style C fill:#fff3e0,stroke:#fb8c00\n    style D fill:#ffebee,stroke:#e53935\n    style E fill:#f3e5f5,stroke:#8e24aa\n    style F fill:#c8e6c9\n    style G fill:#ffe0b2\n    style H fill:#f8bbd0&quot;}" id="47b2ae155ce54e32">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="518a5800ddc242d1" name="Data Classification Graph Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TB\n    subgraph Levels[\&quot;\ud83d\udcc2 Niveaux de Classification\&quot;]\n        L1[\ud83c\udf10 Public&lt;br/&gt;Exposition OK&lt;br/&gt;Risque minimal]\n        L2[\ud83c\udfe2 Internal&lt;br/&gt;R\u00e9serv\u00e9 organisation&lt;br/&gt;Impact limit\u00e9]\n        L3[\ud83d\udd12 Confidential&lt;br/&gt;Acc\u00e8s restricted&lt;br/&gt;Dommage notable]\n        L4[\ud83d\udeab Tr\u00e8s Sensitive&lt;br/&gt;Acc\u00e8s tr\u00e8s limit\u00e9&lt;br/&gt;Impact s\u00e9v\u00e8re]\n    end\n    \n    subgraph Controls[\&quot;\ud83d\udd10 Controls\&quot;]\n        C1[Auth standard]\n        C2[RBAC + Encryption]\n        C3[MFA + DLP + Audit]\n        C4[Zero Trust + HSM]\n    end\n    \n    subgraph Deploy[\&quot;\ud83d\udccd Deployment IA\&quot;]\n        D1[Cloud OK]\n        D2[Cloud or Hybrid]\n        D3[On-Prem pr\u00e9f\u00e9r\u00e9]\n        D4[On-Prem obligatoire]\n    end\n    \n    subgraph Examples[\&quot;\ud83d\udcca Examples\&quot;]\n        E1[Docs publics&lt;br/&gt;Marketing]\n        E2[Comms internals&lt;br/&gt;Docs g\u00e9n\u00e9raux]\n        E3[Data clients&lt;br/&gt;Finances]\n        E4[PII RGPD Art.9&lt;br/&gt;Sant\u00e9, Biom\u00e9trie&lt;br/&gt;Secrets d&#x27;affaires]\n    end\n    \n    L1 --&gt; C1 --&gt; D1 --&gt; E1\n    L2 --&gt; C1 --&gt; D2 --&gt; E2\n    L3 --&gt; C2 --&gt; D3 --&gt; E3\n    L4 --&gt; C3 --&gt; D4 --&gt; E4\n    L4 --&gt; C4\n    \n    style L1 fill:#e8f5e9,stroke:#43a047\n    style L2 fill:#e3f2fd,stroke:#1e88e5\n    style L3 fill:#fff3e0,stroke:#fb8c00\n    style L4 fill:#ffebee,stroke:#e53935\n    style D4 fill:#ffcdd2,stroke:#c62828&quot;}" id="d60c186d562d4c8b">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

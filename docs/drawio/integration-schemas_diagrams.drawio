@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="a8a1354d8e7044e2" name="Integration Schemas Flowchart Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    classDef user fill:#e3f2fd,stroke:#1e88e5,color:#0d47a1;\n    classDef agent fill:#fff3e0,stroke:#fb8c00,color:#e65100;\n    classDef tool fill:#e8f5e9,stroke:#43a047,color:#1b5e20;\n    classDef infra fill:#ede7f6,stroke:#5e35b1,color:#311b92;\n    classDef sec fill:#ffebee,stroke:#e53935,color:#b71c1c;\n\n    U[Utilisateur&lt;br/&gt;Portail ITSM]:::user\n    ITSM[Outil ITSM&lt;br/&gt;ServiceNow or Jira Service Management]:::tool\n    ORCH[Orchestrateur workflow&lt;br/&gt;BPMN, n8n, Temporal, Argo]:::infra\n    APIM[API Gateway / APIM]:::infra\n    AGENT[AI Agent ITSM&lt;br/&gt;classification, enrichissement, actions]:::agent\n    LLM[LLM Runtime&lt;br/&gt;local or cloud]:::agent\n    CMDB[CMDB / Observabilite&lt;br/&gt;logs, metrics]:::tool\n    APPROVE[Validation humaine&lt;br/&gt;Ops / Support]:::user\n    SEC[Policy / Guardrails&lt;br/&gt;scope, filtres, audit]:::sec\n\n    U --&gt;|Cree un ticket| ITSM\n    ITSM --&gt;|Trigger integration&lt;br/&gt;webhook or event| ORCH\n\n    ORCH --&gt;|Appel REST ticket brut| APIM\n    APIM --&gt;|Requete securisee| AGENT\n\n    AGENT --&gt;|Consultation contexte&lt;br/&gt;CMDB, logs| CMDB\n    AGENT --&gt;|Appel LLM for analyse&lt;br/&gt;resume, categorie, priorite| LLM\n    LLM --&gt;|Proposition classification and reponse| AGENT\n\n    AGENT --&gt;|Proposition mise a jour ticket&lt;br/&gt;commentaire, champs| ORCH\n    ORCH --&gt;|Met a jour ticket| ITSM\n\n    ORCH --&gt;|Si changement impactant&lt;br/&gt;modif config, close ticket| APPROVE\n    APPROVE --&gt;|Validation or rejet| ORCH\n\n    AGENT --&gt;|Toutes actions journalisees| SEC\n    ORCH --&gt;|Logs workflow| SEC\n    APIM --&gt;|Logs API| SEC&quot;}" id="42bbaf1b73c64a0d">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

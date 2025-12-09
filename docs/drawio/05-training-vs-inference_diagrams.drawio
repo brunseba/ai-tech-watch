@@ -1,0 +1,119 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="9">
+  <diagram id="f5f9b0920723466a" name="05 Training Vs Inference Flowchart Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Reality[\&quot;GenAI Workload Reality\&quot;]\n        Training[\&quot;Training&lt;br/&gt;10% of compute&lt;br/&gt;Infrequent, batch\&quot;]\n        Inference[\&quot;Inference&lt;br/&gt;90% of compute&lt;br/&gt;Continuous, real-time\&quot;]\n    end\n    \n    subgraph Problem[\&quot;Common Mistake\&quot;]\n        OverProvision[\&quot;Over-provisioning&lt;br/&gt;for training&lt;br/&gt;\u274c Expensive GPUs idle&lt;br/&gt;during inference\&quot;]\n    end\n    \n    subgraph Solution[\&quot;Optimized Approach\&quot;]\n        Split[\&quot;Split Infrastructure&lt;br/&gt;\u2705 Training: Cloud/burst&lt;br/&gt;\u2705 Inference: Right-sized\&quot;]\n    end\n    \n    Reality --&gt; Problem\n    Problem --&gt; Solution\n    \n    style Reality fill:#e3f2fd\n    style Problem fill:#ffebee\n    style Solution fill:#c8e6c9&quot;}" id="2894d5445eff4072">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="f071ffbdd0364dc0" name="05 Training Vs Inference Flowchart Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph Training[\&quot;\ud83c\udf93 Training Characteristics\&quot;]\n        T1[\&quot;High Memory&lt;br/&gt;40-80GB per GPU\&quot;]\n        T2[\&quot;Batch Processing&lt;br/&gt;Days to weeks\&quot;]\n        T3[\&quot;High Precision&lt;br/&gt;FP32/FP16/BF16\&quot;]\n        T4[\&quot;Multi-GPU&lt;br/&gt;Distributed training\&quot;]\n        T5[\&quot;Infrequent&lt;br/&gt;Quarterly/monthly\&quot;]\n    end\n    \n    subgraph Inference[\&quot;\ud83d\ude80 Inference Characteristics\&quot;]\n        I1[\&quot;Lower Memory&lt;br/&gt;8-24GB sufficient\&quot;]\n        I2[\&quot;Real-time&lt;br/&gt;Milliseconds latency\&quot;]\n        I3[\&quot;Lower Precision&lt;br/&gt;INT8/INT4 quantized\&quot;]\n        I4[\&quot;Single GPU&lt;br/&gt;Or CPU/NPU edge\&quot;]\n        I5[\&quot;Continuous&lt;br/&gt;24/7 operation\&quot;]\n    end\n    \n    Training -.Different needs.-&gt; Inference\n    \n    style Training fill:#fff3e0\n    style Inference fill:#e8f5e9&quot;}" id="262aba4487b1466c">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="424c52bded384fc3" name="05 Training Vs Inference Flowchart Tb 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Traditional[\&quot;\u274c Traditional: Training-First\&quot;]\n        T_HW[\&quot;4x NVIDIA A100 (80GB)&lt;br/&gt;$300K hardware&lt;br/&gt;For training capacity\&quot;]\n        T_License[\&quot;NVIDIA AI Enterprise&lt;br/&gt;$800K (3-year)&lt;br/&gt;For all GPUs\&quot;]\n        T_Usage[\&quot;Usage Pattern:&lt;br/&gt;Training: 20%&lt;br/&gt;Inference: 80%&lt;br/&gt;\u274c 80% overpaying\&quot;]\n    end\n    \n    T_HW --&gt; T_License\n    T_License --&gt; T_Usage\n    \n    style Traditional fill:#ffebee&quot;}" id="31f30c0ca3d74c08">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="b8e6201c8dd64c69" name="05 Training Vs Inference Flowchart Tb 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Optimized[\&quot;\u2705 Optimized: Inference-First\&quot;]\n        subgraph Training_Cloud[\&quot;Training (Cloud Burst)\&quot;]\n            Cloud[\&quot;Google TPU / AWS Trainium&lt;br/&gt;Pay-per-use&lt;br/&gt;$50K/year for quarterly training\&quot;]\n        end\n        \n        subgraph Inference_OnPrem[\&quot;Inference (On-premises)\&quot;]\n            Inf_HW[\&quot;8x NVIDIA L4 (24GB)&lt;br/&gt;$120K hardware&lt;br/&gt;Right-sized for inference\&quot;]\n            Inf_SW[\&quot;vLLM (Open Source)&lt;br/&gt;FREE&lt;br/&gt;No NVIDIA AIE needed\&quot;]\n        end\n        \n        Training_Cloud -.Export model.-&gt; Inference_OnPrem\n    end\n    \n    style Optimized fill:#c8e6c9\n    style Training_Cloud fill:#fff3e0\n    style Inference_OnPrem fill:#e8f5e9&quot;}" id="190e306663664c61">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="73bd516090aa4ac8" name="05 Training Vs Inference Flowchart Lr 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph External[\&quot;External Training\&quot;]\n        Pretrained[\&quot;Pre-trained Models&lt;br/&gt;LLaMA, Mistral, GPT&lt;br/&gt;From HuggingFace\&quot;]\n    end\n    \n    subgraph Internal[\&quot;Internal Inference\&quot;]\n        Download[\&quot;Download &amp; Quantize&lt;br/&gt;INT8/INT4\&quot;]\n        Deploy[\&quot;Deploy to Inference&lt;br/&gt;L4/T4 GPUs or NPU\&quot;]\n        Serve[\&quot;Serve 24/7&lt;br/&gt;vLLM / Triton\&quot;]\n    end\n    \n    Pretrained --&gt; Download\n    Download --&gt; Deploy\n    Deploy --&gt; Serve\n    \n    style External fill:#f5f5f5\n    style Internal fill:#e8f5e9&quot;}" id="e777eece8f554e6f">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="844ca33bfba14a7c" name="05 Training Vs Inference Flowchart Tb 4">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Training_Q[\&quot;Training (Quarterly, Cloud)\&quot;]\n        Data[\&quot;Prepare Training Data\&quot;]\n        Train[\&quot;Fine-tune on TPU/Trainium&lt;br/&gt;100 hours&lt;br/&gt;$5K per run\&quot;]\n        Export[\&quot;Export Quantized Model&lt;br/&gt;INT8 for inference\&quot;]\n    end\n    \n    subgraph Inference_Cont[\&quot;Inference (Continuous, On-prem)\&quot;]\n        Load[\&quot;Load Model&lt;br/&gt;To L4 GPUs\&quot;]\n        Serve_Cont[\&quot;Serve 24/7&lt;br/&gt;vLLM runtime\&quot;]\n    end\n    \n    Data --&gt; Train\n    Train --&gt; Export\n    Export -.Deploy.-&gt; Load\n    Load --&gt; Serve_Cont\n    \n    style Training_Q fill:#fff3e0\n    style Inference_Cont fill:#e8f5e9&quot;}" id="cba6ecc6d3df4912">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ea02debc508f445a" name="05 Training Vs Inference Flowchart Tb 5">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Training_HW[\&quot;Training (On-prem, Shared)\&quot;]\n        Train_Pool[\&quot;2x A100 80GB&lt;br/&gt;$150K&lt;br/&gt;Used 20% of time\&quot;]\n    end\n    \n    subgraph Inference_HW[\&quot;Inference (On-prem, Dedicated)\&quot;]\n        Inf_Pool[\&quot;8x L4 24GB&lt;br/&gt;$120K&lt;br/&gt;Used 90% of time\&quot;]\n    end\n    \n    subgraph Smart_Sched[\&quot;Smart Scheduling\&quot;]\n        Schedule[\&quot;Training: Nights/weekends&lt;br/&gt;Inference: 24/7&lt;br/&gt;Shared infrastructure\&quot;]\n    end\n    \n    Train_Pool -.Can also serve inference.-&gt; Schedule\n    Inf_Pool --&gt; Schedule\n    \n    style Training_HW fill:#fff3e0\n    style Inference_HW fill:#e8f5e9\n    style Smart_Sched fill:#e1f5ff&quot;}" id="7a31095e62684575">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="17c939f3c7794b47" name="05 Training Vs Inference Flowchart Lr 3">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph Precision[\&quot;Model Precision\&quot;]\n        FP16[\&quot;FP16&lt;br/&gt;Training precision&lt;br/&gt;2 bytes/param\&quot;]\n        INT8[\&quot;INT8&lt;br/&gt;Quantized&lt;br/&gt;1 byte/param&lt;br/&gt;2x smaller\&quot;]\n        INT4[\&quot;INT4&lt;br/&gt;Highly quantized&lt;br/&gt;0.5 bytes/param&lt;br/&gt;4x smaller\&quot;]\n    end\n    \n    subgraph Impact[\&quot;Hardware Impact\&quot;]\n        Memory[\&quot;Memory:&lt;br/&gt;FP16: 40GB&lt;br/&gt;INT8: 20GB&lt;br/&gt;INT4: 10GB\&quot;]\n        GPU[\&quot;GPU Needed:&lt;br/&gt;FP16: A100 80GB&lt;br/&gt;INT8: L4 24GB&lt;br/&gt;INT4: T4 16GB\&quot;]\n        Cost[\&quot;GPU Cost:&lt;br/&gt;FP16: $75K&lt;br/&gt;INT8: $15K (5x cheaper)&lt;br/&gt;INT4: $8K (9x cheaper)\&quot;]\n    end\n    \n    FP16 --&gt; Memory\n    INT8 --&gt; Memory\n    INT4 --&gt; Memory\n    Memory --&gt; GPU\n    GPU --&gt; Cost\n    \n    style Precision fill:#e3f2fd\n    style Impact fill:#c8e6c9&quot;}" id="212b30d5abe2427e">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="deca1d06111e49d5" name="05 Training Vs Inference Flowchart Tb 6">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph Model_Source[\&quot;Model Acquisition\&quot;]\n        Download[\&quot;Download pre-trained&lt;br/&gt;from HuggingFace/etc.\&quot;]\n        Quantize[\&quot;Quantize to INT8&lt;br/&gt;with bitsandbytes\&quot;]\n    end\n    \n    subgraph Inference_Deploy[\&quot;Inference Deployment\&quot;]\n        K8s[\&quot;Kubernetes&lt;br/&gt;GKE/EKS/vanilla\&quot;]\n        vLLM_Runtime[\&quot;vLLM Runtime&lt;br/&gt;FREE, high-performance\&quot;]\n        LoadBalancer[\&quot;Load Balancer&lt;br/&gt;Horizontal scaling\&quot;]\n    end\n    \n    subgraph Hardware_Inf[\&quot;Hardware (Inference-Optimized)\&quot;]\n        Multi_L4[\&quot;8x NVIDIA L4&lt;br/&gt;$120K total&lt;br/&gt;800 tok/s each\&quot;]\n    end\n    \n    subgraph OPEA_Layer[\&quot;OPEA Layer\&quot;]\n        RAG[\&quot;RAG Microservices&lt;br/&gt;Embedding, retrieval, etc.\&quot;]\n        API[\&quot;API Gateway&lt;br/&gt;Request routing\&quot;]\n    end\n    \n    Download --&gt; Quantize\n    Quantize --&gt; vLLM_Runtime\n    vLLM_Runtime --&gt; K8s\n    K8s --&gt; Multi_L4\n    OPEA_Layer --&gt; K8s\n    \n    style Model_Source fill:#f5f5f5\n    style Inference_Deploy fill:#e1f5ff\n    style Hardware_Inf fill:#c8e6c9\n    style OPEA_Layer fill:#fff3e0&quot;}" id="332e0b1f675f43f7">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
