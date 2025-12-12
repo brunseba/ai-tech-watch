@@ -142,6 +142,7 @@ flowchart TD
 - LlamaIndex (RAG focus, Python)
 - Semantic Kernel (C#/.NET, Azure)
 - Google ADK (Google Cloud/Gemini, Python)
+- NVIDIA NeMo (GPU-optimized, enterprise)
 - AutoGen (multi-agent, Python)
 - CrewAI (role-based teams, Python)
 
@@ -151,9 +152,9 @@ flowchart TD
 - Dify (all-in-one platform)
 
 *Other Components*:
-- LLMs: GPT-4, Claude, Azure OpenAI
+- LLMs: GPT-4, Claude, Azure OpenAI, NVIDIA NIM
 - Memory: Vector DB, Redis
-- Guardrails: NeMo, Guardrails AI
+- Guardrails: NeMo Guardrails, Guardrails AI
 - Observability: LangSmith, Phoenix
 
 **Requirements:**
@@ -167,6 +168,7 @@ flowchart TD
 - **RAG/data focus** → LlamaIndex
 - **.NET/Azure** → Semantic Kernel
 - **Google Cloud/Gemini** → Google ADK
+- **NVIDIA GPUs** → NVIDIA NeMo
 - **Multi-agent** → AutoGen
 - **Visual design** → LangFlow
 - **No-code** → Flowise

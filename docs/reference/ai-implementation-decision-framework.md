@@ -258,9 +258,9 @@ Once category is determined, select appropriate technologies:
 
 | Component | Technology Options |
 |-----------|-------------------|
-| **Agent Framework (Code-First)** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI, Haystack, Google ADK |
+| **Agent Framework (Code-First)** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI, Haystack, Google ADK, NVIDIA NeMo |
 | **Agent Framework (Low-Code)** | LangFlow, Flowise, Dify, n8n AI |
-| **LLM Provider** | OpenAI GPT-4, Azure OpenAI, Anthropic Claude, Bedrock, Ollama (local) |
+| **LLM Provider** | OpenAI GPT-4, Azure OpenAI, Anthropic Claude, Bedrock, Ollama (local), NVIDIA NIM |
 | **Memory/State** | Redis, PostgreSQL, MongoDB, Vector DB |
 | **Tools/APIs** | Custom functions, REST APIs, database connectors |
 | **Orchestration** | LangGraph, Semantic Kernel workflows |
@@ -299,6 +299,7 @@ Once you've decided on AI Agentic approach, select the appropriate framework bas
 | **CrewAI** | Role-based agent teams | Simple role definitions, task delegation, good for hierarchical workflows | Limited customization, opinionated structure |
 | **Haystack** | Search & retrieval focused | Production-ready pipelines, strong RAG capabilities | Less flexibility for complex reasoning |
 | **Google ADK** | Google Cloud/Gemini ecosystem | Native Gemini integration, Vertex AI support, Google Cloud services, function calling | Google Cloud dependency, newer framework, smaller community |
+| **NVIDIA NeMo** | NVIDIA hardware/enterprise AI | Optimized for NVIDIA GPUs, NIM microservices, enterprise support, guardrails, multimodal | NVIDIA ecosystem lock-in, enterprise pricing, steeper setup |
 
 **Low-Code/Visual Frameworks** (non-developers, rapid prototyping)
 
@@ -316,7 +317,7 @@ flowchart TD
     Start[Choose AI Agentic Framework]
     
     Q1{Team has Python/C#<br/>development skills?}
-    Q2{Cloud provider<br/>preference?}
+    Q2{Infrastructure<br/>preference?}
     Q3{Need multi-agent<br/>collaboration?}
     Q4{Data-heavy<br/>RAG focus?}
     Q5{Need visual<br/>interface?}
@@ -324,6 +325,7 @@ flowchart TD
     
     SK[Semantic Kernel<br/>C#/.NET focus]
     ADK[Google ADK<br/>Gemini/GCP focus]
+    NeMo[NVIDIA NeMo<br/>GPU-optimized]
     LG[LangChain/LangGraph<br/>Most flexible]
     LI[LlamaIndex<br/>Data & RAG focus]
     AG[AutoGen<br/>Multi-agent chat]
@@ -339,6 +341,7 @@ flowchart TD
     
     Q2 -->|Azure/.NET| SK
     Q2 -->|Google Cloud| ADK
+    Q2 -->|NVIDIA GPUs| NeMo
     Q2 -->|Cloud Agnostic| Q3
     
     Q3 -->|Yes| AG
@@ -355,6 +358,7 @@ flowchart TD
     
     style SK fill:#87CEEB
     style ADK fill:#EA4335
+    style NeMo fill:#76B900
     style LG fill:#90EE90
     style LI fill:#FFD700
     style AG fill:#DDA0DD
@@ -375,6 +379,7 @@ flowchart TD
 | IT Helpdesk Automation | CrewAI | Clear role hierarchies, task delegation |
 | RAG Search Application | Haystack | Production-ready RAG, strong retrieval |
 | Google Cloud Native Agent | Google ADK | Native Gemini, Vertex AI, GCP services integration |
+| NVIDIA GPU-Optimized Agent | NVIDIA NeMo | Optimized inference on NVIDIA hardware, NIM deployment |
 | Rapid Prototyping | LangFlow | Visual design, fast iteration, code export |
 | Citizen Developer Tool | Flowise | No-code, simple deployment |
 | All-in-one Solution | Dify | Includes hosting, RAG, prompts out-of-box |
@@ -387,6 +392,7 @@ flowchart TD
 | LlamaIndex | High | ✅ Yes | Large | Medium |
 | Semantic Kernel | Medium | ✅ Yes | Medium | Medium |
 | Google ADK | Low-Medium | ⚠️ Partial | Small | Medium |
+| NVIDIA NeMo | Medium-High | ✅ Yes | Medium | Medium-High |
 | AutoGen | Medium | ⚠️ Partial | Medium | High |
 | CrewAI | Low-Medium | ⚠️ Partial | Small-Medium | Low |
 | Haystack | High | ✅ Yes | Medium | Medium |
@@ -423,37 +429,46 @@ flowchart TD
    - Prefer Google's function calling approach
    - Team comfortable with Google ecosystem
 
-5. **Choose AutoGen if**:
+5. **Choose NVIDIA NeMo if**:
+   - Have NVIDIA GPU infrastructure (A100, H100, L40S)
+   - Need optimized inference performance
+   - Want to deploy with NVIDIA NIM microservices
+   - Require multimodal capabilities (text, image, speech)
+   - Need enterprise support from NVIDIA
+   - Building on NVIDIA AI Enterprise platform
+   - Want built-in guardrails (NeMo Guardrails)
+
+6. **Choose AutoGen if**:
    - Need sophisticated multi-agent collaboration
    - Agents must negotiate and communicate
    - Research/experimental project
    - Code execution safety is handled
 
-6. **Choose CrewAI if**:
+7. **Choose CrewAI if**:
    - Simple hierarchical agent teams
    - Clear role definitions (manager, worker, etc.)
    - Fast development timeline
    - Less customization needed
 
-7. **Choose Haystack if**:
+8. **Choose Haystack if**:
    - Production RAG pipeline is priority
    - Search and retrieval focused
    - Need battle-tested components
    - Want pipeline-based architecture
 
-8. **Choose LangFlow if**:
+9. **Choose LangFlow if**:
    - Need visual design interface
    - Rapid prototyping required
    - Team includes non-developers
    - Want to export to LangChain code
 
-9. **Choose Flowise if**:
-   - Pure no-code requirement
-   - Simple chatbot use case
-   - Limited technical resources
-   - Quick POC needed
+10. **Choose Flowise if**:
+    - Pure no-code requirement
+    - Simple chatbot use case
+    - Limited technical resources
+    - Quick POC needed
 
-10. **Choose Dify if**:
+11. **Choose Dify if**:
     - Want all-in-one solution
     - Need hosting included
     - Small team with limited DevOps
