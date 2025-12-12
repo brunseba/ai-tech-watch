@@ -33,6 +33,60 @@ This guide is organized into 6 sections for easier navigation and review:
 
 **Key Takeaway**: AI agents introduce **10 new vulnerability classes** beyond traditional security (prompt injection, goal hijacking, chained vulnerabilities).
 
+#### AI Agent Security Architecture Overview
+
+```mermaid
+flowchart TB
+    subgraph User["👤 User/Application"]
+        UI[User Interface]
+    end
+    
+    subgraph SecurityLayer["🛡️ Security Layer"]
+        G[Guardrails<br/>NeMo/Guardrails AI]
+        IAM[Identity & Access<br/>Auth0/Okta]
+        Obs[Observability<br/>LangSmith/Arize]
+    end
+    
+    subgraph Agent["🤖 AI Agent"]
+        LLM[LLM<br/>GPT-4/Claude]
+        Memory[Memory Store<br/>Vector DB]
+        Tools[Tools & APIs<br/>Functions]
+    end
+    
+    subgraph DataLayer["💾 Data Layer"]
+        PII[PII Protection<br/>Private AI]
+        Vault[Secrets<br/>Vault/KMS]
+        Data[Data Sources<br/>Databases/APIs]
+    end
+    
+    subgraph ThreatDetection["🚨 Threat Detection"]
+        SIEM[SIEM/SOC<br/>GuardDuty/Vectra]
+        Anomaly[Anomaly Detection<br/>HiddenLayer]
+    end
+    
+    UI -->|1. Request| G
+    G -->|2. Validated| IAM
+    IAM -->|3. Authenticated| LLM
+    LLM <-->|4a. Retrieve| Memory
+    LLM -->|4b. Call| Tools
+    Tools -->|5. Data Access| PII
+    PII -->|6. Protected Data| Vault
+    Vault -->|7. Secrets| Data
+    LLM -->|8. Response| G
+    G -->|9. Filtered| UI
+    
+    G -.->|Logs| Obs
+    LLM -.->|Metrics| Obs
+    Tools -.->|Events| Obs
+    Obs -.->|Alerts| SIEM
+    SIEM -.->|Monitor| Anomaly
+    
+    style SecurityLayer fill:#e3f2fd
+    style Agent fill:#fff3e0
+    style DataLayer fill:#f3e5f5
+    style ThreatDetection fill:#ffebee
+```
+
 ---
 
 ### 2. [Security Architecture Frameworks](02-security-frameworks.md)
@@ -45,6 +99,80 @@ This guide is organized into 6 sections for easier navigation and review:
 - Framework comparison & practical phased approach
 
 **Key Takeaway**: Security requirements scale **exponentially** with agent autonomy—use AWS Scoping Matrix for planning.
+
+#### Security Domains & Product Categories
+
+```mermaid
+graph TB
+    subgraph Domain1["🛡️ Guardrails (10 Products)"]
+        G1[NVIDIA NeMo Guardrails]
+        G2[Guardrails AI]
+        G3[LangChain]
+        G4[OpenAI Moderation]
+        G5[Others...]
+    end
+    
+    subgraph Domain2["🔐 Identity & Access (6 Products)"]
+        I1[AWS IAM]
+        I2[Azure AD/Entra ID]
+        I3[Okta]
+        I4[Auth0]
+        I5[HashiCorp Vault]
+        I6[Ping Identity]
+    end
+    
+    subgraph Domain3["💾 Data Security (5 Products)"]
+        D1[Private AI]
+        D2[Gretel.ai]
+        D3[AWS Macie]
+        D4[Microsoft Purview]
+        D5[Immuta]
+    end
+    
+    subgraph Domain4["🔧 Application Security (6 Products)"]
+        A1[Snyk]
+        A2[GitHub Advanced Security]
+        A3[GitLab Security]
+        A4[Checkmarx]
+        A5[Veracode]
+        A6[FOSSA]
+    end
+    
+    subgraph Domain5["🚨 Threat Detection (7 Products)"]
+        T1[Cisco AI Defense]
+        T2[Obsidian Security]
+        T3[Calypso AI]
+        T4[HiddenLayer]
+        T5[Robust Intelligence]
+        T6[AWS GuardDuty]
+        T7[Vectra AI]
+    end
+    
+    subgraph Domain6["📊 Observability (8 Products)"]
+        O1[LangSmith]
+        O2[Arize AI]
+        O3[Phoenix]
+        O4[WhyLabs]
+        O5[Helicone]
+        O6[LunaryAI]
+        O7[Weights & Biases]
+        O8[DataDog LLM]
+    end
+    
+    Agent[🤖 AI Agent] --> Domain1
+    Agent --> Domain2
+    Agent --> Domain3
+    Agent --> Domain4
+    Agent --> Domain5
+    Agent --> Domain6
+    
+    style Domain1 fill:#e8f5e9
+    style Domain2 fill:#e3f2fd
+    style Domain3 fill:#f3e5f5
+    style Domain4 fill:#fff3e0
+    style Domain5 fill:#ffebee
+    style Domain6 fill:#f1f8e9
+```
 
 ---
 
@@ -149,6 +277,144 @@ This guide is organized into 6 sections for easier navigation and review:
 
 **Key Takeaway**: Start with **Phase 0** before ANY production deployment—achieve 60-70% risk reduction in 1-2 weeks.
 
+#### 4-Phase Implementation Roadmap
+
+```mermaid
+gantt
+    title AI Agent Security Implementation Timeline
+    dateFormat YYYY-MM-DD
+    section Phase 0: Foundation
+    Input/Output Guardrails :p0a, 2025-01-01, 7d
+    Basic Authentication :p0b, 2025-01-08, 7d
+    section Phase 1: Core Security
+    Advanced Guardrails :p1a, 2025-01-15, 30d
+    IAM Integration :p1b, 2025-01-20, 30d
+    PII Detection :p1c, 2025-01-25, 30d
+    Observability :p1d, 2025-02-01, 30d
+    section Phase 2: Advanced
+    Threat Detection :p2a, 2025-02-15, 60d
+    Secrets Management :p2b, 2025-02-20, 60d
+    Code Scanning :p2c, 2025-03-01, 60d
+    Compliance Audit :p2d, 2025-03-15, 60d
+    section Phase 3: Enterprise
+    SOC Integration :p3a, 2025-04-15, 90d
+    Zero Trust :p3b, 2025-05-01, 90d
+    Red Team Testing :p3c, 2025-06-01, 90d
+    Certification :p3d, 2025-07-01, 90d
+```
+
+**Risk Reduction by Phase**:
+- Phase 0 (Weeks 1-2): 60-70% risk reduction, $0-$500/month
+- Phase 1 (Months 1-3): 80% risk reduction, $1K-$5K/month
+- Phase 2 (Months 4-6): 90% risk reduction, $5K-$20K/month
+- Phase 3 (Months 7-12): 95% risk reduction, $20K-$100K/month
+
+---
+
+## Threat Flow & Attack Vectors
+
+```mermaid
+flowchart LR
+    subgraph AttackSurface["🎯 Attack Surface"]
+        A1[Prompt Injection]
+        A2[Goal Hijacking]
+        A3[Data Poisoning]
+        A4[Model Inversion]
+        A5[Plugin Vulnerabilities]
+    end
+    
+    subgraph Agent["🤖 AI Agent"]
+        LLM[LLM Processing]
+        Memory[Memory Access]
+        Tools[Tool Execution]
+    end
+    
+    subgraph Vulnerabilities["⚠️ Vulnerabilities"]
+        V1[Excessive Agency]
+        V2[Insecure Output]
+        V3[Sensitive Data Leak]
+        V4[Supply Chain Risk]
+        V5[Privilege Escalation]
+    end
+    
+    subgraph Impact["💥 Impact"]
+        I1[Data Breach<br/>$4.45M avg]
+        I2[Service Disruption]
+        I3[Reputation Damage]
+        I4[Compliance Violation]
+        I5[Financial Loss]
+    end
+    
+    A1 --> LLM
+    A2 --> LLM
+    A3 --> Memory
+    A4 --> Memory
+    A5 --> Tools
+    
+    LLM --> V1
+    LLM --> V2
+    Memory --> V3
+    Tools --> V4
+    Tools --> V5
+    
+    V1 --> I1
+    V2 --> I2
+    V3 --> I1
+    V4 --> I3
+    V5 --> I4
+    V5 --> I5
+    
+    style AttackSurface fill:#ffebee
+    style Agent fill:#fff3e0
+    style Vulnerabilities fill:#fce4ec
+    style Impact fill:#ffcdd2
+```
+
+### OWASP Top 10 for LLM - Security Controls Mapping
+
+```mermaid
+graph LR
+    subgraph OWASP["🚨 OWASP Top 10 for LLM"]
+        O1[LLM01: Prompt Injection]
+        O2[LLM02: Insecure Output]
+        O3[LLM03: Training Data Poisoning]
+        O4[LLM04: Model DoS]
+        O5[LLM05: Supply Chain]
+        O6[LLM06: Sensitive Info]
+        O7[LLM07: Insecure Plugins]
+        O8[LLM08: Excessive Agency]
+        O9[LLM09: Overreliance]
+        O10[LLM10: Model Theft]
+    end
+    
+    subgraph Controls["🛡️ Security Controls"]
+        C1[Input Guardrails<br/>NeMo/Guardrails AI]
+        C2[Output Validation<br/>Content Filtering]
+        C3[Data Governance<br/>Purview/Macie]
+        C4[Rate Limiting<br/>API Gateway]
+        C5[Dependency Scanning<br/>Snyk/FOSSA]
+        C6[PII Detection<br/>Private AI]
+        C7[Plugin Sandboxing<br/>Isolation]
+        C8[RBAC/Least Privilege<br/>IAM/Okta]
+        C9[Human-in-Loop<br/>Approval Gates]
+        C10[Model Access Control<br/>Encryption]
+    end
+    
+    O1 --> C1
+    O2 --> C2
+    O3 --> C3
+    O4 --> C4
+    O5 --> C5
+    O6 --> C6
+    O7 --> C7
+    O8 --> C8
+    O9 --> C9
+    O10 --> C10
+    
+    style OWASP fill:#ffebee
+    style Controls fill:#e8f5e9
+```
+
 ---
 
 ## Quick Start Guides
@@ -178,8 +444,14 @@ This guide is organized into 6 sections for easier navigation and review:
 
 ## Document Statistics
 
-- **Total Content**: ~3,900 lines across 7 documents
-- **Diagrams**: 9 Mermaid architecture diagrams
+- **Total Content**: ~4,200 lines across 7 documents
+- **Diagrams**: 13 Mermaid visualizations (4 new in index)
+  - Security Architecture Overview
+  - Security Domains & Product Categories
+  - 4-Phase Implementation Roadmap (Gantt)
+  - Threat Flow & Attack Vectors
+  - OWASP Top 10 Security Controls Mapping
+  - Plus 8 diagrams in detailed sections
 - **Products Reviewed**: 42 (with specs, pricing, strengths/limitations)
 - **Security Domains**: 6 comprehensive domains
 - **AI Frameworks Covered**: 16 (LangChain, LlamaIndex, AutoGen, CrewAI, etc.)
