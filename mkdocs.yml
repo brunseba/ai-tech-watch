@@ -140,6 +140,8 @@ nav:
   - Reference:
       - Glossary: glossary.md
       - Decision Trees: decision-trees.md
+      - AI Implementation Decision Framework: reference/ai-implementation-decision-framework.md
+      - AI Implementation Quick Reference: reference/ai-implementation-quick-reference.md
       - AI Software Catalog: reference/ai-software-catalog.md
       - AI Software SBOM: reference/ai-software-sbom.md
 
