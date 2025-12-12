@@ -141,6 +141,7 @@ flowchart TD
 - LangChain/LangGraph (most flexible, Python)
 - LlamaIndex (RAG focus, Python)
 - Semantic Kernel (C#/.NET, Azure)
+- Google ADK (Google Cloud/Gemini, Python)
 - AutoGen (multi-agent, Python)
 - CrewAI (role-based teams, Python)
 
@@ -165,6 +166,7 @@ flowchart TD
 - **Max flexibility** → LangChain/LangGraph
 - **RAG/data focus** → LlamaIndex
 - **.NET/Azure** → Semantic Kernel
+- **Google Cloud/Gemini** → Google ADK
 - **Multi-agent** → AutoGen
 - **Visual design** → LangFlow
 - **No-code** → Flowise

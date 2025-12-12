@@ -258,7 +258,7 @@ Once category is determined, select appropriate technologies:
 
 | Component | Technology Options |
 |-----------|-------------------|
-| **Agent Framework (Code-First)** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI, Haystack |
+| **Agent Framework (Code-First)** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI, Haystack, Google ADK |
 | **Agent Framework (Low-Code)** | LangFlow, Flowise, Dify, n8n AI |
 | **LLM Provider** | OpenAI GPT-4, Azure OpenAI, Anthropic Claude, Bedrock, Ollama (local) |
 | **Memory/State** | Redis, PostgreSQL, MongoDB, Vector DB |
@@ -298,6 +298,7 @@ Once you've decided on AI Agentic approach, select the appropriate framework bas
 | **AutoGen** | Multi-agent collaboration | Advanced agent communication, group chat patterns, code execution | Research-oriented, production readiness varies |
 | **CrewAI** | Role-based agent teams | Simple role definitions, task delegation, good for hierarchical workflows | Limited customization, opinionated structure |
 | **Haystack** | Search & retrieval focused | Production-ready pipelines, strong RAG capabilities | Less flexibility for complex reasoning |
+| **Google ADK** | Google Cloud/Gemini ecosystem | Native Gemini integration, Vertex AI support, Google Cloud services, function calling | Google Cloud dependency, newer framework, smaller community |
 
 **Low-Code/Visual Frameworks** (non-developers, rapid prototyping)
 
@@ -315,13 +316,14 @@ flowchart TD
     Start[Choose AI Agentic Framework]
     
     Q1{Team has Python/C#<br/>development skills?}
-    Q2{Microsoft/.NET<br/>ecosystem?}
+    Q2{Cloud provider<br/>preference?}
     Q3{Need multi-agent<br/>collaboration?}
     Q4{Data-heavy<br/>RAG focus?}
     Q5{Need visual<br/>interface?}
     Q6{Open source<br/>required?}
     
     SK[Semantic Kernel<br/>C#/.NET focus]
+    ADK[Google ADK<br/>Gemini/GCP focus]
     LG[LangChain/LangGraph<br/>Most flexible]
     LI[LlamaIndex<br/>Data & RAG focus]
     AG[AutoGen<br/>Multi-agent chat]
@@ -335,8 +337,9 @@ flowchart TD
     Q1 -->|Yes| Q2
     Q1 -->|No| Q5
     
-    Q2 -->|Yes| SK
-    Q2 -->|No| Q3
+    Q2 -->|Azure/.NET| SK
+    Q2 -->|Google Cloud| ADK
+    Q2 -->|Cloud Agnostic| Q3
     
     Q3 -->|Yes| AG
     Q3 -->|No| Q4
@@ -351,6 +354,7 @@ flowchart TD
     Q6 -->|No| DF
     
     style SK fill:#87CEEB
+    style ADK fill:#EA4335
     style LG fill:#90EE90
     style LI fill:#FFD700
     style AG fill:#DDA0DD
@@ -370,6 +374,7 @@ flowchart TD
 | Research Assistant (multi-agent) | AutoGen | Strong multi-agent communication patterns |
 | IT Helpdesk Automation | CrewAI | Clear role hierarchies, task delegation |
 | RAG Search Application | Haystack | Production-ready RAG, strong retrieval |
+| Google Cloud Native Agent | Google ADK | Native Gemini, Vertex AI, GCP services integration |
 | Rapid Prototyping | LangFlow | Visual design, fast iteration, code export |
 | Citizen Developer Tool | Flowise | No-code, simple deployment |
 | All-in-one Solution | Dify | Includes hosting, RAG, prompts out-of-box |
@@ -381,6 +386,7 @@ flowchart TD
 | LangChain/LangGraph | High | ✅ Yes | Very Large | Medium-High |
 | LlamaIndex | High | ✅ Yes | Large | Medium |
 | Semantic Kernel | Medium | ✅ Yes | Medium | Medium |
+| Google ADK | Low-Medium | ⚠️ Partial | Small | Medium |
 | AutoGen | Medium | ⚠️ Partial | Medium | High |
 | CrewAI | Low-Medium | ⚠️ Partial | Small-Medium | Low |
 | Haystack | High | ✅ Yes | Medium | Medium |
@@ -409,41 +415,49 @@ flowchart TD
    - Microsoft enterprise environment
    - Want native async/await patterns
 
-4. **Choose AutoGen if**:
+4. **Choose Google ADK if**:
+   - Building on Google Cloud Platform
+   - Using Gemini models (Gemini 2.0, Gemini Pro)
+   - Need Vertex AI integration
+   - Want native Google services integration (BigQuery, Cloud Functions, etc.)
+   - Prefer Google's function calling approach
+   - Team comfortable with Google ecosystem
+
+5. **Choose AutoGen if**:
    - Need sophisticated multi-agent collaboration
    - Agents must negotiate and communicate
    - Research/experimental project
    - Code execution safety is handled
 
-5. **Choose CrewAI if**:
+6. **Choose CrewAI if**:
    - Simple hierarchical agent teams
    - Clear role definitions (manager, worker, etc.)
    - Fast development timeline
    - Less customization needed
 
-6. **Choose Haystack if**:
+7. **Choose Haystack if**:
    - Production RAG pipeline is priority
    - Search and retrieval focused
    - Need battle-tested components
    - Want pipeline-based architecture
 
-7. **Choose LangFlow if**:
+8. **Choose LangFlow if**:
    - Need visual design interface
    - Rapid prototyping required
    - Team includes non-developers
    - Want to export to LangChain code
 
-8. **Choose Flowise if**:
+9. **Choose Flowise if**:
    - Pure no-code requirement
    - Simple chatbot use case
    - Limited technical resources
    - Quick POC needed
 
-9. **Choose Dify if**:
-   - Want all-in-one solution
-   - Need hosting included
-   - Small team with limited DevOps
-   - Prefer opinionated architecture
+10. **Choose Dify if**:
+    - Want all-in-one solution
+    - Need hosting included
+    - Small team with limited DevOps
+    - Prefer opinionated architecture
 
 ---
 
