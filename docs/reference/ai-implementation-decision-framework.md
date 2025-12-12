@@ -258,7 +258,8 @@ Once category is determined, select appropriate technologies:
 
 | Component | Technology Options |
 |-----------|-------------------|
-| **Agent Framework** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI |
+| **Agent Framework (Code-First)** | LangChain/LangGraph, LlamaIndex, Semantic Kernel, AutoGen, CrewAI, Haystack |
+| **Agent Framework (Low-Code)** | LangFlow, Flowise, Dify, n8n AI |
 | **LLM Provider** | OpenAI GPT-4, Azure OpenAI, Anthropic Claude, Bedrock, Ollama (local) |
 | **Memory/State** | Redis, PostgreSQL, MongoDB, Vector DB |
 | **Tools/APIs** | Custom functions, REST APIs, database connectors |
@@ -282,6 +283,167 @@ Once category is determined, select appropriate technologies:
 - Document processing and analysis
 - IT service management automation
 - Data analysis and reporting
+
+##### Choosing the Right AI Agentic Framework
+
+Once you've decided on AI Agentic approach, select the appropriate framework based on your team's skills and requirements:
+
+**Code-First Frameworks** (Python/C# developers)
+
+| Framework | Best For | Strengths | Limitations |
+|-----------|----------|-----------|-------------|
+| **LangChain/LangGraph** | Complex multi-agent systems | Rich ecosystem, graph-based orchestration, extensive integrations | Steeper learning curve, verbose API |
+| **LlamaIndex** | Data-heavy applications | Excellent data connectors, RAG optimization, structured outputs | Less focus on multi-agent orchestration |
+| **Semantic Kernel** | Microsoft ecosystem | Native Azure integration, C#/.NET support, enterprise patterns | Smaller community, fewer integrations |
+| **AutoGen** | Multi-agent collaboration | Advanced agent communication, group chat patterns, code execution | Research-oriented, production readiness varies |
+| **CrewAI** | Role-based agent teams | Simple role definitions, task delegation, good for hierarchical workflows | Limited customization, opinionated structure |
+| **Haystack** | Search & retrieval focused | Production-ready pipelines, strong RAG capabilities | Less flexibility for complex reasoning |
+
+**Low-Code/Visual Frameworks** (non-developers, rapid prototyping)
+
+| Framework | Best For | Strengths | Limitations |
+|-----------|----------|-----------|-------------|
+| **LangFlow** | Visual flow design | Drag-and-drop interface, LangChain compatibility, rapid prototyping | Limited complex logic, harder to version control |
+| **Flowise** | No-code agent building | Easy to use, good for simple chatbots, open source | Limited enterprise features, simpler use cases only |
+| **Dify** | All-in-one platform | Built-in RAG, prompt management, deployment included | Opinionated architecture, vendor lock-in risk |
+| **n8n AI** | Workflow automation | Strong integrations, automation focus, self-hostable | Not agent-specific, requires workflow thinking |
+
+**Framework Selection Decision Tree**:
+
+```mermaid
+flowchart TD
+    Start[Choose AI Agentic Framework]
+    
+    Q1{Team has Python/C#<br/>development skills?}
+    Q2{Microsoft/.NET<br/>ecosystem?}
+    Q3{Need multi-agent<br/>collaboration?}
+    Q4{Data-heavy<br/>RAG focus?}
+    Q5{Need visual<br/>interface?}
+    Q6{Open source<br/>required?}
+    
+    SK[Semantic Kernel<br/>C#/.NET focus]
+    LG[LangChain/LangGraph<br/>Most flexible]
+    LI[LlamaIndex<br/>Data & RAG focus]
+    AG[AutoGen<br/>Multi-agent chat]
+    CR[CrewAI<br/>Role-based teams]
+    LF[LangFlow<br/>Visual + code]
+    FL[Flowise<br/>Pure no-code]
+    DF[Dify<br/>All-in-one platform]
+    
+    Start --> Q1
+    
+    Q1 -->|Yes| Q2
+    Q1 -->|No| Q5
+    
+    Q2 -->|Yes| SK
+    Q2 -->|No| Q3
+    
+    Q3 -->|Yes| AG
+    Q3 -->|No| Q4
+    
+    Q4 -->|Yes| LI
+    Q4 -->|No| LG
+    
+    Q5 -->|Yes| Q6
+    Q5 -->|No| CR
+    
+    Q6 -->|Yes| LF
+    Q6 -->|No| DF
+    
+    style SK fill:#87CEEB
+    style LG fill:#90EE90
+    style LI fill:#FFD700
+    style AG fill:#DDA0DD
+    style CR fill:#F0E68C
+    style LF fill:#FFA07A
+    style FL fill:#98FB98
+    style DF fill:#D3D3D3
+```
+
+**Recommended Approach by Use Case**:
+
+| Use Case Type | Recommended Framework | Reason |
+|---------------|----------------------|--------|
+| Customer Support Chatbot | LangChain/LangGraph | Complex routing, multiple tools, mature ecosystem |
+| Document Analysis Pipeline | LlamaIndex | Excellent document loaders, RAG optimization |
+| Enterprise Integration (.NET) | Semantic Kernel | Native Azure/Microsoft integration |
+| Research Assistant (multi-agent) | AutoGen | Strong multi-agent communication patterns |
+| IT Helpdesk Automation | CrewAI | Clear role hierarchies, task delegation |
+| RAG Search Application | Haystack | Production-ready RAG, strong retrieval |
+| Rapid Prototyping | LangFlow | Visual design, fast iteration, code export |
+| Citizen Developer Tool | Flowise | No-code, simple deployment |
+| All-in-one Solution | Dify | Includes hosting, RAG, prompts out-of-box |
+
+**Framework Maturity Matrix**:
+
+| Framework | Maturity | Enterprise Ready | Community Size | Learning Curve |
+|-----------|----------|------------------|----------------|----------------|
+| LangChain/LangGraph | High | ✅ Yes | Very Large | Medium-High |
+| LlamaIndex | High | ✅ Yes | Large | Medium |
+| Semantic Kernel | Medium | ✅ Yes | Medium | Medium |
+| AutoGen | Medium | ⚠️ Partial | Medium | High |
+| CrewAI | Low-Medium | ⚠️ Partial | Small-Medium | Low |
+| Haystack | High | ✅ Yes | Medium | Medium |
+| LangFlow | Medium | ⚠️ Partial | Medium | Low |
+| Flowise | Low-Medium | ❌ No | Small | Very Low |
+| Dify | Medium | ⚠️ Partial | Medium | Low |
+
+**Key Selection Criteria**:
+
+1. **Choose LangChain/LangGraph if**:
+   - Need maximum flexibility and control
+   - Complex multi-step workflows with branching
+   - Large team with Python expertise
+   - Want extensive integration options
+   - Need LangSmith observability
+
+2. **Choose LlamaIndex if**:
+   - RAG (Retrieval-Augmented Generation) is core requirement
+   - Working with diverse data sources
+   - Need strong document processing
+   - Want structured data outputs
+
+3. **Choose Semantic Kernel if**:
+   - .NET/C# is primary language
+   - Deep Azure integration required
+   - Microsoft enterprise environment
+   - Want native async/await patterns
+
+4. **Choose AutoGen if**:
+   - Need sophisticated multi-agent collaboration
+   - Agents must negotiate and communicate
+   - Research/experimental project
+   - Code execution safety is handled
+
+5. **Choose CrewAI if**:
+   - Simple hierarchical agent teams
+   - Clear role definitions (manager, worker, etc.)
+   - Fast development timeline
+   - Less customization needed
+
+6. **Choose Haystack if**:
+   - Production RAG pipeline is priority
+   - Search and retrieval focused
+   - Need battle-tested components
+   - Want pipeline-based architecture
+
+7. **Choose LangFlow if**:
+   - Need visual design interface
+   - Rapid prototyping required
+   - Team includes non-developers
+   - Want to export to LangChain code
+
+8. **Choose Flowise if**:
+   - Pure no-code requirement
+   - Simple chatbot use case
+   - Limited technical resources
+   - Quick POC needed
+
+9. **Choose Dify if**:
+   - Want all-in-one solution
+   - Need hosting included
+   - Small team with limited DevOps
+   - Prefer opinionated architecture
 
 ---
 

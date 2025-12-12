@@ -136,7 +136,20 @@ flowchart TD
 - Data analysis agents
 
 **Tech Stack:**
-- Frameworks: LangChain/LangGraph, LlamaIndex, Semantic Kernel
+
+*Code-First Frameworks*:
+- LangChain/LangGraph (most flexible, Python)
+- LlamaIndex (RAG focus, Python)
+- Semantic Kernel (C#/.NET, Azure)
+- AutoGen (multi-agent, Python)
+- CrewAI (role-based teams, Python)
+
+*Low-Code Frameworks*:
+- LangFlow (visual + LangChain, open source)
+- Flowise (no-code, simple chatbots)
+- Dify (all-in-one platform)
+
+*Other Components*:
 - LLMs: GPT-4, Claude, Azure OpenAI
 - Memory: Vector DB, Redis
 - Guardrails: NeMo, Guardrails AI
@@ -147,6 +160,14 @@ flowchart TD
 - Security/compliance review
 - Human oversight for critical actions
 - Latency tolerance (1-10 seconds)
+
+**Framework Selection Quick Guide**:
+- **Max flexibility** → LangChain/LangGraph
+- **RAG/data focus** → LlamaIndex
+- **.NET/Azure** → Semantic Kernel
+- **Multi-agent** → AutoGen
+- **Visual design** → LangFlow
+- **No-code** → Flowise
 
 ---
 
