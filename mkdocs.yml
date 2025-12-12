@@ -138,8 +138,8 @@ nav:
       - NetApp NAS Agent: use-cases/netapp-nas-agent.md
       - Workflow Diagram Examples: use-cases/workflow-diagram-request.md
   - Reference:
-      - Glossary: glossary.md
-      - Decision Trees: decision-trees.md
+      - Glossary: reference/glossary.md
+      - Decision Trees: reference/decision-trees.md
       - AI Implementation Decision Framework: reference/ai-implementation-decision-framework.md
       - AI Implementation Quick Reference: reference/ai-implementation-quick-reference.md
       - AI Software Catalog: reference/ai-software-catalog.md
