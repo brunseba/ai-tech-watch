@@ -1,0 +1,15 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="1">
+  <diagram id="8daef347e21d4392" name="Ai Implementation Quick Reference Flowchart Td">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start([Start: Evaluate Use Case])\n    \n    Q1{Can you write&lt;br/&gt;explicit rules&lt;br/&gt;for everything?}\n    Q2{Need to learn&lt;br/&gt;from data?}\n    Q3{Natural language&lt;br/&gt;primary interface?}\n    Q4{Multi-step&lt;br/&gt;reasoning?}\n    Q5{Multiple APIs/&lt;br/&gt;tools needed?}\n    \n    Standard([\u2699\ufe0f Standard&lt;br/&gt;Development])\n    AI([\ud83e\udd16 AI/ML])\n    Agentic([\ud83e\udde0 AI Agentic])\n    \n    Start --&gt; Q1\n    \n    Q1 --&gt;|Yes| Standard\n    Q1 --&gt;|No| Q2\n    \n    Q2 --&gt;|No| Standard\n    Q2 --&gt;|Yes| Q3\n    \n    Q3 --&gt;|No| AI\n    Q3 --&gt;|Yes| Q4\n    \n    Q4 --&gt;|No| AI\n    Q4 --&gt;|Yes| Q5\n    \n    Q5 --&gt;|No| AI\n    Q5 --&gt;|Yes| Agentic\n    \n    style Standard fill:#90EE90,stroke:#228B22,stroke-width:2px\n    style AI fill:#FFD700,stroke:#FF8C00,stroke-width:2px\n    style Agentic fill:#87CEEB,stroke:#4682B4,stroke-width:2px&quot;}" id="65b838f543c740aa">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

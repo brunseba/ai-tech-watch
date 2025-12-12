@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="5">
+  <diagram id="c26aeb717cbd47ff" name="Index Flowchart Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TB\n    subgraph User[\&quot;\ud83d\udc64 User/Application\&quot;]\n        UI[User Interface]\n    end\n    \n    subgraph SecurityLayer[\&quot;\ud83d\udee1\ufe0f Security Layer\&quot;]\n        G[Guardrails&lt;br/&gt;NeMo/Guardrails AI]\n        IAM[Identity &amp; Access&lt;br/&gt;Auth0/Okta]\n        Obs[Observability&lt;br/&gt;LangSmith/Arize]\n    end\n    \n    subgraph Agent[\&quot;\ud83e\udd16 AI Agent\&quot;]\n        LLM[LLM&lt;br/&gt;GPT-4/Claude]\n        Memory[Memory Store&lt;br/&gt;Vector DB]\n        Tools[Tools &amp; APIs&lt;br/&gt;Functions]\n    end\n    \n    subgraph DataLayer[\&quot;\ud83d\udcbe Data Layer\&quot;]\n        PII[PII Protection&lt;br/&gt;Private AI]\n        Vault[Secrets&lt;br/&gt;Vault/KMS]\n        Data[Data Sources&lt;br/&gt;Databases/APIs]\n    end\n    \n    subgraph ThreatDetection[\&quot;\ud83d\udea8 Threat Detection\&quot;]\n        SIEM[SIEM/SOC&lt;br/&gt;GuardDuty/Vectra]\n        Anomaly[Anomaly Detection&lt;br/&gt;HiddenLayer]\n    end\n    \n    UI --&gt;|1. Request| G\n    G --&gt;|2. Validated| IAM\n    IAM --&gt;|3. Authenticated| LLM\n    LLM &lt;--&gt;|4a. Retrieve| Memory\n    LLM --&gt;|4b. Call| Tools\n    Tools --&gt;|5. Data Access| PII\n    PII --&gt;|6. Protected Data| Vault\n    Vault --&gt;|7. Secrets| Data\n    LLM --&gt;|8. Response| G\n    G --&gt;|9. Filtered| UI\n    \n    G -.-&gt;|Logs| Obs\n    LLM -.-&gt;|Metrics| Obs\n    Tools -.-&gt;|Events| Obs\n    Obs -.-&gt;|Alerts| SIEM\n    SIEM -.-&gt;|Monitor| Anomaly\n    \n    style SecurityLayer fill:#e3f2fd\n    style Agent fill:#fff3e0\n    style DataLayer fill:#f3e5f5\n    style ThreatDetection fill:#ffebee&quot;}" id="100664e53c2a47fa">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="e9b9e1167c284bd4" name="Index Graph Tb">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TB\n    subgraph Domain1[\&quot;\ud83d\udee1\ufe0f Guardrails (10 Products)\&quot;]\n        G1[NVIDIA NeMo Guardrails]\n        G2[Guardrails AI]\n        G3[LangChain]\n        G4[OpenAI Moderation]\n        G5[Others...]\n    end\n    \n    subgraph Domain2[\&quot;\ud83d\udd10 Identity &amp; Access (6 Products)\&quot;]\n        I1[AWS IAM]\n        I2[Azure AD/Entra ID]\n        I3[Okta]\n        I4[Auth0]\n        I5[HashiCorp Vault]\n        I6[Ping Identity]\n    end\n    \n    subgraph Domain3[\&quot;\ud83d\udcbe Data Security (5 Products)\&quot;]\n        D1[Private AI]\n        D2[Gretel.ai]\n        D3[AWS Macie]\n        D4[Microsoft Purview]\n        D5[Immuta]\n    end\n    \n    subgraph Domain4[\&quot;\ud83d\udd27 Application Security (6 Products)\&quot;]\n        A1[Snyk]\n        A2[GitHub Advanced Security]\n        A3[GitLab Security]\n        A4[Checkmarx]\n        A5[Veracode]\n        A6[FOSSA]\n    end\n    \n    subgraph Domain5[\&quot;\ud83d\udea8 Threat Detection (7 Products)\&quot;]\n        T1[Cisco AI Defense]\n        T2[Obsidian Security]\n        T3[Calypso AI]\n        T4[HiddenLayer]\n        T5[Robust Intelligence]\n        T6[AWS GuardDuty]\n        T7[Vectra AI]\n    end\n    \n    subgraph Domain6[\&quot;\ud83d\udcca Observability (8 Products)\&quot;]\n        O1[LangSmith]\n        O2[Arize AI]\n        O3[Phoenix]\n        O4[WhyLabs]\n        O5[Helicone]\n        O6[LunaryAI]\n        O7[Weights &amp; Biases]\n        O8[DataDog LLM]\n    end\n    \n    Agent[\ud83e\udd16 AI Agent] --&gt; Domain1\n    Agent --&gt; Domain2\n    Agent --&gt; Domain3\n    Agent --&gt; Domain4\n    Agent --&gt; Domain5\n    Agent --&gt; Domain6\n    \n    style Domain1 fill:#e8f5e9\n    style Domain2 fill:#e3f2fd\n    style Domain3 fill:#f3e5f5\n    style Domain4 fill:#fff3e0\n    style Domain5 fill:#ffebee\n    style Domain6 fill:#f1f8e9&quot;}" id="5c2a05b1e5ad4414">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="cd1cbbbca9a4446a" name="Index Gantt">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;gantt\n    title AI Agent Security Implementation Timeline\n    dateFormat YYYY-MM-DD\n    section Phase 0: Foundation\n    Input/Output Guardrails :p0a, 2025-01-01, 7d\n    Basic Authentication :p0b, 2025-01-08, 7d\n    section Phase 1: Core Security\n    Advanced Guardrails :p1a, 2025-01-15, 30d\n    IAM Integration :p1b, 2025-01-20, 30d\n    PII Detection :p1c, 2025-01-25, 30d\n    Observability :p1d, 2025-02-01, 30d\n    section Phase 2: Advanced\n    Threat Detection :p2a, 2025-02-15, 60d\n    Secrets Management :p2b, 2025-02-20, 60d\n    Code Scanning :p2c, 2025-03-01, 60d\n    Compliance Audit :p2d, 2025-03-15, 60d\n    section Phase 3: Enterprise\n    SOC Integration :p3a, 2025-04-15, 90d\n    Zero Trust :p3b, 2025-05-01, 90d\n    Red Team Testing :p3c, 2025-06-01, 90d\n    Certification :p3d, 2025-07-01, 90d&quot;}" id="d177ab2b47c2494e">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="66b9106a435b4e81" name="Index Flowchart Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart LR\n    subgraph AttackSurface[\&quot;\ud83c\udfaf Attack Surface\&quot;]\n        A1[Prompt Injection]\n        A2[Goal Hijacking]\n        A3[Data Poisoning]\n        A4[Model Inversion]\n        A5[Plugin Vulnerabilities]\n    end\n    \n    subgraph Agent[\&quot;\ud83e\udd16 AI Agent\&quot;]\n        LLM[LLM Processing]\n        Memory[Memory Access]\n        Tools[Tool Execution]\n    end\n    \n    subgraph Vulnerabilities[\&quot;\u26a0\ufe0f Vulnerabilities\&quot;]\n        V1[Excessive Agency]\n        V2[Insecure Output]\n        V3[Sensitive Data Leak]\n        V4[Supply Chain Risk]\n        V5[Privilege Escalation]\n    end\n    \n    subgraph Impact[\&quot;\ud83d\udca5 Impact\&quot;]\n        I1[Data Breach&lt;br/&gt;$4.45M avg]\n        I2[Service Disruption]\n        I3[Reputation Damage]\n        I4[Compliance Violation]\n        I5[Financial Loss]\n    end\n    \n    A1 --&gt; LLM\n    A2 --&gt; LLM\n    A3 --&gt; Memory\n    A4 --&gt; Memory\n    A5 --&gt; Tools\n    \n    LLM --&gt; V1\n    LLM --&gt; V2\n    Memory --&gt; V3\n    Tools --&gt; V4\n    Tools --&gt; V5\n    \n    V1 --&gt; I1\n    V2 --&gt; I2\n    V3 --&gt; I1\n    V4 --&gt; I3\n    V5 --&gt; I4\n    V5 --&gt; I5\n    \n    style AttackSurface fill:#ffebee\n    style Agent fill:#fff3e0\n    style Vulnerabilities fill:#fce4ec\n    style Impact fill:#ffcdd2&quot;}" id="dccc7d544d254eb6">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7c93eb37dffd4e12" name="Index Graph Lr">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph LR\n    subgraph OWASP[\&quot;\ud83d\udea8 OWASP Top 10 for LLM\&quot;]\n        O1[LLM01: Prompt Injection]\n        O2[LLM02: Insecure Output]\n        O3[LLM03: Training Data Poisoning]\n        O4[LLM04: Model DoS]\n        O5[LLM05: Supply Chain]\n        O6[LLM06: Sensitive Info]\n        O7[LLM07: Insecure Plugins]\n        O8[LLM08: Excessive Agency]\n        O9[LLM09: Overreliance]\n        O10[LLM10: Model Theft]\n    end\n    \n    subgraph Controls[\&quot;\ud83d\udee1\ufe0f Security Controls\&quot;]\n        C1[Input Guardrails&lt;br/&gt;NeMo/Guardrails AI]\n        C2[Output Validation&lt;br/&gt;Content Filtering]\n        C3[Data Governance&lt;br/&gt;Purview/Macie]\n        C4[Rate Limiting&lt;br/&gt;API Gateway]\n        C5[Dependency Scanning&lt;br/&gt;Snyk/FOSSA]\n        C6[PII Detection&lt;br/&gt;Private AI]\n        C7[Plugin Sandboxing&lt;br/&gt;Isolation]\n        C8[RBAC/Least Privilege&lt;br/&gt;IAM/Okta]\n        C9[Human-in-Loop&lt;br/&gt;Approval Gates]\n        C10[Model Access Control&lt;br/&gt;Encryption]\n    end\n    \n    O1 --&gt; C1\n    O2 --&gt; C2\n    O3 --&gt; C3\n    O4 --&gt; C4\n    O5 --&gt; C5\n    O6 --&gt; C6\n    O7 --&gt; C7\n    O8 --&gt; C8\n    O9 --&gt; C9\n    O10 --&gt; C10\n    \n    style OWASP fill:#ffebee\n    style Controls fill:#e8f5e9&quot;}" id="060a0032d6fb45c0">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

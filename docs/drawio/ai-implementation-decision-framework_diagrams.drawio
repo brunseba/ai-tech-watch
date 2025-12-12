@@ -1,0 +1,28 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="2">
+  <diagram id="0fc7ec61d85b4ccd" name="Ai Implementation Decision Framework Flowchart Td">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start[Use Case]\n    \n    Q1{Natural Language&lt;br/&gt;Understanding&lt;br/&gt;Required?}\n    Q2{Deterministic&lt;br/&gt;Rules Possible?}\n    Q3{Multiple Tools/&lt;br/&gt;APIs Required?}\n    Q4{Multi-step&lt;br/&gt;Reasoning?}\n    Q5{Pattern&lt;br/&gt;Recognition&lt;br/&gt;Needed?}\n    Q6{Large Dataset&lt;br/&gt;Available?}\n    Q7{Autonomous&lt;br/&gt;Decision-Making?}\n    \n    Standard[\u2705 Standard&lt;br/&gt;Development]\n    AI[\u2705 AI/ML&lt;br/&gt;Implementation]\n    Agentic[\u2705 AI Agentic&lt;br/&gt;Implementation]\n    Hybrid[\u2705 Hybrid&lt;br/&gt;Approach]\n    \n    Start --&gt; Q1\n    Q1 --&gt;|No| Q2\n    Q1 --&gt;|Yes| Q3\n    \n    Q2 --&gt;|Yes| Standard\n    Q2 --&gt;|No| Q5\n    \n    Q3 --&gt;|No| Q5\n    Q3 --&gt;|Yes| Q4\n    \n    Q4 --&gt;|Yes| Q7\n    Q4 --&gt;|No| AI\n    \n    Q7 --&gt;|Yes| Agentic\n    Q7 --&gt;|No| AI\n    \n    Q5 --&gt;|Yes| Q6\n    Q5 --&gt;|No| Standard\n    \n    Q6 --&gt;|Yes| AI\n    Q6 --&gt;|No| Hybrid\n    \n    style Standard fill:#e8f5e9\n    style AI fill:#fff3e0\n    style Agentic fill:#e3f2fd\n    style Hybrid fill:#f3e5f5&quot;}" id="e9020857ba1143ad">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="4cfc696bad724dfd" name="Ai Implementation Decision Framework Flowchart Td 2">
+    <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;flowchart TD\n    Start[Choose AI Agentic Framework]\n    \n    Q1{Team has Python/C#&lt;br/&gt;development skills?}\n    Q2{Infrastructure&lt;br/&gt;preference?}\n    Q3{Need multi-agent&lt;br/&gt;collaboration?}\n    Q4{Data-heavy&lt;br/&gt;RAG focus?}\n    Q5{Need visual&lt;br/&gt;interface?}\n    Q6{Open source&lt;br/&gt;required?}\n    \n    SK[Semantic Kernel&lt;br/&gt;C#/.NET focus]\n    ADK[Google ADK&lt;br/&gt;Gemini/GCP focus]\n    NeMo[NVIDIA NeMo&lt;br/&gt;GPU-optimized]\n    LG[LangChain/LangGraph&lt;br/&gt;Most flexible]\n    LI[LlamaIndex&lt;br/&gt;Data &amp; RAG focus]\n    AG[AutoGen&lt;br/&gt;Multi-agent chat]\n    CR[CrewAI&lt;br/&gt;Role-based teams]\n    LF[LangFlow&lt;br/&gt;Visual + code]\n    FL[Flowise&lt;br/&gt;Pure no-code]\n    DF[Dify&lt;br/&gt;All-in-one platform]\n    \n    Start --&gt; Q1\n    \n    Q1 --&gt;|Yes| Q2\n    Q1 --&gt;|No| Q5\n    \n    Q2 --&gt;|Azure/.NET| SK\n    Q2 --&gt;|Google Cloud| ADK\n    Q2 --&gt;|NVIDIA GPUs| NeMo\n    Q2 --&gt;|Cloud Agnostic| Q3\n    \n    Q3 --&gt;|Yes| AG\n    Q3 --&gt;|No| Q4\n    \n    Q4 --&gt;|Yes| LI\n    Q4 --&gt;|No| LG\n    \n    Q5 --&gt;|Yes| Q6\n    Q5 --&gt;|No| CR\n    \n    Q6 --&gt;|Yes| LF\n    Q6 --&gt;|No| DF\n    \n    style SK fill:#87CEEB\n    style ADK fill:#EA4335\n    style NeMo fill:#76B900\n    style LG fill:#90EE90\n    style LI fill:#FFD700\n    style AG fill:#DDA0DD\n    style CR fill:#F0E68C\n    style LF fill:#FFA07A\n    style FL fill:#98FB98\n    style DF fill:#D3D3D3&quot;}" id="511a57af422d4df1">
+          <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
+            <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,10 +1,10 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4" pages="4">
-  <diagram id="c08bff0515484dbe" name="Decision Trees Graph Td">
+  <diagram id="4f1dfd53dc1b429f" name="Decision Trees Graph Td">
     <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Start: AI Deployment Decision] --&gt; B{Data Sensitivity?}\n    B --&gt;|High - PII, Health, Financial| C{Latency Critical?}\n    B --&gt;|Medium - Internal docs| D{Usage Pattern?}\n    B --&gt;|Low - Public data| E[Cloud Recommended]\n    \n    C --&gt;|Yes &lt; 50ms| F[Edge/Workstation]\n    C --&gt;|No| G{Usage Volume?}\n    \n    G --&gt;|High &amp; Steady| H[On-Prem Servers]\n    G --&gt;|Variable/Burst| I[Hybrid: On-Prem + Cloud]\n    \n    D --&gt;|Continuous Heavy| H\n    D --&gt;|Variable| I\n    D --&gt;|POC/Testing| E\n    \n    style F fill:#e8f5e9\n    style H fill:#fff3e0\n    style E fill:#e3f2fd\n    style I fill:#f3e5f5&quot;}" id="8307519633034653">
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Start: AI Deployment Decision] --&gt; B{Data Sensitivity?}\n    B --&gt;|High - PII, Health, Financial| C{Latency Critical?}\n    B --&gt;|Medium - Internal docs| D{Usage Pattern?}\n    B --&gt;|Low - Public data| E[Cloud Recommended]\n    \n    C --&gt;|Yes &lt; 50ms| F[Edge/Workstation]\n    C --&gt;|No| G{Usage Volume?}\n    \n    G --&gt;|High &amp; Steady| H[On-Prem Servers]\n    G --&gt;|Variable/Burst| I[Hybrid: On-Prem + Cloud]\n    \n    D --&gt;|Continuous Heavy| H\n    D --&gt;|Variable| I\n    D --&gt;|POC/Testing| E\n    \n    style F fill:#e8f5e9\n    style H fill:#fff3e0\n    style E fill:#e3f2fd\n    style I fill:#f3e5f5&quot;}" id="b433134e235643ab">
           <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
             <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
           </mxCell>
@@ -12,12 +12,12 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="7cd24b3ae82a4975" name="Decision Trees Graph Td 2">
+  <diagram id="1cce46561fb54177" name="Decision Trees Graph Td 2">
     <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Start: Hardware Selection] --&gt; B{Workload Type?}\n    \n    B --&gt;|General Logic/Orchestration| C[CPU Sufficient]\n    B --&gt;|AI Training/Inference| D{Where Deployed?}\n    \n    D --&gt;|Edge/Mobile| E{Power Budget?}\n    D --&gt;|Datacenter/Server| F{Framework?}\n    D --&gt;|Workstation| G[GPU - NVIDIA/AMD]\n    \n    E --&gt;|&lt; 10W| H[NPU - Edge Inference]\n    E --&gt;|10-50W| I[Low-power GPU or NPU]\n    \n    F --&gt;|TensorFlow on GCP| J[TPU if available]\n    F --&gt;|PyTorch/General| K{Scale?}\n    \n    K --&gt;|Small-Medium| G\n    K --&gt;|Large Scale| L[Multi-GPU Cluster]\n    \n    style C fill:#e3f2fd\n    style H fill:#e8f5e9\n    style G fill:#fff3e0\n    style J fill:#fce4ec\n    style L fill:#fff9c4&quot;}" id="e3aa608f1ddd4df4">
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Start: Hardware Selection] --&gt; B{Workload Type?}\n    \n    B --&gt;|General Logic/Orchestration| C[CPU Sufficient]\n    B --&gt;|AI Training/Inference| D{Where Deployed?}\n    \n    D --&gt;|Edge/Mobile| E{Power Budget?}\n    D --&gt;|Datacenter/Server| F{Framework?}\n    D --&gt;|Workstation| G[GPU - NVIDIA/AMD]\n    \n    E --&gt;|&lt; 10W| H[NPU - Edge Inference]\n    E --&gt;|10-50W| I[Low-power GPU or NPU]\n    \n    F --&gt;|TensorFlow on GCP| J[TPU if available]\n    F --&gt;|PyTorch/General| K{Scale?}\n    \n    K --&gt;|Small-Medium| G\n    K --&gt;|Large Scale| L[Multi-GPU Cluster]\n    \n    style C fill:#e3f2fd\n    style H fill:#e8f5e9\n    style G fill:#fff3e0\n    style J fill:#fce4ec\n    style L fill:#fff9c4&quot;}" id="af4bbd208c4f4c67">
           <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
             <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
           </mxCell>
@@ -25,12 +25,12 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="1204921449b44fe4" name="Decision Trees Graph Lr">
+  <diagram id="b4f589ce62004c8b" name="Decision Trees Graph Lr">
     <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph LR\n    A[Usage Hours/Day] --&gt; B{&lt; 4 hours?}\n    B --&gt;|Yes| C[Cloud likely cheaper]\n    B --&gt;|No| D{Workload Type?}\n    \n    D --&gt;|Steady Predictable| E[On-Prem cheaper after 2-3 years]\n    D --&gt;|Highly Variable| F[Hybrid: On-prem base + Cloud burst]\n    D --&gt;|Growing Rapidly| G[Cloud for flexibility]\n    \n    style C fill:#e3f2fd\n    style E fill:#e8f5e9\n    style F fill:#fff3e0\n    style G fill:#f3e5f5&quot;}" id="ee9ae4a22e874949">
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph LR\n    A[Usage Hours/Day] --&gt; B{&lt; 4 hours?}\n    B --&gt;|Yes| C[Cloud likely cheaper]\n    B --&gt;|No| D{Workload Type?}\n    \n    D --&gt;|Steady Predictable| E[On-Prem cheaper after 2-3 years]\n    D --&gt;|Highly Variable| F[Hybrid: On-prem base + Cloud burst]\n    D --&gt;|Growing Rapidly| G[Cloud for flexibility]\n    \n    style C fill:#e3f2fd\n    style E fill:#e8f5e9\n    style F fill:#fff3e0\n    style G fill:#f3e5f5&quot;}" id="b3fe2d72945243c0">
           <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
             <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
           </mxCell>
@@ -38,12 +38,12 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="458f6dcd83f24338" name="Decision Trees Graph Td 3">
+  <diagram id="bd7160839e474397" name="Decision Trees Graph Td 3">
     <mxGraphModel dx="706" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Model Deployment] --&gt; B{Accuracy Critical?}\n    \n    B --&gt;|Yes - Medical, Legal, Finance| C[FP32 or FP16]\n    B --&gt;|Moderate| D{Target Platform?}\n    B --&gt;|No - RAG, Chat, General| E[INT8 Recommended]\n    \n    D --&gt;|Server/GPU| F[FP16 Good balance]\n    D --&gt;|Edge/NPU| E\n    \n    E --&gt; G{Accuracy Loss?}\n    G --&gt;|&gt; 2%| H[Try QAT or SmoothQuant]\n    G --&gt;|&lt; 1%| I[Deploy INT8]\n    \n    style C fill:#ffebee\n    style F fill:#fff3e0\n    style I fill:#e8f5e9&quot;}" id="1717b0b33d55428b">
+        <UserObject label="" mermaidData="{&quot;data&quot;:&quot;graph TD\n    A[Model Deployment] --&gt; B{Accuracy Critical?}\n    \n    B --&gt;|Yes - Medical, Legal, Finance| C[FP32 or FP16]\n    B --&gt;|Moderate| D{Target Platform?}\n    B --&gt;|No - RAG, Chat, General| E[INT8 Recommended]\n    \n    D --&gt;|Server/GPU| F[FP16 Good balance]\n    D --&gt;|Edge/NPU| E\n    \n    E --&gt; G{Accuracy Loss?}\n    G --&gt;|&gt; 2%| H[Try QAT or SmoothQuant]\n    G --&gt;|&lt; 1%| I[Deploy INT8]\n    \n    style C fill:#ffebee\n    style F fill:#fff3e0\n    style I fill:#e8f5e9&quot;}" id="137d151e49cd4025">
           <mxCell style="shape=image;noLabel=1;verticalAlign=top;imageAspect=1;image=data:image/svg+xml,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y5ZjlmOSIgc3Ryb2tlPSIjY2NjIi8+PHRleHQgeD0iMTAwIiB5PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+TWVybWFpZCBEaWFncmFtPC90ZXh0Pjwvc3ZnPg==;" vertex="1" parent="1">
             <mxGeometry x="260" y="130" width="200" height="200" as="geometry" />
           </mxCell>

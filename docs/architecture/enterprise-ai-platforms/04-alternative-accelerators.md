@@ -1005,7 +1005,7 @@ flowchart TD
     Q6 -->|Performance/ecosystem| GPU
     
     Q4 -->|Google Cloud| TPU
-    Q4 -->|AWS (DL1)| Gaudi
+    Q4 -->|AWS DL1| Gaudi
     Q4 -->|AWS/Azure/Other| GPU
     
     Q3 -->|< 50W| Q5
@@ -1248,30 +1248,42 @@ flowchart TB
 
 ```mermaid
 gantt
-    title Hardware Obsolescence Timeline
-    dateFormat YYYY
-    axisFormat %Y
+    title Total Cost of Ownership 3 Years, $K
+    dateFormat YYYY-MM-DD
+    axisFormat %j
 
-    section NVIDIA GPU
-    A100 competitive        :2020, 2024
-    A100 viable             :2024, 2026
-    A100 obsolete           :2026, 2028
-    H100 competitive        :2022, 2026
-    H100 viable             :2026, 2029
-    
-    section Intel Gaudi
-    Gaudi2 competitive      :2022, 2025
-    Gaudi2 viable           :2025, 2027
-    Gaudi3 competitive      :2024, 2027
-    Gaudi3 viable           :2027, 2030
-    
-    section Google TPU
-    TPU v4 competitive      :2021, 2024
-    TPU v5e competitive     :2023, 2026
-    TPU v5p competitive     :2023, 2027
-    
-    section NPU
-    NPU lifecycle           :2023, 2028
+    %% Day 0 = 2025-01-01 (arbitrary)
+    section NVIDIA H100 On-Prem
+    Hardware 240K                :a1, 2025-01-01, 240d
+    Power 229K                   :a2, after a1, 229d
+    Hosting 1620K                :a3, after a2, 1620d
+    Software License 800K        :a4, after a3, 800d
+    Total 2.89M                  :milestone, m1, after a4, 0d
+
+    section Intel Gaudi2 On-Prem
+    Hardware 120K                :b1, 2025-01-01, 120d
+    Power 197K                   :b2, after b1, 197d
+    Hosting 1620K                :b3, after b2, 1620d
+    Support 150K                 :b4, after b3, 150d
+    Total 2.09M                  :milestone, m2, after b4, 0d
+
+    section NVIDIA H100 Colo
+    Hardware 240K                :c1, 2025-01-01, 240d
+    Power 246K                   :c2, after c1, 246d
+    Hosting 1020K                :c3, after c2, 1020d
+    Software License 800K        :c4, after c3, 800d
+    Total 2.31M                  :milestone, m3, after c4, 0d
+
+    section Google TPU Cloud
+    No Hardware                  :d1, 2025-01-01, 0d
+    Compute 1600K over 3yr       :d2, 2025-01-01, 1600d
+    Total 1.60M                  :milestone, m4, after d2, 0d
+
+    section NPU Edge 8 devices
+    Hardware 20K                 :e1, 2025-01-01, 20d
+    Power 5K                     :e2, after e1, 5d
+    Total 25K                    :milestone, m5, after e2, 0d
+
 ```
 
 **Typical Lifespan** (before replacement needed):
@@ -1428,39 +1440,40 @@ flowchart LR
 ```mermaid
 gantt
     title Total Cost of Ownership (3 Years, $K)
-    dateFormat X
-    axisFormat %s
+    dateFormat YYYY-MM-DD
+    axisFormat %j
 
+    %% Day 0 = 2025-01-01 (arbitrary)
     section NVIDIA H100 (On-Prem)
-    Hardware (240)              :0, 240
-    Power (229)                 :240, 469
-    Hosting (1620)              :469, 2089
-    Software License (800)      :2089, 2889
-    Total: $2.89M               :2889, 2889
-    
+    Hardware 240K              :a1, 2025-01-01, 240d
+    Power 229K                 :a2, after a1, 229d
+    Hosting 1620K              :a3, after a2, 1620d
+    Software License 800K      :a4, after a3, 800d
+    Total 2.89M                :milestone, m1, after a4, 0d
+
     section Intel Gaudi2 (On-Prem)
-    Hardware (120)              :0, 120
-    Power (197)                 :120, 317
-    Hosting (1620)              :317, 1937
-    Support (150)               :1937, 2087
-    Total: $2.09M               :2087, 2087
-    
+    Hardware 120K              :b1, 2025-01-01, 120d
+    Power 197K                 :b2, after b1, 197d
+    Hosting 1620K              :b3, after b2, 1620d
+    Support 150K               :b4, after b3, 150d
+    Total 2.09M                :milestone, m2, after b4, 0d
+
     section NVIDIA H100 (Colo)
-    Hardware (240)              :0, 240
-    Power (246)                 :240, 486
-    Hosting (1020)              :486, 1506
-    Software License (800)      :1506, 2306
-    Total: $2.31M               :2306, 2306
-    
+    Hardware 240K              :c1, 2025-01-01, 240d
+    Power 246K                 :c2, after c1, 246d
+    Hosting 1020K              :c3, after c2, 1020d
+    Software License 800K      :c4, after c3, 800d
+    Total 2.31M                :milestone, m3, after c4, 0d
+
     section Google TPU (Cloud)
-    No Hardware                 :0, 0
-    Compute (1600/3yr)          :0, 1600
-    Total: $1.60M               :1600, 1600
-    
-    section NPU Edge (8 devices)
-    Hardware (20)               :0, 20
-    Power (5)                   :20, 25
-    Total: $25K                 :25, 25
+    No Hardware                :d1, 2025-01-01, 0d
+    Compute 1600K over 3yr     :d2, 2025-01-01, 1600d
+    Total 1.60M                :milestone, m4, after d2, 0d
+
+    section NPU Edge 8 devices
+    Hardware 20K               :e1, 2025-01-01, 20d
+    Power 5K                   :e2, after e1, 5d
+    Total 25K                  :milestone, m5, after e2, 0d
 ```
 
 **Full TCO Breakdown**:
