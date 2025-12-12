@@ -48,6 +48,7 @@ Implement robust security measures for AI systems. Covers authentication, encryp
 Optimize AI model performance through quantization, latency management, and efficient resource utilization. Understand trade-offs between model size, speed, and accuracy.
 
 **Key Topics:**
+- **🆕 [AI Agentic Optimization](performance/ai-agentic-optimization.md)** - Comprehensive guide to performance measurement, token consumption management, model optimization, cost strategies, and monitoring (1000+ lines with code examples)
 - 8-bit quantization impact and methodology
 - Latency requirements by use case
 - Performance benchmarking

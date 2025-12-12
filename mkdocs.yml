@@ -129,6 +129,7 @@ nav:
       - Internal Management Capabilities: security/internal-management-capabilities.md
   - Performance & Optimization:
       - Overview: performance/index.md
+      - AI Agentic Optimization: performance/ai-agentic-optimization.md
       - 8-bit Quantization: performance/quantization-8bit.md
       - Quantization Methodology: performance/quantization-methodology.md
       - Latency Requirements: performance/latency-requirements.md
