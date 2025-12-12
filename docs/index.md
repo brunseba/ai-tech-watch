@@ -103,7 +103,7 @@ Use the navigation tabs above to explore each section, or use the search functio
 
 This is a living document. To suggest updates or additions:
 
-1. Review the [README](https://github.com/brun_s/ai-tech-survey/blob/main/README.md) for contribution guidelines
+1. Review the [README](https://github.com/brunseba/ai-tech-watch/blob/main/README.md) for contribution guidelines
 2. Follow [Conventional Commits](https://www.conventionalcommits.org/) standards
 3. Ensure all claims are backed by credible sources
 
